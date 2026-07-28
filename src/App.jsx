@@ -1,5 +1,7 @@
 import React from "react";
 import { EmberField } from "./EmberField.jsx";
+import { PlateHalo } from "./PlateHalo.jsx";
+import { Reveal } from "./Reveal.jsx";
 
 const ifoodUrl =
   "https://www.ifood.com.br/delivery/campinas-sp/varanda-ype---grill--executivos-jardim-aurelia/2ba9a14c-3df9-4725-8b6b-1294c2c1b156";
@@ -351,7 +353,7 @@ function OnlineMenuContent() {
           </p>
         </div>
 
-        <aside className="ifood-callout" aria-label="Pedido pelo iFood">
+        <Reveal as="aside" className="ifood-callout" aria-label="Pedido pelo iFood">
           <div>
             <span>🛵 iFood</span>
             <h3>Peça Varanda Ypê sem sair de casa</h3>
@@ -363,7 +365,7 @@ function OnlineMenuContent() {
           <a className="ifood-button" href={ifoodUrl} target="_blank" rel="noreferrer">
             Pedir no iFood
           </a>
-        </aside>
+        </Reveal>
 
         <div className="menu-shortcuts" aria-label="Atalhos do cardápio completo">
           {fullMenuSections.map((section) => (
@@ -375,8 +377,14 @@ function OnlineMenuContent() {
         </div>
 
         <div className="online-menu-grid">
-          {fullMenuSections.map((section) => (
-            <article className="online-menu-section" id={section.id} key={section.id}>
+          {fullMenuSections.map((section, index) => (
+            <Reveal
+              as="article"
+              className="online-menu-section"
+              id={section.id}
+              key={section.id}
+              delay={Math.min(index, 4) * 70}
+            >
               <header>
                 <span className="section-emoji" aria-hidden="true">
                   {section.emoji}
@@ -391,7 +399,7 @@ function OnlineMenuContent() {
                   <MenuItem item={item} key={`${section.id}-${item.name}`} />
                 ))}
               </ul>
-            </article>
+            </Reveal>
           ))}
         </div>
       </div>
@@ -439,6 +447,7 @@ export function CompanyPage() {
       </header>
 
       <section className="company-hero">
+        <EmberField className="embers-layer" density="low" />
         <div className="section-inner company-hero-grid">
           <div>
             <p className="section-label">Empresas e grupos</p>
@@ -458,6 +467,7 @@ export function CompanyPage() {
             </div>
           </div>
           <div className="company-plate">
+            <PlateHalo className="plate-halo" />
             <img src="/pratos/fraldinha.png" alt="Fraldinha servida no Varanda Ypê" />
             <strong>Pedidos sob consulta</strong>
           </div>
@@ -465,7 +475,7 @@ export function CompanyPage() {
       </section>
 
       <section className="company-services section-cream">
-        <div className="section-inner">
+        <Reveal className="section-inner">
           <div className="section-heading">
             <p className="section-label">Como podemos atender</p>
             <h2>Comida de casa para o dia de trabalho</h2>
@@ -478,11 +488,11 @@ export function CompanyPage() {
               </article>
             ))}
           </div>
-        </div>
+        </Reveal>
       </section>
 
       <section className="company-details section-green">
-        <div className="section-inner company-detail-grid">
+        <Reveal className="section-inner company-detail-grid">
           <div>
             <p className="section-label">Prazo, volume e logística</p>
             <h2>Alinhamos o pedido com antecedência para servir melhor</h2>
@@ -495,11 +505,11 @@ export function CompanyPage() {
               </article>
             ))}
           </div>
-        </div>
+        </Reveal>
       </section>
 
       <section className="company-cta section-cream">
-        <div className="section-inner company-cta-box">
+        <Reveal className="section-inner company-cta-box">
           <div>
             <p className="section-label">Atendimento direto</p>
             <h2>Conte o que sua empresa precisa</h2>
@@ -511,7 +521,7 @@ export function CompanyPage() {
           <a className="ifood-button" href={companyWhatsappUrl} target="_blank" rel="noreferrer">
             Chamar no WhatsApp
           </a>
-        </div>
+        </Reveal>
       </section>
     </main>
   );
@@ -521,7 +531,7 @@ export function HomePage() {
   return (
     <main>
       <section className="hero" id="inicio">
-        <EmberField className="hero-embers" />
+        <EmberField className="embers-layer" />
         <header className="site-header" aria-label="Navegação principal">
           <a className="brand" href="/" aria-label="Início do Varanda Ypê">
             <img src="/logo-varanda-icon.png" alt="" />
@@ -576,7 +586,7 @@ export function HomePage() {
       </section>
 
       <section className="about section-cream" id="ambiente">
-        <div className="section-inner about-grid">
+        <Reveal className="section-inner about-grid">
           <div>
             <p className="section-label">Casa brasileira</p>
             <h2>Uma casa brasileira para almoçar, brindar e ficar</h2>
@@ -586,18 +596,18 @@ export function HomePage() {
             à vontade. Tem pratos bem servidos, espetinhos, chopp, porções e espaço
             kids para a mesa toda aproveitar.
           </p>
-        </div>
+        </Reveal>
       </section>
 
       <section className="menu section-green" id="cardapio">
         <div className="section-inner">
-          <div className="section-heading">
+          <Reveal as="div" className="section-heading">
             <p className="section-label">Cardápio</p>
             <h2>Destaques para pedir sem pensar muito</h2>
-          </div>
+          </Reveal>
           <div className="menu-list">
-            {menuHighlights.map((item) => (
-              <article className="dish" key={item.title}>
+            {menuHighlights.map((item, index) => (
+              <Reveal as="article" className="dish" key={item.title} delay={Math.min(index, 3) * 80}>
                 <img className="dish-photo" src={item.image} alt={item.title} />
                 <div className="dish-copy">
                   <div>
@@ -605,7 +615,7 @@ export function HomePage() {
                     <p>{item.text}</p>
                   </div>
                 </div>
-              </article>
+              </Reveal>
             ))}
           </div>
         </div>
@@ -613,23 +623,23 @@ export function HomePage() {
 
       <section className="gallery section-cream" id="porcoes">
         <div className="section-inner">
-          <div className="section-heading">
+          <Reveal as="div" className="section-heading">
             <p className="section-label">Porções de boteco</p>
             <h2>Destaques para dividir com chopp gelado</h2>
-          </div>
+          </Reveal>
           <div className="gallery-grid">
-            {portionGallery.map(([title, image]) => (
-              <article className="gallery-card" key={title}>
+            {portionGallery.map(([title, image], index) => (
+              <Reveal as="article" className="gallery-card" key={title} delay={Math.min(index, 4) * 60}>
                 <img src={image} alt={title} />
                 <h3>{title}</h3>
-              </article>
+              </Reveal>
             ))}
           </div>
         </div>
       </section>
 
       <section className="experience section-cream" id="horarios">
-        <div className="section-inner experience-grid">
+        <Reveal className="section-inner experience-grid">
           <div className="round-photo" aria-hidden="true">
             <span>Varanda Ypê</span>
           </div>
@@ -648,7 +658,7 @@ export function HomePage() {
               ))}
             </div>
           </div>
-        </div>
+        </Reveal>
       </section>
 
       <footer className="footer" id="contato">
