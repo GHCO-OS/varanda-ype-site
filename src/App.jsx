@@ -576,6 +576,7 @@ export function HomePage() {
 
           <div className="hero-media" aria-label="Mesa brasileira servida">
             <div className="hero-photo">
+              <PlateHalo className="plate-halo hero-plate-halo" />
               <img src="/pratos/chorizo.png" alt="Chorizo executivo servido no Varanda Ypê" />
             </div>
             <div className="seal-card">
