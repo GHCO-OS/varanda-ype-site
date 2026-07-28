@@ -1,4 +1,5 @@
 import React from "react";
+import { EmberField } from "./EmberField.jsx";
 
 const ifoodUrl =
   "https://www.ifood.com.br/delivery/campinas-sp/varanda-ype---grill--executivos-jardim-aurelia/2ba9a14c-3df9-4725-8b6b-1294c2c1b156";
@@ -520,6 +521,7 @@ export function HomePage() {
   return (
     <main>
       <section className="hero" id="inicio">
+        <EmberField className="hero-embers" />
         <header className="site-header" aria-label="Navegação principal">
           <a className="brand" href="/" aria-label="Início do Varanda Ypê">
             <img src="/logo-varanda-icon.png" alt="" />

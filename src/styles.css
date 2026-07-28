@@ -39,6 +39,7 @@ img {
 }
 
 .hero {
+  position: relative;
   min-height: 96vh;
   padding: 28px clamp(20px, 4vw, 64px) 80px;
   color: var(--cream);
@@ -46,6 +47,18 @@ img {
     radial-gradient(circle at 12% 24%, rgba(201, 168, 76, 0.1), transparent 28%),
     linear-gradient(135deg, var(--green-deep), var(--green) 54%, #123f21);
   overflow: hidden;
+}
+
+.hero-embers {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.site-header,
+.hero-grid {
+  position: relative;
+  z-index: 1;
 }
 
 .site-header {
