@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { EmberField } from "./EmberField.jsx";
 import { PlateHalo } from "./PlateHalo.jsx";
 import { Reveal } from "./Reveal.jsx";
+import { IngredientOrbit } from "./IngredientOrbit.jsx";
 
 // Serves WebP with a PNG fallback via <picture>, ships explicit width/height so
 // the browser reserves space before the image loads (no layout shift), and
@@ -640,6 +641,7 @@ export function HomePage() {
     <main>
       <section className="hero" id="inicio">
         <EmberField className="embers-layer" />
+        <IngredientOrbit className="hero-orbit" />
         <header className="site-header" aria-label="Navegação principal">
           <a className="brand" href="/" aria-label="Início do Varanda Ypê">
             <Img src="/logo-icon-96.png" alt="" width={52} height={52} priority />
@@ -716,7 +718,7 @@ export function HomePage() {
         </div>
       </section>
 
-      <section className="about section-cream" id="ambiente">
+      <section className="about section-cream seam-hero" id="ambiente">
         <Reveal className="section-inner about-grid">
           <div>
             <p className="section-label">Casa brasileira</p>
@@ -730,7 +732,7 @@ export function HomePage() {
         </Reveal>
       </section>
 
-      <section className="menu section-green" id="cardapio">
+      <section className="menu section-green seam-cream" id="cardapio">
         <div className="section-inner">
           <Reveal as="div" className="section-heading">
             <p className="section-label">Cardápio</p>
@@ -759,7 +761,7 @@ export function HomePage() {
         </div>
       </section>
 
-      <section className="gallery section-cream" id="porcoes">
+      <section className="gallery section-cream seam-green" id="porcoes">
         <div className="section-inner">
           <Reveal as="div" className="section-heading">
             <p className="section-label">Porções de boteco</p>
