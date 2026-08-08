@@ -1,13 +1,93 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { EmberField } from "./EmberField.jsx";
 import { PlateHalo } from "./PlateHalo.jsx";
 import { Reveal } from "./Reveal.jsx";
+
+// Serves WebP with a PNG fallback via <picture>, ships explicit width/height so
+// the browser reserves space before the image loads (no layout shift), and
+// lazy-loads everything below the fold. Pass `priority` for the one hero image
+// that should load eagerly (the page's LCP candidate).
+function Img({ src, alt, width, height, className, priority = false, smSrc }) {
+  const webp = src.replace(/\.png$/, ".webp");
+  const webpSm = smSrc ? smSrc.replace(/\.png$/, ".webp") : null;
+
+  return (
+    <picture>
+      {webpSm ? (
+        <source
+          type="image/webp"
+          srcSet={`${webpSm} 420w, ${webp} 600w`}
+          sizes="(max-width: 640px) 420px, 600px"
+        />
+      ) : (
+        <source type="image/webp" srcSet={webp} />
+      )}
+      <img
+        src={src}
+        alt={alt}
+        width={width}
+        height={height}
+        className={className}
+        loading={priority ? "eager" : "lazy"}
+        decoding="async"
+        {...(priority ? { fetchPriority: "high" } : {})}
+      />
+    </picture>
+  );
+}
+
+// Fixed, site-wide call-to-action. Renders once at the App root so it's on
+// every route, including a subtle entrance so it doesn't just "pop" over content.
+function FloatingWhatsapp() {
+  return (
+    <a
+      className="floating-whatsapp"
+      href={whatsappFloatingUrl}
+      target="_blank"
+      rel="noreferrer"
+      aria-label="Falar no WhatsApp"
+    >
+      <svg viewBox="0 0 32 32" width="28" height="28" aria-hidden="true" focusable="false">
+        <path
+          fill="currentColor"
+          d="M16.02 3C9.4 3 4 8.4 4 15.02c0 2.22.6 4.33 1.73 6.2L4 29l7.94-1.7a12.9 12.9 0 0 0 4.08.66C22.6 27.96 28 22.56 28 15.94 28 9.32 22.64 3 16.02 3Zm7.36 17.5c-.32.9-1.6 1.66-2.6 1.88-.7.14-1.62.26-4.7-1.02-3.95-1.66-6.5-5.6-6.7-5.87-.2-.27-1.6-2.13-1.6-4.06 0-1.94.98-2.88 1.34-3.28.36-.4.78-.5 1.05-.5.26 0 .53 0 .76.02.24.02.57-.1.9.68.32.78 1.1 2.7 1.2 2.9.1.2.16.44.03.7-.13.28-.2.44-.4.68-.2.24-.42.53-.6.72-.2.2-.4.42-.18.82.24.4 1.06 1.74 2.27 2.83 1.56 1.4 2.87 1.83 3.27 2.03.4.2.63.16.87-.1.24-.26 1-1.16 1.27-1.56.27-.4.53-.33.9-.2.36.14 2.3 1.08 2.7 1.28.4.2.66.3.76.46.1.18.1 1.02-.22 1.93Z"
+        />
+      </svg>
+    </a>
+  );
+}
+
+function GoogleIcon() {
+  return (
+    <svg viewBox="0 0 48 48" width="16" height="16" aria-hidden="true" focusable="false">
+      <path
+        fill="#EA4335"
+        d="M24 9.5c3.4 0 6.4 1.17 8.8 3.46l6.55-6.55C35.3 2.6 30 0.5 24 0.5 14.6 0.5 6.5 5.9 2.6 13.7l7.62 5.92C12.1 13.5 17.6 9.5 24 9.5Z"
+      />
+      <path
+        fill="#4285F4"
+        d="M46.5 24.5c0-1.64-.15-3.2-.42-4.7H24v9h12.6c-.55 2.9-2.2 5.35-4.68 7l7.4 5.75C43.6 37.4 46.5 31.5 46.5 24.5Z"
+      />
+      <path
+        fill="#FBBC05"
+        d="M10.22 27.9a14.4 14.4 0 0 1 0-7.8l-7.62-5.9a24 24 0 0 0 0 19.6l7.62-5.9Z"
+      />
+      <path
+        fill="#34A853"
+        d="M24 47.5c6 0 11.3-2 15.02-5.35l-7.4-5.75c-2.06 1.4-4.7 2.2-7.62 2.2-6.4 0-11.9-4-13.78-9.6l-7.62 5.9C6.5 42.1 14.6 47.5 24 47.5Z"
+      />
+    </svg>
+  );
+}
 
 const ifoodUrl =
   "https://www.ifood.com.br/delivery/campinas-sp/varanda-ype---grill--executivos-jardim-aurelia/2ba9a14c-3df9-4725-8b6b-1294c2c1b156";
 const whatsappUrl = "https://wa.me/551931991971";
 const companyWhatsappUrl =
   "https://wa.me/551931991971?text=Ol%C3%A1%2C%20quero%20falar%20sobre%20pedido%20para%20empresa%20no%20Varanda%20Yp%C3%AA.";
+const whatsappFloatingUrl = "https://wa.me/qr/W6EPSB7NP3KBF1";
+const googleBusinessUrl = "https://share.google/pxyfGTy3KNNdToPxk";
+const companyFormUrl = "https://form.jotform.com/262195555788070";
 
 const menuHighlights = [
   {
@@ -412,7 +492,7 @@ export function MenuPage() {
     <main className="menu-page">
       <header className="menu-page-header">
         <a className="brand" href="/" aria-label="Voltar para a home do Varanda Ypê">
-          <img src="/logo-varanda-icon.png" alt="" />
+          <Img src="/logo-icon-96.png" alt="" width={52} height={52} priority />
           <span>Varanda Ypê</span>
         </a>
         <a className="header-cta" href="/" aria-label="Voltar para a home">
@@ -435,7 +515,7 @@ export function CompanyPage() {
     <main className="company-page">
       <header className="menu-page-header">
         <a className="brand" href="/" aria-label="Voltar para a home do Varanda Ypê">
-          <img src="/logo-varanda-icon.png" alt="" />
+          <Img src="/logo-icon-96.png" alt="" width={52} height={52} priority />
           <span>Varanda Ypê</span>
         </a>
         <a className="header-cta" href="/menu">
@@ -461,6 +541,9 @@ export function CompanyPage() {
               <a className="button button-primary" href={companyWhatsappUrl} target="_blank" rel="noreferrer">
                 Falar sobre pedido
               </a>
+              <a className="button button-secondary" href={companyFormUrl} target="_blank" rel="noreferrer">
+                Pedir cotação
+              </a>
               <a className="button button-secondary" href="/menu">
                 Ver cardápio
               </a>
@@ -468,7 +551,14 @@ export function CompanyPage() {
           </div>
           <div className="company-plate">
             <PlateHalo className="plate-halo" />
-            <img src="/pratos/fraldinha.png" alt="Fraldinha servida no Varanda Ypê" />
+            <Img
+              src="/pratos/fraldinha.png"
+              smSrc="/pratos/fraldinha-sm.png"
+              alt="Fraldinha servida no Varanda Ypê"
+              width={420}
+              height={420}
+              priority
+            />
             <strong>Pedidos sob consulta</strong>
           </div>
         </div>
@@ -514,13 +604,19 @@ export function CompanyPage() {
             <p className="section-label">Atendimento direto</p>
             <h2>Conte o que sua empresa precisa</h2>
             <p>
-              Informe data, horário, quantidade de pessoas e tipo de refeição.
-              A equipe responde pelo WhatsApp com as melhores opções para o pedido.
+              Fale direto pelo WhatsApp ou preencha o formulário com data,
+              horário, quantidade de pessoas e tipo de refeição. A equipe
+              responde com as melhores opções para o pedido.
             </p>
           </div>
-          <a className="ifood-button" href={companyWhatsappUrl} target="_blank" rel="noreferrer">
-            Chamar no WhatsApp
-          </a>
+          <div className="company-cta-actions">
+            <a className="ifood-button" href={companyWhatsappUrl} target="_blank" rel="noreferrer">
+              Chamar no WhatsApp
+            </a>
+            <a className="button button-secondary-onlight" href={companyFormUrl} target="_blank" rel="noreferrer">
+              Preencher formulário
+            </a>
+          </div>
         </Reveal>
       </section>
     </main>
@@ -528,16 +624,28 @@ export function CompanyPage() {
 }
 
 export function HomePage() {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? "hidden" : "";
+    if (!menuOpen) return;
+    const onKeyDown = (event) => {
+      if (event.key === "Escape") setMenuOpen(false);
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [menuOpen]);
+
   return (
     <main>
       <section className="hero" id="inicio">
         <EmberField className="embers-layer" />
         <header className="site-header" aria-label="Navegação principal">
           <a className="brand" href="/" aria-label="Início do Varanda Ypê">
-            <img src="/logo-varanda-icon.png" alt="" />
+            <Img src="/logo-icon-96.png" alt="" width={52} height={52} priority />
             <span>Varanda Ypê</span>
           </a>
-          <nav>
+          <nav id="primary-nav" className={menuOpen ? "nav-open" : ""} onClick={() => setMenuOpen(false)}>
             <a href="/menu">Cardápio</a>
             <a href="/empresa">Empresas</a>
             <a href={ifoodUrl} target="_blank" rel="noreferrer">
@@ -546,8 +654,23 @@ export function HomePage() {
             <a href="#ambiente">Ambiente</a>
             <a href="#porcoes">Porções</a>
             <a href="#horarios">Horários</a>
+            <a className="nav-google" href={googleBusinessUrl} target="_blank" rel="noreferrer">
+              <GoogleIcon /> Avaliações
+            </a>
             <a href="#contato">Contato</a>
           </nav>
+          <button
+            type="button"
+            className="nav-toggle"
+            aria-expanded={menuOpen}
+            aria-controls="primary-nav"
+            aria-label={menuOpen ? "Fechar menu" : "Abrir menu"}
+            onClick={() => setMenuOpen((open) => !open)}
+          >
+            <span />
+            <span />
+            <span />
+          </button>
           <a className="header-cta" href={whatsappUrl} target="_blank" rel="noreferrer">
             WhatsApp
           </a>
@@ -577,10 +700,17 @@ export function HomePage() {
           <div className="hero-media" aria-label="Mesa brasileira servida">
             <div className="hero-photo">
               <PlateHalo className="plate-halo hero-plate-halo" />
-              <img src="/pratos/chorizo.png" alt="Chorizo executivo servido no Varanda Ypê" />
+              <Img
+                src="/pratos/chorizo.png"
+                smSrc="/pratos/chorizo-sm.png"
+                alt="Chorizo executivo servido no Varanda Ypê"
+                width={560}
+                height={560}
+                priority
+              />
             </div>
             <div className="seal-card">
-              <img src="/logo-varanda-icon.png" alt="Símbolo do Varanda Ypê" />
+              <Img src="/logo-varanda-icon.png" alt="Símbolo do Varanda Ypê" width={260} height={260} priority />
             </div>
           </div>
         </div>
@@ -609,7 +739,14 @@ export function HomePage() {
           <div className="menu-list">
             {menuHighlights.map((item, index) => (
               <Reveal as="article" className="dish" key={item.title} delay={Math.min(index, 3) * 80}>
-                <img className="dish-photo" src={item.image} alt={item.title} />
+                <Img
+                  className="dish-photo"
+                  src={item.image}
+                  smSrc={item.image.replace(/\.png$/, "-sm.png")}
+                  alt={item.title}
+                  width={420}
+                  height={290}
+                />
                 <div className="dish-copy">
                   <div>
                     <h3>{item.title}</h3>
@@ -631,7 +768,7 @@ export function HomePage() {
           <div className="gallery-grid">
             {portionGallery.map(([title, image], index) => (
               <Reveal as="article" className="gallery-card" key={title} delay={Math.min(index, 4) * 60}>
-                <img src={image} alt={title} />
+                <Img src={image} alt={title} width={300} height={300} />
                 <h3>{title}</h3>
               </Reveal>
             ))}
@@ -665,7 +802,7 @@ export function HomePage() {
       <footer className="footer" id="contato">
         <div className="section-inner footer-grid">
           <div>
-            <img src="/logo-varanda-icon.png" alt="" />
+            <Img src="/logo-icon-96.png" alt="" width={74} height={74} />
             <h2>Varanda Ypê</h2>
             <p>Comida brasileira • Boteco • Família</p>
           </div>
@@ -676,6 +813,9 @@ export function HomePage() {
             </a>
             <a href="https://instagram.com/varandaype" target="_blank" rel="noreferrer">
               @varandaype
+            </a>
+            <a href={googleBusinessUrl} target="_blank" rel="noreferrer">
+              Ver no Google
             </a>
             <p>Av. Brigadeiro Rafael Tobias de Aguiar, 1121 - Jardim Aurélia</p>
           </div>
@@ -695,20 +835,26 @@ function App({ initialPath } = {}) {
     initialPath || (typeof window === "undefined" ? "/" : window.location.pathname);
   const route = currentPath.replace(/\/$/, "");
 
-  if (route === "/menu") {
-    return <MenuPage />;
-  }
-
-  if (route === "/empresa") {
-    return <CompanyPage />;
-  }
-
   if (route === "/ifood") {
     window.location.replace(ifoodUrl);
     return null;
   }
 
-  return <HomePage />;
+  let page;
+  if (route === "/menu") {
+    page = <MenuPage />;
+  } else if (route === "/empresa") {
+    page = <CompanyPage />;
+  } else {
+    page = <HomePage />;
+  }
+
+  return (
+    <>
+      {page}
+      <FloatingWhatsapp />
+    </>
+  );
 }
 
 export default App;
