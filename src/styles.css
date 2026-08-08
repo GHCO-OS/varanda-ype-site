@@ -715,6 +715,106 @@ h2 {
   border-radius: 50%;
 }
 
+/* Ambient ingredient chips — ties into --t (scroll progress through the
+   hero), written once per frame by IngredientOrbit's rAF loop. Every chip
+   reads the same var, so drift/rotation/fade stay on the GPU compositor
+   instead of N inline-style writes per scroll frame. */
+.hero-orbit {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  --t: 0;
+}
+
+.ingredient-chip {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 1px solid rgba(201, 168, 76, 0.42);
+  background: linear-gradient(160deg, rgba(244, 238, 215, 0.16), rgba(201, 168, 76, 0.08));
+  box-shadow: 0 14px 30px rgba(8, 39, 19, 0.3);
+  opacity: calc(1 - var(--t) * 1.15);
+  transform: translate3d(0, calc(var(--t) * var(--speed) * -260px), 0) rotate(calc(var(--t) * var(--rotate) * 1deg));
+  animation: chip-bob 6.4s ease-in-out infinite;
+  animation-delay: calc(var(--speed) * -4s);
+  will-change: transform, opacity;
+}
+
+.ingredient-chip svg {
+  width: 54%;
+  height: 54%;
+}
+
+.ingredient-terracotta {
+  color: var(--terracotta);
+}
+
+.ingredient-gold {
+  color: var(--gold);
+}
+
+.ingredient-burgundy {
+  color: var(--burgundy);
+}
+
+.ingredient-cream {
+  color: var(--cream);
+}
+
+@keyframes chip-bob {
+  0%,
+  100% {
+    margin-block-start: 0;
+  }
+  50% {
+    margin-block-start: -10px;
+  }
+}
+
+/* Section seams — a short gradient of the previous section's color fading
+   into the next, painted as a ::before so it sits under the section's own
+   content but over its solid background. Gives the cream/green handoffs a
+   soft color-morph instead of a hard cut. */
+.seam-hero,
+.seam-cream,
+.seam-green {
+  position: relative;
+  z-index: 0;
+}
+
+.seam-hero > .section-inner,
+.seam-cream > .section-inner,
+.seam-green > .section-inner {
+  position: relative;
+  z-index: 1;
+}
+
+.seam-hero::before,
+.seam-cream::before,
+.seam-green::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 150px;
+  pointer-events: none;
+}
+
+.seam-hero::before {
+  background: linear-gradient(to bottom, var(--green-deep), transparent);
+}
+
+.seam-cream::before {
+  background: linear-gradient(to bottom, var(--cream), transparent);
+}
+
+.seam-green::before {
+  background: linear-gradient(to bottom, var(--green), transparent);
+}
+
 .section-inner {
   width: min(1180px, calc(100% - 40px));
   margin: 0 auto;
@@ -1275,9 +1375,13 @@ h2 {
   .gallery-card,
   .company-card,
   .online-menu-item,
-  .dish-photo,
   .dish-mark {
     transition: transform 0.32s ease, box-shadow 0.32s ease, background-color 0.32s ease;
+  }
+
+  .dish-photo,
+  .gallery-card img {
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s ease;
   }
 
   .gallery-card:hover,
@@ -1286,13 +1390,43 @@ h2 {
     box-shadow: 0 18px 36px rgba(14, 53, 27, 0.16);
   }
 
+  .gallery-card:hover img {
+    transform: scale(1.08);
+    filter: saturate(1.12) brightness(1.04);
+  }
+
   .online-menu-item:hover {
     background: rgba(201, 168, 76, 0.1);
   }
 
-  .dish:hover .dish-photo,
+  .dish:hover .dish-photo {
+    transform: scale(1.06);
+    filter: saturate(1.12) brightness(1.04);
+  }
+
   .dish:hover .dish-mark {
     transform: scale(1.035);
+  }
+
+  .button-primary {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .button-primary::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -60%;
+    width: 40%;
+    height: 100%;
+    background: linear-gradient(120deg, transparent, rgba(14, 53, 27, 0.16), transparent);
+    transform: skewX(-20deg);
+    transition: left 0.6s ease;
+  }
+
+  .button-primary:hover::after {
+    left: 130%;
   }
 }
 
@@ -1348,6 +1482,10 @@ h2 {
 
   .hero-media {
     min-height: 520px;
+  }
+
+  .hero-orbit {
+    display: none;
   }
 
   .hero-photo {
