@@ -288,6 +288,141 @@ nav a,
   box-shadow: none;
 }
 
+/* Delivery — one button style per provider brand, reused by the hero CTA
+   destination, the /menu callout and the header shortcut, so all three stay
+   visually tied to the same four ordering channels. */
+.delivery-header-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 18px;
+  border-radius: 8px;
+  color: var(--green-deep);
+  background: var(--gold);
+  font-family: "Montserrat", Arial, sans-serif;
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  box-shadow: 0 14px 30px rgba(201, 168, 76, 0.28);
+}
+
+.delivery-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 20px;
+  border-radius: 8px;
+  font-family: "Montserrat", Arial, sans-serif;
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.delivery-button-ifood {
+  color: #fff;
+  background: #ea1d2c;
+  box-shadow: 0 14px 30px rgba(234, 29, 44, 0.24);
+}
+
+.delivery-button-ninetynine {
+  color: #1c1c1c;
+  background: #ffcc00;
+  box-shadow: 0 14px 30px rgba(255, 204, 0, 0.26);
+}
+
+.delivery-button-expresso {
+  color: var(--green-deep);
+  background: var(--gold);
+  box-shadow: 0 14px 30px rgba(201, 168, 76, 0.3);
+}
+
+.delivery {
+  padding: 96px 0 104px;
+  border-bottom: 1px solid rgba(14, 53, 27, 0.14);
+}
+
+.delivery-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.delivery-card {
+  display: grid;
+  gap: 14px;
+  align-content: start;
+  padding: 24px 20px;
+  border: 1px solid rgba(14, 53, 27, 0.14);
+  border-radius: 8px;
+  background: rgba(255, 249, 233, 0.55);
+}
+
+.delivery-provider {
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--green);
+}
+
+.delivery-card p {
+  margin: 0;
+  min-height: 2.6em;
+  color: rgba(14, 53, 27, 0.74);
+  font-size: 0.92rem;
+  line-height: 1.4;
+}
+
+.delivery-card .delivery-button {
+  justify-self: start;
+}
+
+.delivery-callout {
+  display: grid;
+  gap: 22px;
+  margin: 0 0 28px;
+  padding: 22px;
+  border-radius: 8px;
+  color: var(--cream);
+  background: linear-gradient(135deg, var(--green-deep), var(--green));
+  box-shadow: var(--shadow);
+}
+
+.delivery-callout span {
+  display: inline-flex;
+  margin-bottom: 8px;
+  color: var(--gold);
+  font-family: "Montserrat", Arial, sans-serif;
+  font-size: 0.82rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.delivery-callout h3 {
+  margin: 0 0 8px;
+  font-family: "Fraunces", Georgia, serif;
+  font-size: clamp(1.65rem, 2.8vw, 2.7rem);
+  line-height: 1;
+}
+
+.delivery-callout p {
+  max-width: 700px;
+  margin: 0;
+  color: rgba(244, 238, 215, 0.82);
+  font-size: 1.02rem;
+  line-height: 1.42;
+}
+
+.delivery-callout-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
 .ifood-page {
   min-height: 100vh;
   color: var(--cream);
@@ -1337,6 +1472,8 @@ h2 {
   .header-cta,
   .ifood-button,
   .ifood-header-button,
+  .delivery-button,
+  .delivery-header-button,
   .menu-shortcuts a {
     transition: transform 0.22s ease, box-shadow 0.22s ease, background-color 0.22s ease, color 0.22s ease;
   }
@@ -1344,8 +1481,15 @@ h2 {
   .button:hover,
   .header-cta:hover,
   .ifood-button:hover,
-  .ifood-header-button:hover {
+  .ifood-header-button:hover,
+  .delivery-button:hover,
+  .delivery-header-button:hover {
     transform: translateY(-2px);
+  }
+
+  .delivery-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 18px 36px rgba(14, 53, 27, 0.16);
   }
 
   .button-primary:hover {
@@ -1374,6 +1518,7 @@ h2 {
 
   .gallery-card,
   .company-card,
+  .delivery-card,
   .online-menu-item,
   .dish-mark {
     transition: transform 0.32s ease, box-shadow 0.32s ease, background-color 0.32s ease;
@@ -1496,7 +1641,8 @@ h2 {
     grid-template-columns: 180px 1fr;
   }
 
-  .gallery-grid {
+  .gallery-grid,
+  .delivery-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -1527,6 +1673,7 @@ h2 {
   }
 
   .menu-page-header .ifood-header-button,
+  .menu-page-header .delivery-header-button,
   .menu-page-header .header-cta:not(:first-of-type) {
     display: none;
   }
@@ -1536,7 +1683,8 @@ h2 {
   }
 
   .header-cta,
-  .ifood-header-button {
+  .ifood-header-button,
+  .delivery-header-button {
     min-height: 40px;
     padding: 0 12px;
     font-size: 0.72rem;
@@ -1588,7 +1736,8 @@ h2 {
     grid-template-columns: 1fr;
   }
 
-  .gallery-grid {
+  .gallery-grid,
+  .delivery-grid {
     grid-template-columns: 1fr;
   }
 
@@ -1611,6 +1760,14 @@ h2 {
 
   .ifood-callout .ifood-button {
     width: 100%;
+  }
+
+  .delivery-callout {
+    padding: 18px;
+  }
+
+  .delivery-callout-actions .delivery-button {
+    flex: 1 1 calc(50% - 6px);
   }
 
   .ifood-hero {
