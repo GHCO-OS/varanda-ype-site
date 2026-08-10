@@ -83,12 +83,53 @@ function GoogleIcon() {
 
 const ifoodUrl =
   "https://www.ifood.com.br/delivery/campinas-sp/varanda-ype---grill--executivos-jardim-aurelia/2ba9a14c-3df9-4725-8b6b-1294c2c1b156";
+const ninetyNineFoodPrimaryUrl = "https://oia.99app.com/dlp9/C94oJv?area=BR";
+const ninetyNineFoodSecondaryUrl = "https://oia.99app.com/dlp9/ceXoR0?area=BR";
+const expressoUrl = "https://expresso.varandaype.com";
 const whatsappUrl = "https://wa.me/551931991971";
 const companyWhatsappUrl =
   "https://wa.me/551931991971?text=Ol%C3%A1%2C%20quero%20falar%20sobre%20pedido%20para%20empresa%20no%20Varanda%20Yp%C3%AA.";
 const whatsappFloatingUrl = "https://wa.me/qr/W6EPSB7NP3KBF1";
 const googleBusinessUrl = "https://share.google/pxyfGTy3KNNdToPxk";
 const companyFormUrl = "https://form.jotform.com/262195555788070";
+
+// Every place someone can actually place an order. Kept as one list so the
+// hero CTA, the /menu callout and the dedicated delivery section can't drift
+// out of sync with each other.
+const deliveryOptions = [
+  {
+    key: "99food-principal",
+    provider: "99Food",
+    note: "App principal",
+    url: ninetyNineFoodPrimaryUrl,
+    tone: "ninetynine",
+    cta: "Pedir no 99Food",
+  },
+  {
+    key: "99food-secundaria",
+    provider: "99Food",
+    note: "Conta secundária",
+    url: ninetyNineFoodSecondaryUrl,
+    tone: "ninetynine",
+    cta: "Pedir no 99Food",
+  },
+  {
+    key: "ifood",
+    provider: "iFood",
+    note: "Delivery oficial",
+    url: ifoodUrl,
+    tone: "ifood",
+    cta: "Pedir no iFood",
+  },
+  {
+    key: "expresso",
+    provider: "Expresso",
+    note: "Direto da loja · só no almoço · acumula pontos e cashback",
+    url: expressoUrl,
+    tone: "expresso",
+    cta: "Pedir no Expresso",
+  },
+];
 
 const menuHighlights = [
   {
@@ -434,18 +475,28 @@ function OnlineMenuContent() {
           </p>
         </div>
 
-        <Reveal as="aside" className="ifood-callout" aria-label="Pedido pelo iFood">
+        <Reveal as="aside" className="delivery-callout" aria-label="Opções de delivery">
           <div>
-            <span>🛵 iFood</span>
+            <span>🛵 Delivery</span>
             <h3>Peça Varanda Ypê sem sair de casa</h3>
             <p>
-              Acesse nosso delivery oficial no iFood para ver disponibilidade,
+              Escolha o app ou canal que preferir para ver disponibilidade,
               promoções e formas de entrega.
             </p>
           </div>
-          <a className="ifood-button" href={ifoodUrl} target="_blank" rel="noreferrer">
-            Pedir no iFood
-          </a>
+          <div className="delivery-callout-actions">
+            {deliveryOptions.map((option) => (
+              <a
+                key={option.key}
+                className={`delivery-button delivery-button-${option.tone}`}
+                href={option.url}
+                target="_blank"
+                rel="noreferrer"
+              >
+                {option.provider}
+              </a>
+            ))}
+          </div>
         </Reveal>
 
         <div className="menu-shortcuts" aria-label="Atalhos do cardápio completo">
@@ -499,8 +550,8 @@ export function MenuPage() {
         <a className="header-cta" href="/" aria-label="Voltar para a home">
           Home
         </a>
-        <a className="ifood-header-button" href={ifoodUrl} target="_blank" rel="noreferrer">
-          iFood
+        <a className="delivery-header-button" href="/#delivery">
+          Delivery
         </a>
         <a className="header-cta" href="/empresa">
           Empresas
@@ -650,9 +701,7 @@ export function HomePage() {
           <nav id="primary-nav" className={menuOpen ? "nav-open" : ""} onClick={() => setMenuOpen(false)}>
             <a href="/menu">Cardápio</a>
             <a href="/empresa">Empresas</a>
-            <a href={ifoodUrl} target="_blank" rel="noreferrer">
-              Delivery
-            </a>
+            <a href="#delivery">Delivery</a>
             <a href="#ambiente">Ambiente</a>
             <a href="#porcoes">Porções</a>
             <a href="#horarios">Horários</a>
@@ -690,8 +739,8 @@ export function HomePage() {
               <a className="button button-primary" href="/menu">
                 Ver cardápio
               </a>
-              <a className="button button-secondary" href={ifoodUrl} target="_blank" rel="noreferrer">
-                Pedir no iFood
+              <a className="button button-secondary" href="#delivery">
+                Pedir delivery
               </a>
               <a className="button button-secondary" href={whatsappUrl} target="_blank" rel="noreferrer">
                 Reservar mesa
@@ -718,7 +767,37 @@ export function HomePage() {
         </div>
       </section>
 
-      <section className="about section-cream seam-hero" id="ambiente">
+      <section className="delivery section-cream seam-hero" id="delivery">
+        <div className="section-inner">
+          <Reveal as="div" className="section-heading">
+            <p className="section-label">Peça sem sair de casa</p>
+            <h2>Escolha por onde prefere pedir</h2>
+          </Reveal>
+          <div className="delivery-grid">
+            {deliveryOptions.map((option, index) => (
+              <Reveal
+                as="article"
+                className="delivery-card"
+                key={option.key}
+                delay={Math.min(index, 3) * 70}
+              >
+                <span className="delivery-provider">{option.provider}</span>
+                <p>{option.note}</p>
+                <a
+                  className={`delivery-button delivery-button-${option.tone}`}
+                  href={option.url}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  {option.cta}
+                </a>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="about section-cream" id="ambiente">
         <Reveal className="section-inner about-grid">
           <div>
             <p className="section-label">Casa brasileira</p>
@@ -813,6 +892,7 @@ export function HomePage() {
             <a href={whatsappUrl} target="_blank" rel="noreferrer">
               Reservas pelo WhatsApp
             </a>
+            <a href="#delivery">Peça delivery</a>
             <a href="https://instagram.com/varandaype" target="_blank" rel="noreferrer">
               @varandaype
             </a>
