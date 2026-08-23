@@ -1,10 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { EmberField } from "./EmberField.jsx";
-import { PlateHalo } from "./PlateHalo.jsx";
 import { Reveal } from "./Reveal.jsx";
-import { IngredientOrbit } from "./IngredientOrbit.jsx";
-import { HeroHeadline } from "./HeroHeadline.jsx";
-import { MagneticButton } from "./MagneticButton.jsx";
 
 // Serves WebP with a PNG fallback via <picture>, ships explicit width/height so
 // the browser reserves space before the image loads (no layout shift), and
@@ -115,7 +110,7 @@ const expressoUrl = "https://expresso.varandaype.com";
 const whatsappUrl = "https://wa.me/551931991971";
 const companyWhatsappUrl =
   "https://wa.me/551931991971?text=Ol%C3%A1%2C%20quero%20falar%20sobre%20pedido%20para%20empresa%20no%20Varanda%20Yp%C3%AA.";
-const whatsappFloatingUrl = "https://wa.me/qr/W6EPSB7NP3KBF1";
+const whatsappFloatingUrl = whatsappUrl;
 const googleBusinessUrl = "https://share.google/pxyfGTy3KNNdToPxk";
 const companyFormUrl = "https://form.jotform.com/262195555788070";
 
@@ -756,7 +751,6 @@ export function CompanyPage() {
       </header>
 
       <section className="company-hero">
-        <EmberField className="embers-layer" density="low" />
         <div className="section-inner company-hero-grid">
           <div>
             <p className="section-label">Empresas e grupos</p>
@@ -767,9 +761,9 @@ export function CompanyPage() {
               brasileira bem servida.
             </p>
             <div className="hero-actions">
-              <MagneticButton className="button button-primary" href={companyWhatsappUrl} target="_blank" rel="noreferrer">
+              <a className="button button-primary" href={companyWhatsappUrl} target="_blank" rel="noreferrer">
                 Falar sobre pedido
-              </MagneticButton>
+              </a>
               <a className="button button-secondary" href={companyFormUrl} target="_blank" rel="noreferrer">
                 Pedir cotação
               </a>
@@ -779,7 +773,6 @@ export function CompanyPage() {
             </div>
           </div>
           <div className="company-plate">
-            <PlateHalo className="plate-halo" />
             <Img
               src="/pratos/fraldinha.png"
               smSrc="/pratos/fraldinha-sm.png"
@@ -868,8 +861,6 @@ export function HomePage() {
   return (
     <main>
       <section className="hero" id="inicio">
-        <EmberField className="embers-layer" />
-        <IngredientOrbit className="hero-orbit" />
         <header className="site-header" aria-label="Navegação principal">
           <a className="brand" href="/" aria-label="Início do Varanda Ypê">
             <Img src="/logo-icon-96.png" alt="" width={52} height={52} priority />
@@ -926,7 +917,7 @@ export function HomePage() {
               </div>
             </div>
             <p className="signature">Comida brasileira • Boteco • Família</p>
-            <HeroHeadline>Restaurante no Jardim Aurélia para almoço, jantar e delivery</HeroHeadline>
+            <h1>Restaurante no Jardim Aurélia para almoço, jantar e delivery</h1>
             <p className="hero-text">
               Pratos executivos, espetinhos, porções, chopp e espaço kids em
               Campinas. Venha para a mesa ou peça pelos canais de delivery.
@@ -944,9 +935,9 @@ export function HomePage() {
               ))}
             </div>
             <div className="hero-actions">
-              <MagneticButton className="button button-primary" href="/menu">
+              <a className="button button-primary" href="/menu">
                 Ver cardápio
-              </MagneticButton>
+              </a>
               <a
                 className="button button-secondary button-delivery-hot"
                 href={ifoodUrl}
@@ -987,7 +978,6 @@ export function HomePage() {
 
           <div className="hero-media" aria-label="Mesa brasileira servida">
             <div className="hero-photo">
-              <PlateHalo className="plate-halo hero-plate-halo" />
               <Img
                 src="/pratos/chorizo.png"
                 smSrc="/pratos/chorizo-sm.png"

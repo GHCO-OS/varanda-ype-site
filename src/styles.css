@@ -22,7 +22,7 @@
 }
 
 html {
-  scroll-behavior: smooth;
+  scroll-behavior: auto;
 }
 
 body {
@@ -50,45 +50,6 @@ img {
     radial-gradient(circle at 12% 24%, rgba(201, 168, 76, 0.1), transparent 28%),
     linear-gradient(135deg, var(--green-deep), var(--green) 54%, #123f21);
   overflow: hidden;
-}
-
-.embers-layer {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  overflow: hidden;
-  pointer-events: none;
-}
-
-.embers-layer::before,
-.embers-layer::after {
-  position: absolute;
-  content: "";
-  width: 38vmax;
-  height: 38vmax;
-  border-radius: 50%;
-  opacity: 0.42;
-  filter: blur(2px);
-  background:
-    radial-gradient(circle, rgba(201, 168, 76, 0.2), transparent 58%),
-    conic-gradient(from 120deg, transparent, rgba(244, 238, 215, 0.1), transparent 42%);
-  animation: ember-orbit 24s linear infinite;
-}
-
-.embers-layer::before {
-  top: -18vmax;
-  left: -10vmax;
-}
-
-.embers-layer::after {
-  right: -14vmax;
-  bottom: -16vmax;
-  animation-duration: 31s;
-  animation-direction: reverse;
-}
-
-.embers-layer canvas {
-  opacity: 0.95;
 }
 
 .site-header,
@@ -178,7 +139,6 @@ nav a,
   width: 20px;
   height: 2px;
   background: var(--cream);
-  transition: transform 0.25s ease, opacity 0.2s ease;
 }
 
 .nav-toggle[aria-expanded="true"] span:nth-child(1) {
@@ -751,12 +711,6 @@ nav a,
   box-shadow: var(--shadow);
 }
 
-.plate-halo {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-}
-
 .company-plate img {
   position: relative;
   z-index: 1;
@@ -944,7 +898,6 @@ h2 {
   color: var(--cream);
   background: rgba(8, 39, 19, 0.56);
   box-shadow: 0 16px 34px rgba(0, 0, 0, 0.18);
-  backdrop-filter: blur(10px);
 }
 
 .hero-status > span {
@@ -997,7 +950,6 @@ h2 {
   border: 1px solid rgba(244, 238, 215, 0.22);
   border-radius: 8px;
   background: rgba(255, 249, 233, 0.09);
-  backdrop-filter: blur(10px);
 }
 
 .quick-groups strong {
@@ -1108,8 +1060,6 @@ h2 {
     var(--green-deep);
   box-shadow: var(--shadow);
   overflow: hidden;
-  transform: translateZ(0);
-  animation: hero-float 8s ease-in-out infinite;
 }
 
 .hero-photo img {
@@ -1117,7 +1067,6 @@ h2 {
   z-index: 2;
   width: min(92%, 560px);
   filter: drop-shadow(0 28px 42px rgba(0, 0, 0, 0.32));
-  animation: plate-breathe 7s ease-in-out infinite;
 }
 
 .hero-photo::before,
@@ -1136,18 +1085,12 @@ h2 {
 .hero-photo::before {
   top: 18%;
   left: 16%;
-  animation: frame-drift-a 18s ease-in-out infinite;
 }
 
 .hero-photo::after {
   right: 12%;
   bottom: 14%;
   transform: rotate(-18deg);
-  animation: frame-drift-b 21s ease-in-out infinite;
-}
-
-.hero-plate-halo {
-  opacity: 0.72;
 }
 
 .hero-photo span,
@@ -1173,69 +1116,10 @@ h2 {
   background: var(--green);
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.26);
   overflow: hidden;
-  animation: seal-float 9s ease-in-out infinite;
 }
 
 .seal-card img {
   border-radius: 50%;
-}
-
-/* Ambient ingredient chips — ties into --t (scroll progress through the
-   hero), written once per frame by IngredientOrbit's rAF loop. Every chip
-   reads the same var, so drift/rotation/fade stay on the GPU compositor
-   instead of N inline-style writes per scroll frame. */
-.hero-orbit {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-  --t: 0;
-}
-
-.ingredient-chip {
-  position: absolute;
-  display: grid;
-  place-items: center;
-  border-radius: 50%;
-  border: 1px solid rgba(201, 168, 76, 0.42);
-  background: linear-gradient(160deg, rgba(244, 238, 215, 0.16), rgba(201, 168, 76, 0.08));
-  box-shadow: 0 14px 30px rgba(8, 39, 19, 0.3);
-  opacity: calc(1 - var(--t) * 1.15);
-  transform: translate3d(0, calc(var(--t) * var(--speed) * -260px), 0) rotate(calc(var(--t) * var(--rotate) * 1deg));
-  animation: chip-bob 6.4s ease-in-out infinite;
-  animation-delay: calc(var(--speed) * -4s);
-  will-change: transform, opacity;
-}
-
-.ingredient-chip svg {
-  width: 54%;
-  height: 54%;
-}
-
-.ingredient-terracotta {
-  color: var(--terracotta);
-}
-
-.ingredient-gold {
-  color: var(--gold);
-}
-
-.ingredient-burgundy {
-  color: var(--burgundy);
-}
-
-.ingredient-cream {
-  color: var(--cream);
-}
-
-@keyframes chip-bob {
-  0%,
-  100% {
-    margin-block-start: 0;
-  }
-  50% {
-    margin-block-start: -10px;
-  }
 }
 
 /* Section seams — a short gradient of the previous section's color fading
@@ -1840,115 +1724,23 @@ h2 {
 /* Scroll reveal — used by <Reveal>. Kept as opacity + a small translate so it
    never affects layout/CLS; the element occupies its final box from the start. */
 .reveal {
-  opacity: 0;
-  transform: translateY(28px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
-  will-change: opacity, transform;
-}
-
-.reveal-visible {
   opacity: 1;
-  transform: translateY(0);
-}
-
-@keyframes ember-orbit {
-  0% {
-    transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
-  }
-  50% {
-    transform: translate3d(8%, 5%, 0) rotate(180deg) scale(1.08);
-  }
-  100% {
-    transform: translate3d(0, 0, 0) rotate(360deg) scale(1);
-  }
-}
-
-@keyframes hero-float {
-  0%,
-  100% {
-    transform: translate3d(0, 0, 0);
-  }
-  50% {
-    transform: translate3d(0, -12px, 0);
-  }
-}
-
-@keyframes plate-breathe {
-  0%,
-  100% {
-    transform: scale(1) rotate(0deg);
-  }
-  50% {
-    transform: scale(1.025) rotate(-0.6deg);
-  }
-}
-
-@keyframes frame-drift-a {
-  0%,
-  100% {
-    transform: rotate(32deg) translate3d(0, 0, 0);
-  }
-  50% {
-    transform: rotate(38deg) translate3d(10px, -8px, 0);
-  }
-}
-
-@keyframes frame-drift-b {
-  0%,
-  100% {
-    transform: rotate(-18deg) translate3d(0, 0, 0);
-  }
-  50% {
-    transform: rotate(-24deg) translate3d(-8px, 12px, 0);
-  }
-}
-
-@keyframes seal-float {
-  0%,
-  100% {
-    transform: translate3d(0, 0, 0) rotate(0deg);
-  }
-  50% {
-    transform: translate3d(6px, -10px, 0) rotate(1.4deg);
-  }
+  transform: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
   *::after {
-    animation-duration: 0.001ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.001ms !important;
+    animation: none !important;
+    transition: none !important;
     scroll-behavior: auto !important;
   }
 }
 
-/* Hover/press polish — gated to real pointers so touchscreens never get a
-   "sticky" hover state after a tap. */
+/* Desktop-only hover states kept static: no movement or continuous animation. */
 @media (hover: hover) and (pointer: fine) {
-  .button,
-  .header-cta,
-  .ifood-button,
-  .ifood-header-button,
-  .delivery-button,
-  .delivery-header-button,
-  .menu-shortcuts button,
-  .quick-groups a {
-    transition: transform 0.22s ease, box-shadow 0.22s ease, background-color 0.22s ease, color 0.22s ease;
-  }
-
-  .button:hover,
-  .header-cta:hover,
-  .ifood-button:hover,
-  .ifood-header-button:hover,
-  .delivery-button:hover,
-  .delivery-header-button:hover {
-    transform: translateY(-2px);
-  }
-
   .delivery-card:hover {
-    transform: translateY(-5px);
     box-shadow: 0 18px 36px rgba(14, 53, 27, 0.16);
   }
 
@@ -1960,11 +1752,6 @@ h2 {
   .ifood-header-button:hover {
     box-shadow: 0 16px 32px rgba(234, 29, 44, 0.3);
   }
-
-  nav a {
-    transition: color 0.2s ease;
-  }
-
   nav a:hover {
     color: var(--cream);
   }
@@ -1973,71 +1760,24 @@ h2 {
     background: var(--gold);
     border-color: var(--gold);
     color: var(--green-deep);
-    transform: translateY(-2px);
   }
 
   .quick-groups a:hover {
-    transform: translateY(-3px);
     border-color: rgba(244, 238, 215, 0.42);
     background: rgba(255, 249, 233, 0.16);
   }
 
-  .gallery-card,
-  .company-card,
-  .delivery-card,
-  .online-menu-item,
-  .dish-mark {
-    transition: transform 0.32s ease, box-shadow 0.32s ease, background-color 0.32s ease;
-  }
-
-  .dish-photo,
-  .gallery-card img {
-    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s ease;
-  }
-
   .gallery-card:hover,
   .company-card:hover {
-    transform: translateY(-5px);
     box-shadow: 0 18px 36px rgba(14, 53, 27, 0.16);
   }
 
   .gallery-card:hover img {
-    transform: scale(1.08);
     filter: saturate(1.12) brightness(1.04);
   }
 
   .online-menu-item:hover {
     background: rgba(201, 168, 76, 0.1);
-  }
-
-  .dish:hover .dish-photo {
-    transform: scale(1.06);
-    filter: saturate(1.12) brightness(1.04);
-  }
-
-  .dish:hover .dish-mark {
-    transform: scale(1.035);
-  }
-
-  .button-primary {
-    position: relative;
-    overflow: hidden;
-  }
-
-  .button-primary::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: -60%;
-    width: 40%;
-    height: 100%;
-    background: linear-gradient(120deg, transparent, rgba(14, 53, 27, 0.16), transparent);
-    transform: skewX(-20deg);
-    transition: left 0.6s ease;
-  }
-
-  .button-primary:hover::after {
-    left: 130%;
   }
 }
 
@@ -2401,11 +2141,6 @@ h2 {
     bottom: -2px;
   }
 
-  /* Shorter travel distance on small screens — same reveal, less scroll jitter. */
-  .reveal {
-    transform: translateY(16px);
-    transition-duration: 0.55s;
-  }
 }
 
 /* Google "Avaliações" link inside nav: align the multicolor G with the label. */
@@ -2434,27 +2169,11 @@ h2 {
   background: #25d366;
   color: #fff;
   box-shadow: 0 14px 32px rgba(0, 0, 0, 0.28);
-  animation: whatsapp-pulse 2.6s ease-in-out infinite;
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .floating-whatsapp {
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-  }
-
   .floating-whatsapp:hover {
-    transform: translateY(-3px) scale(1.05);
     box-shadow: 0 18px 38px rgba(0, 0, 0, 0.32);
-  }
-}
-
-@keyframes whatsapp-pulse {
-  0%,
-  100% {
-    box-shadow: 0 14px 32px rgba(0, 0, 0, 0.28), 0 0 0 0 rgba(37, 211, 102, 0.5);
-  }
-  50% {
-    box-shadow: 0 14px 32px rgba(0, 0, 0, 0.28), 0 0 0 10px rgba(37, 211, 102, 0);
   }
 }
 
