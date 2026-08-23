@@ -913,9 +913,17 @@ export function HomePage() {
 
         <div className="hero-grid">
           <div className="hero-copy">
-            <div className="hero-status" aria-label="Status de atendimento">
-              <span>Aberto para jantar</span>
-              <strong>Segunda a sábado, 18h às 23h</strong>
+            <div className="hero-status" aria-label="Horários de atendimento">
+              <span>Horários da casa</span>
+              <div className="hero-status-list">
+                <strong>Presencial</strong>
+                <p>Jantar: 18h às 23h - segunda a sábado</p>
+                <p>Almoço: 11h às 15h - sábado e domingo</p>
+              </div>
+              <div className="hero-status-list">
+                <strong>Marmitaria / rotisseria</strong>
+                <p>Todos os dias - 11h às 14h30</p>
+              </div>
             </div>
             <p className="signature">Comida brasileira • Boteco • Família</p>
             <HeroHeadline>Restaurante no Jardim Aurélia para almoço, jantar e delivery</HeroHeadline>
@@ -1196,8 +1204,9 @@ export function HomePage() {
           </div>
           <div>
             <h3>Horários</h3>
-            <p>Almoço: sexta, 11h às 14h30; sábado, 11h às 15h; domingo, 11h às 16h.</p>
-            <p>Jantar: segunda a sábado, 18h às 23h.</p>
+            <p>Presencial: jantar, segunda a sábado, 18h às 23h.</p>
+            <p>Presencial: almoço, sábado e domingo, 11h às 15h.</p>
+            <p>Marmitaria / rotisseria: todos os dias, 11h às 14h30.</p>
           </div>
         </div>
       </footer>

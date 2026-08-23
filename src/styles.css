@@ -936,26 +936,41 @@ h2 {
 
 .hero-status {
   display: inline-grid;
-  gap: 3px;
+  gap: 10px;
   margin-bottom: 18px;
-  padding: 10px 14px;
+  padding: 12px 14px;
   border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: 8px;
   color: var(--cream);
-  background: rgba(234, 29, 44, 0.92);
+  background: rgba(8, 39, 19, 0.56);
   box-shadow: 0 16px 34px rgba(0, 0, 0, 0.18);
+  backdrop-filter: blur(10px);
 }
 
-.hero-status span {
+.hero-status > span {
   font-family: "Montserrat", Arial, sans-serif;
   font-size: 0.72rem;
   font-weight: 900;
   text-transform: uppercase;
+  color: var(--gold);
 }
 
-.hero-status strong {
+.hero-status-list {
+  display: grid;
+  gap: 3px;
+}
+
+.hero-status-list strong {
+  color: var(--cream-soft);
   font-size: 0.96rem;
   line-height: 1.25;
+}
+
+.hero-status-list p {
+  margin: 0;
+  color: rgba(244, 238, 215, 0.76);
+  font-size: 0.92rem;
+  line-height: 1.3;
 }
 
 .quick-groups {
@@ -2170,8 +2185,24 @@ h2 {
   }
 
   .hero-status {
+    width: 100%;
     margin-bottom: 14px;
+    padding: 10px 12px;
+    gap: 7px;
     background: rgba(8, 39, 19, 0.56);
+  }
+
+  .hero-status-list {
+    gap: 2px;
+  }
+
+  .hero-status-list strong {
+    font-size: 0.9rem;
+  }
+
+  .hero-status-list p {
+    font-size: 0.84rem;
+    line-height: 1.25;
   }
 
   .signature {
