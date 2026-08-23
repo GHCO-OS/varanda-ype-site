@@ -65,6 +65,7 @@ img {
   gap: 28px;
   max-width: 1220px;
   margin: 0 auto;
+  z-index: 100;
 }
 
 .brand {
@@ -121,7 +122,7 @@ nav a,
 .nav-toggle {
   display: none;
   position: relative;
-  z-index: 50;
+  z-index: 130;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -1784,6 +1785,7 @@ h2 {
 @media (max-width: 920px) {
   .site-header {
     grid-template-columns: 1fr auto auto;
+    z-index: 120;
   }
 
   .nav-toggle {
@@ -1794,13 +1796,16 @@ h2 {
     display: none;
     position: fixed;
     inset: 0;
-    z-index: 40;
+    z-index: 100;
     flex-direction: column;
+    justify-content: flex-start;
     align-items: flex-start;
-    gap: 2px;
-    padding: 104px 28px 40px;
+    gap: 8px;
+    padding: calc(96px + env(safe-area-inset-top)) 20px calc(28px + env(safe-area-inset-bottom));
     overflow-y: auto;
-    background: var(--green-deep);
+    background:
+      linear-gradient(180deg, rgba(8, 39, 19, 0.98), rgba(8, 39, 19, 1)),
+      var(--green-deep);
   }
 
   nav.nav-open {
@@ -1809,9 +1814,16 @@ h2 {
 
   nav a {
     width: 100%;
-    padding: 16px 4px;
-    border-bottom: 1px solid rgba(244, 238, 215, 0.14);
-    font-size: 0.95rem;
+    min-height: 52px;
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    border: 1px solid rgba(244, 238, 215, 0.18);
+    border-radius: 8px;
+    background: rgba(244, 238, 215, 0.06);
+    color: var(--cream);
+    font-size: 0.9rem;
+    line-height: 1;
   }
 
   .hero-grid,
