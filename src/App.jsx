@@ -113,6 +113,26 @@ const companyWhatsappUrl =
 const whatsappFloatingUrl = whatsappUrl;
 const googleBusinessUrl = "https://share.google/pxyfGTy3KNNdToPxk";
 const companyFormUrl = "https://form.jotform.com/262195555788070";
+const qualityReviewUrl = "https://form.jotform.com/262324465405050";
+
+function QualityReviewBanner() {
+  return (
+    <aside className="quality-review-banner" aria-label="Avaliação anônima de qualidade">
+      <div>
+        <strong>Avalie sua experiência no Varanda Ypê</strong>
+        <span>Pesquisa anônima de qualidade. Sua opinião ajuda a casa a servir melhor.</span>
+      </div>
+      <a
+        href={qualityReviewUrl}
+        target="_blank"
+        rel="noreferrer"
+        onClick={() => trackEvent("quality_review_click", { location: "top_banner" })}
+      >
+        Avaliar agora
+      </a>
+    </aside>
+  );
+}
 
 // Every place someone can actually place an order. Kept as one list so the
 // hero CTA, the /menu callout and the dedicated delivery section can't drift
@@ -1228,6 +1248,7 @@ function App({ initialPath } = {}) {
   return (
     <>
       <MarketingTracker route={route || "/"} />
+      <QualityReviewBanner />
       {page}
       <FloatingWhatsapp />
     </>

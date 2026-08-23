@@ -41,6 +41,53 @@ img {
   max-width: 100%;
 }
 
+.quality-review-banner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 18px;
+  padding: 10px clamp(20px, 4vw, 64px);
+  color: var(--green-deep);
+  background: var(--gold);
+  border-bottom: 1px solid rgba(8, 39, 19, 0.16);
+  font-family: "Montserrat", Arial, sans-serif;
+}
+
+.quality-review-banner div {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 10px;
+  min-width: 0;
+  text-align: center;
+}
+
+.quality-review-banner strong {
+  font-size: 0.86rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.quality-review-banner span {
+  font-size: 0.84rem;
+  font-weight: 700;
+}
+
+.quality-review-banner a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 36px;
+  padding: 0 16px;
+  border-radius: 8px;
+  color: var(--cream);
+  background: var(--green-deep);
+  font-size: 0.76rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
 .hero {
   position: relative;
   min-height: 96vh;
@@ -1901,6 +1948,32 @@ h2 {
 }
 
 @media (max-width: 640px) {
+  .quality-review-banner {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    padding: 10px 16px 12px;
+  }
+
+  .quality-review-banner div {
+    display: grid;
+    gap: 2px;
+    justify-items: center;
+  }
+
+  .quality-review-banner strong {
+    font-size: 0.78rem;
+  }
+
+  .quality-review-banner span {
+    font-size: 0.76rem;
+    line-height: 1.25;
+  }
+
+  .quality-review-banner a {
+    width: 100%;
+    min-height: 34px;
+  }
+
   .hero {
     min-height: auto;
     padding: 22px 20px 40px;
