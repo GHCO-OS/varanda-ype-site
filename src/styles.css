@@ -1229,24 +1229,37 @@ h2 {
   border-bottom: 1px solid rgba(244, 238, 215, 0.24);
 }
 
-.dish-photo,
+.dish-media,
 .dish-mark {
   display: grid;
   place-items: center;
   width: 100%;
   aspect-ratio: 1.45;
-  border-radius: 8px;
+  border-radius: 10px;
   border: 1px solid rgba(201, 168, 76, 0.4);
   background:
-    radial-gradient(circle at 24% 20%, rgba(201, 168, 76, 0.24), transparent 22%),
-    radial-gradient(circle at 76% 78%, rgba(196, 98, 58, 0.2), transparent 24%),
-    linear-gradient(135deg, #123f21, var(--green-deep));
+    radial-gradient(circle at 20% 18%, rgba(244, 238, 215, 0.1), transparent 28%),
+    radial-gradient(circle at 82% 82%, rgba(201, 168, 76, 0.13), transparent 30%),
+    var(--burgundy);
+  box-shadow:
+    inset 0 0 0 1px rgba(244, 238, 215, 0.04),
+    0 18px 34px rgba(0, 0, 0, 0.16);
   overflow: hidden;
 }
 
 .dish-photo {
+  width: min(100%, 420px);
+  height: 100%;
   object-fit: contain;
-  padding: 8px;
+  padding: 0;
+  background: transparent;
+}
+
+.dish-media picture {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
 }
 
 .dish-mark span {

@@ -1111,14 +1111,16 @@ export function HomePage() {
           <div className="menu-list">
             {menuHighlights.map((item, index) => (
               <Reveal as="article" className="dish" key={item.title} delay={Math.min(index, 3) * 80}>
-                <Img
-                  className="dish-photo"
-                  src={item.image}
-                  smSrc={item.image.replace(/\.png$/, "-sm.png")}
-                  alt={item.title}
-                  width={420}
-                  height={290}
-                />
+                <div className="dish-media">
+                  <Img
+                    className="dish-photo"
+                    src={item.image}
+                    smSrc={item.image.replace(/\.png$/, "-sm.png")}
+                    alt={item.title}
+                    width={420}
+                    height={290}
+                  />
+                </div>
                 <div className="dish-copy">
                   <div>
                     <h3>{item.title}</h3>
