@@ -918,10 +918,10 @@ export function HomePage() {
               <strong>Segunda a sábado, 18h às 23h</strong>
             </div>
             <p className="signature">Comida brasileira • Boteco • Família</p>
-            <HeroHeadline>Sabor de varanda, mesa cheia e bom boteco brasileiro</HeroHeadline>
+            <HeroHeadline>Restaurante no Jardim Aurélia para almoço, jantar e delivery</HeroHeadline>
             <p className="hero-text">
-              Uma casa para vir com a família, almoçar sem pressa, jantar com
-              amigos, tomar um chopp gelado e dividir porções caprichadas.
+              Pratos executivos, espetinhos, porções, chopp e espaço kids em
+              Campinas. Venha para a mesa ou peça pelos canais de delivery.
             </p>
             <div className="quick-groups" aria-label="Escolha rápida por ocasião">
               {quickGroups.map(([title, text, href]) => (

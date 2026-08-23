@@ -2123,7 +2123,7 @@ h2 {
 @media (max-width: 640px) {
   .hero {
     min-height: auto;
-    padding: 22px 20px 46px;
+    padding: 22px 20px 40px;
   }
 
   .menu-page-header {
@@ -2151,8 +2151,8 @@ h2 {
   }
 
   h1 {
-    font-size: clamp(2.55rem, 13.6vw, 3.75rem);
-    line-height: 0.94;
+    font-size: clamp(2.28rem, 11.4vw, 3.15rem);
+    line-height: 0.98;
   }
 
   h2 {
@@ -2160,13 +2160,22 @@ h2 {
   }
 
   .hero-grid {
-    gap: 28px;
-    margin-top: 42px;
+    gap: 22px;
+    margin-top: 34px;
   }
 
   .hero-text {
-    font-size: 1.03rem;
-    line-height: 1.44;
+    font-size: 1.04rem;
+    line-height: 1.42;
+  }
+
+  .hero-status {
+    margin-bottom: 14px;
+    background: rgba(8, 39, 19, 0.56);
+  }
+
+  .signature {
+    margin-bottom: 12px;
   }
 
   .hero-actions {
@@ -2184,21 +2193,15 @@ h2 {
   }
 
   .quick-groups {
-    width: calc(100% + 40px);
-    margin-left: -20px;
-    padding: 0 20px 6px;
+    display: none;
   }
 
   .order-benefits {
-    grid-template-columns: 1fr;
+    display: none;
   }
 
   .hero-media {
-    min-height: 310px;
-  }
-
-  .hero-photo {
-    inset: 0;
+    display: none;
   }
 
   .seal-card {
