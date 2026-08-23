@@ -1663,7 +1663,7 @@ h2 {
 @media (max-width: 640px) {
   .hero {
     min-height: auto;
-    padding-bottom: 54px;
+    padding: 22px 20px 46px;
   }
 
   .menu-page-header {
@@ -1691,11 +1691,37 @@ h2 {
   }
 
   h1 {
-    font-size: clamp(3rem, 17vw, 4.8rem);
+    font-size: clamp(2.55rem, 13.6vw, 3.75rem);
+    line-height: 0.94;
+  }
+
+  h2 {
+    font-size: clamp(2.05rem, 10.5vw, 3.2rem);
+  }
+
+  .hero-grid {
+    gap: 28px;
+    margin-top: 42px;
+  }
+
+  .hero-text {
+    font-size: 1.03rem;
+    line-height: 1.44;
+  }
+
+  .hero-actions {
+    gap: 10px;
+    margin-top: 24px;
+  }
+
+  .hero-actions .button {
+    min-height: 46px;
+    padding: 0 18px;
+    font-size: 0.74rem;
   }
 
   .hero-media {
-    min-height: 380px;
+    min-height: 310px;
   }
 
   .hero-photo {
@@ -1703,8 +1729,7 @@ h2 {
   }
 
   .seal-card {
-    width: 150px;
-    bottom: 18px;
+    display: none;
   }
 
   .about,
@@ -1720,11 +1745,17 @@ h2 {
   }
 
   .company-hero h1 {
-    font-size: clamp(3rem, 16vw, 4.7rem);
+    font-size: clamp(2.45rem, 12.5vw, 3.55rem);
+    line-height: 0.95;
+  }
+
+  .company-hero p:not(.section-label) {
+    font-size: 1.03rem;
+    line-height: 1.45;
   }
 
   .company-plate {
-    min-height: 360px;
+    min-height: 315px;
   }
 
   .company-card,
@@ -1874,9 +1905,15 @@ h2 {
 
 @media (max-width: 640px) {
   .floating-whatsapp {
-    right: 14px;
-    bottom: 14px;
-    width: 52px;
-    height: 52px;
+    right: 12px;
+    bottom: 12px;
+    width: 48px;
+    height: 48px;
+  }
+
+  .delivery-callout,
+  .company-cta-box,
+  .footer {
+    padding-bottom: calc(64px + env(safe-area-inset-bottom));
   }
 }

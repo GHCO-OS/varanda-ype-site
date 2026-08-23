@@ -3,6 +3,8 @@ import { EmberField } from "./EmberField.jsx";
 import { PlateHalo } from "./PlateHalo.jsx";
 import { Reveal } from "./Reveal.jsx";
 import { IngredientOrbit } from "./IngredientOrbit.jsx";
+import { HeroHeadline } from "./HeroHeadline.jsx";
+import { MagneticButton } from "./MagneticButton.jsx";
 
 // Serves WebP with a PNG fallback via <picture>, ships explicit width/height so
 // the browser reserves space before the image loads (no layout shift), and
@@ -103,15 +105,15 @@ const deliveryOptions = [
     note: "App principal",
     url: ninetyNineFoodPrimaryUrl,
     tone: "ninetynine",
-    cta: "Pedir no 99Food",
+    cta: "99Food principal",
   },
   {
     key: "99food-secundaria",
     provider: "99Food",
-    note: "Conta secundária",
+    note: "Link alternativo",
     url: ninetyNineFoodSecondaryUrl,
     tone: "ninetynine",
-    cta: "Pedir no 99Food",
+    cta: "99Food alternativo",
   },
   {
     key: "ifood",
@@ -493,7 +495,7 @@ function OnlineMenuContent() {
                 target="_blank"
                 rel="noreferrer"
               >
-                {option.provider}
+                {option.cta}
               </a>
             ))}
           </div>
@@ -590,9 +592,9 @@ export function CompanyPage() {
               brasileira bem servida.
             </p>
             <div className="hero-actions">
-              <a className="button button-primary" href={companyWhatsappUrl} target="_blank" rel="noreferrer">
+              <MagneticButton className="button button-primary" href={companyWhatsappUrl} target="_blank" rel="noreferrer">
                 Falar sobre pedido
-              </a>
+              </MagneticButton>
               <a className="button button-secondary" href={companyFormUrl} target="_blank" rel="noreferrer">
                 Pedir cotação
               </a>
@@ -730,15 +732,15 @@ export function HomePage() {
         <div className="hero-grid">
           <div className="hero-copy">
             <p className="signature">Comida brasileira • Boteco • Família</p>
-            <h1>Sabor de varanda, mesa cheia e bom boteco brasileiro</h1>
+            <HeroHeadline>Sabor de varanda, mesa cheia e bom boteco brasileiro</HeroHeadline>
             <p className="hero-text">
               Uma casa para vir com a família, almoçar sem pressa, jantar com
               amigos, tomar um chopp gelado e dividir porções caprichadas.
             </p>
             <div className="hero-actions">
-              <a className="button button-primary" href="/menu">
+              <MagneticButton className="button button-primary" href="/menu">
                 Ver cardápio
-              </a>
+              </MagneticButton>
               <a className="button button-secondary" href="#delivery">
                 Pedir delivery
               </a>

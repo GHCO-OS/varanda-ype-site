@@ -10,7 +10,7 @@ const app = (
   </React.StrictMode>
 );
 
-if (root.hasChildNodes()) {
+if (root.hasChildNodes() && window.location.pathname === "/") {
   hydrateRoot(root, app);
 } else {
   createRoot(root).render(app);

@@ -60,6 +60,10 @@ function applyHead(html, page) {
     );
 }
 
+function stripRootPreloads(markup) {
+  return markup.replace(/(?:<link\s+rel="preload"\s+as="image"[^>]*\/>)+/g, "");
+}
+
 const vite = await createServer({
   server: { middlewareMode: true },
   appType: "custom",
@@ -71,7 +75,9 @@ try {
   const { default: App } = await vite.ssrLoadModule("/src/App.jsx");
 
   for (const page of pages) {
-    const markup = renderToString(React.createElement(App, { initialPath: page.route }));
+    const markup = stripRootPreloads(
+      renderToString(React.createElement(App, { initialPath: page.route })),
+    );
     const html = applyHead(template, page).replace(
       '<div id="root"></div>',
       `<div id="root">${markup}</div>`,
