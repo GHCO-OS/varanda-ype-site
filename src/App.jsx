@@ -49,6 +49,7 @@ function FloatingWhatsapp() {
       target="_blank"
       rel="noreferrer"
       aria-label="Falar no WhatsApp"
+      onClick={() => trackEvent("whatsapp_click", { location: "floating_button" })}
     >
       <svg viewBox="0 0 32 32" width="28" height="28" aria-hidden="true" focusable="false">
         <path
@@ -81,6 +82,29 @@ function GoogleIcon() {
       />
     </svg>
   );
+}
+
+function trackEvent(eventName, payload = {}) {
+  if (typeof window === "undefined") return;
+
+  window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push({
+    event: eventName,
+    site: "varanda_ype",
+    ...payload,
+  });
+}
+
+function MarketingTracker({ route }) {
+  useEffect(() => {
+    window.dataLayer = window.dataLayer || [];
+    trackEvent("page_view", {
+      path: route || "/",
+      title: typeof document === "undefined" ? "Varanda Ypê" : document.title,
+    });
+  }, [route]);
+
+  return null;
 }
 
 const ifoodUrl =
@@ -133,6 +157,20 @@ const deliveryOptions = [
   },
 ];
 
+const quickGroups = [
+  ["Executivos", "Pratos do dia para almoço", "/menu#la-carte"],
+  ["Porções", "Boteco para compartilhar", "/#porcoes"],
+  ["Espetinhos", "Jantar leve e direto", "/menu#espetinhos"],
+  ["Chopp", "Mesa com amigos", "/menu#bebidas"],
+  ["Família", "Espaço kids", "/#horarios"],
+];
+
+const orderBenefits = [
+  ["Retirada ou entrega", "Escolha o canal e acompanhe o pedido pelo app."],
+  ["Cardápio com preços", "Veja pratos, porções, espetinhos e bebidas antes de pedir."],
+  ["Atendimento direto", "WhatsApp para reserva, dúvidas e pedidos para empresas."],
+];
+
 const menuHighlights = [
   {
     title: "Chorizo executivo",
@@ -169,6 +207,17 @@ const portionGallery = [
   ["Isca de frango à milanesa", "/porcoes/isca-frango-milanesa.png"],
   ["Tulipa frita", "/porcoes/tulipa-frita.png"],
 ];
+
+const menuItemImages = {
+  "Fraldinha Assada": "/pratos/fraldinha.png",
+  "Risoto Cuiabano": "/pratos/risoto-cuiabano.png",
+  "Talharim 4Q": "/pratos/talharim.png",
+  "Calabresa com fritas": "/porcoes/calabresa-com-fritas.png",
+  "Fritas clássica": "/porcoes/fritas-500g.png",
+  "Isca de mignon": "/porcoes/isca-cordao-mignon.png",
+  "Isca de tilápia": "/porcoes/isca-frango-milanesa.png",
+  "Linguiça Cuiabana": "/porcoes/calabresa-com-fritas.png",
+};
 
 const companyServices = [
   {
@@ -449,20 +498,76 @@ const fullMenuSections = [
   },
 ];
 
-function MenuItem({ item }) {
+function MenuItem({ item, sectionId }) {
+  const image = menuItemImages[item.name];
+
   return (
     <li className="online-menu-item">
-      <div className="online-menu-line">
-        <h3>{item.name}</h3>
-        <strong>{item.price}</strong>
+      <div className="menu-item-copy">
+        <div className="online-menu-line">
+          <h3>{item.name}</h3>
+          {item.price && <strong>{item.price}</strong>}
+        </div>
+        {item.meta && <p className="item-meta">{item.meta}</p>}
+        {item.desc && <p>{item.desc}</p>}
       </div>
-      {item.meta && <p className="item-meta">{item.meta}</p>}
-      {item.desc && <p>{item.desc}</p>}
+      <div className="menu-item-media">
+        {image ? (
+          <Img src={image} alt={item.name} width={180} height={180} />
+        ) : (
+          <div className="menu-item-placeholder" aria-hidden="true">
+            <Img src="/logo-icon-96.png" alt="" width={58} height={58} />
+          </div>
+        )}
+        <a
+          className="menu-add-button"
+          href={expressoUrl}
+          target="_blank"
+          rel="noreferrer"
+          aria-label={`Pedir ${item.name} no Expresso`}
+          onClick={() =>
+            trackEvent("menu_add_click", {
+              item: item.name,
+              section: sectionId,
+              destination: "expresso",
+            })
+          }
+        >
+          +
+        </a>
+      </div>
     </li>
   );
 }
 
 function OnlineMenuContent() {
+  const [query, setQuery] = useState("");
+  const [activeSection, setActiveSection] = useState("todos");
+  const normalizedQuery = query.trim().toLocaleLowerCase("pt-BR");
+  const visibleSections = fullMenuSections
+    .filter((section) => activeSection === "todos" || section.id === activeSection)
+    .map((section) => ({
+      ...section,
+      items: normalizedQuery
+        ? section.items.filter((item) =>
+            [item.name, item.meta, item.desc]
+              .filter(Boolean)
+              .join(" ")
+              .toLocaleLowerCase("pt-BR")
+              .includes(normalizedQuery),
+          )
+        : section.items,
+    }))
+    .filter((section) => section.items.length > 0);
+
+  function selectSection(sectionId, title) {
+    setActiveSection(sectionId);
+    trackEvent("menu_filter_select", {
+      section: sectionId,
+      label: title,
+    });
+  }
+
   return (
     <section className="online-menu section-cream" id="cardapio-completo">
       <div className="section-inner">
@@ -476,6 +581,30 @@ function OnlineMenuContent() {
             para escolher com calma antes de chegar ou pedir.
           </p>
         </div>
+
+        <Reveal as="aside" className="store-order-panel" aria-label="Resumo da loja">
+          <div className="store-logo-block">
+            <Img src="/logo-icon-96.png" alt="" width={64} height={64} priority />
+            <div>
+              <strong>Expresso Varanda Ypê</strong>
+              <span>Pedido próprio • pontos e cashback</span>
+            </div>
+          </div>
+          <div className="store-status-list">
+            <span>Almoço no Expresso</span>
+            <span>Entrega ou retirada</span>
+            <span>WhatsApp para dúvidas</span>
+          </div>
+          <a
+            className="store-order-button"
+            href={expressoUrl}
+            target="_blank"
+            rel="noreferrer"
+            onClick={() => trackEvent("delivery_click", { provider: "Expresso", channel: "expresso", location: "store_order_panel" })}
+          >
+            Abrir pedidos
+          </a>
+        </Reveal>
 
         <Reveal as="aside" className="delivery-callout" aria-label="Opções de delivery">
           <div>
@@ -494,6 +623,13 @@ function OnlineMenuContent() {
                 href={option.url}
                 target="_blank"
                 rel="noreferrer"
+                onClick={() =>
+                  trackEvent("delivery_click", {
+                    provider: option.provider,
+                    channel: option.key,
+                    location: "menu_callout",
+                  })
+                }
               >
                 {option.cta}
               </a>
@@ -501,17 +637,44 @@ function OnlineMenuContent() {
           </div>
         </Reveal>
 
-        <div className="menu-shortcuts" aria-label="Atalhos do cardápio completo">
-          {fullMenuSections.map((section) => (
-            <a href={`#${section.id}`} key={section.id}>
-              <span>{section.emoji}</span>
-              {section.title}
-            </a>
-          ))}
+        <div className="menu-filter-card" aria-label="Filtros do cardápio">
+          <label className="menu-search">
+            <span>Buscar no cardápio</span>
+            <input
+              type="search"
+              value={query}
+              placeholder="Ex.: fraldinha, fritas, chopp"
+              onChange={(event) => {
+                setQuery(event.target.value);
+                trackEvent("menu_search_input", { has_query: event.target.value.trim().length > 0 });
+              }}
+            />
+          </label>
+          <div className="menu-shortcuts" aria-label="Selecionar grupo do cardápio">
+            <button
+              type="button"
+              className={activeSection === "todos" ? "is-active" : ""}
+              onClick={() => selectSection("todos", "Todos")}
+            >
+              <span>★</span>
+              Todos
+            </button>
+            {fullMenuSections.map((section) => (
+              <button
+                type="button"
+                className={activeSection === section.id ? "is-active" : ""}
+                key={section.id}
+                onClick={() => selectSection(section.id, section.title)}
+              >
+                <span>{section.emoji}</span>
+                {section.title}
+              </button>
+            ))}
+          </div>
         </div>
 
         <div className="online-menu-grid">
-          {fullMenuSections.map((section, index) => (
+          {visibleSections.map((section, index) => (
             <Reveal
               as="article"
               className="online-menu-section"
@@ -530,12 +693,24 @@ function OnlineMenuContent() {
               </header>
               <ul>
                 {section.items.map((item) => (
-                  <MenuItem item={item} key={`${section.id}-${item.name}`} />
+                  <MenuItem item={item} sectionId={section.id} key={`${section.id}-${item.name}`} />
                 ))}
               </ul>
             </Reveal>
           ))}
         </div>
+        {visibleSections.length === 0 && (
+          <div className="menu-empty-state" role="status">
+            <h3>Nenhum item encontrado</h3>
+            <p>Tente buscar por outro prato ou veja todos os grupos do cardápio.</p>
+            <button type="button" onClick={() => {
+              setQuery("");
+              setActiveSection("todos");
+            }}>
+              Limpar filtros
+            </button>
+          </div>
+        )}
       </div>
     </section>
   );
@@ -703,6 +878,7 @@ export function HomePage() {
           <nav id="primary-nav" className={menuOpen ? "nav-open" : ""} onClick={() => setMenuOpen(false)}>
             <a href="/menu">Cardápio</a>
             <a href="/empresa">Empresas</a>
+            <a href="#pedido">Pedido online</a>
             <a href="#delivery">Delivery</a>
             <a href="#ambiente">Ambiente</a>
             <a href="#porcoes">Porções</a>
@@ -724,29 +900,80 @@ export function HomePage() {
             <span />
             <span />
           </button>
-          <a className="header-cta" href={whatsappUrl} target="_blank" rel="noreferrer">
+          <a
+            className="header-cta"
+            href={whatsappUrl}
+            target="_blank"
+            rel="noreferrer"
+            onClick={() => trackEvent("whatsapp_click", { location: "header" })}
+          >
             WhatsApp
           </a>
         </header>
 
         <div className="hero-grid">
           <div className="hero-copy">
+            <div className="hero-status" aria-label="Status de atendimento">
+              <span>Aberto para jantar</span>
+              <strong>Segunda a sábado, 18h às 23h</strong>
+            </div>
             <p className="signature">Comida brasileira • Boteco • Família</p>
             <HeroHeadline>Sabor de varanda, mesa cheia e bom boteco brasileiro</HeroHeadline>
             <p className="hero-text">
               Uma casa para vir com a família, almoçar sem pressa, jantar com
               amigos, tomar um chopp gelado e dividir porções caprichadas.
             </p>
+            <div className="quick-groups" aria-label="Escolha rápida por ocasião">
+              {quickGroups.map(([title, text, href]) => (
+                <a
+                  href={href}
+                  key={title}
+                  onClick={() => trackEvent("quick_group_click", { label: title, location: "hero" })}
+                >
+                  <strong>{title}</strong>
+                  <span>{text}</span>
+                </a>
+              ))}
+            </div>
             <div className="hero-actions">
               <MagneticButton className="button button-primary" href="/menu">
                 Ver cardápio
               </MagneticButton>
-              <a className="button button-secondary" href="#delivery">
-                Pedir delivery
+              <a
+                className="button button-secondary button-delivery-hot"
+                href={ifoodUrl}
+                target="_blank"
+                rel="noreferrer"
+                onClick={() =>
+                  trackEvent("delivery_click", {
+                    provider: "iFood",
+                    channel: "ifood",
+                    location: "hero_primary",
+                  })
+                }
+              >
+                Pedir no iFood
               </a>
-              <a className="button button-secondary" href={whatsappUrl} target="_blank" rel="noreferrer">
+              <a
+                className="button button-secondary"
+                href={whatsappUrl}
+                target="_blank"
+                rel="noreferrer"
+                onClick={() => trackEvent("whatsapp_click", { location: "hero" })}
+              >
                 Reservar mesa
               </a>
+            </div>
+            <div className="order-benefits" aria-label="Facilidades de pedido">
+              {orderBenefits.map(([title, text]) => (
+                <article key={title}>
+                  <span />
+                  <div>
+                    <strong>{title}</strong>
+                    <p>{text}</p>
+                  </div>
+                </article>
+              ))}
             </div>
           </div>
 
@@ -769,6 +996,63 @@ export function HomePage() {
         </div>
       </section>
 
+      <section className="order-preview section-cream" id="pedido">
+        <div className="section-inner">
+          <Reveal as="div" className="section-heading">
+            <p className="section-label">Pedido online</p>
+            <h2>Escolha como se estivesse no Expresso</h2>
+          </Reveal>
+          <div className="order-preview-shell">
+            <div className="order-preview-top">
+              <div className="store-logo-block">
+                <Img src="/logo-icon-96.png" alt="" width={58} height={58} />
+                <div>
+                  <strong>Expresso Varanda Ypê</strong>
+                  <span>Direto da loja, com pontos e cashback</span>
+                </div>
+              </div>
+              <a
+                className="store-order-button"
+                href={expressoUrl}
+                target="_blank"
+                rel="noreferrer"
+                onClick={() => trackEvent("delivery_click", { provider: "Expresso", channel: "expresso", location: "home_order_preview" })}
+              >
+                Pedir agora
+              </a>
+            </div>
+            <div className="order-preview-categories" aria-label="Categorias de pedido">
+              {quickGroups.slice(0, 4).map(([title, text, href]) => (
+                <a href={href} key={title}>
+                  <strong>{title}</strong>
+                  <span>{text}</span>
+                </a>
+              ))}
+            </div>
+            <div className="order-preview-products">
+              {menuHighlights.slice(0, 3).map((item) => (
+                <article key={item.title}>
+                  <Img src={item.image} smSrc={item.image.replace(/\.png$/, "-sm.png")} alt={item.title} width={180} height={180} />
+                  <div>
+                    <h3>{item.title}</h3>
+                    <p>{item.text}</p>
+                    <a
+                      href={expressoUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      aria-label={`Pedir ${item.title} no Expresso`}
+                      onClick={() => trackEvent("menu_add_click", { item: item.title, section: "home_preview", destination: "expresso" })}
+                    >
+                      +
+                    </a>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section className="delivery section-cream seam-hero" id="delivery">
         <div className="section-inner">
           <Reveal as="div" className="section-heading">
@@ -786,13 +1070,20 @@ export function HomePage() {
                 <span className="delivery-provider">{option.provider}</span>
                 <p>{option.note}</p>
                 <a
-                  className={`delivery-button delivery-button-${option.tone}`}
-                  href={option.url}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  {option.cta}
-                </a>
+                className={`delivery-button delivery-button-${option.tone}`}
+                href={option.url}
+                target="_blank"
+                rel="noreferrer"
+                onClick={() =>
+                  trackEvent("delivery_click", {
+                    provider: option.provider,
+                    channel: option.key,
+                    location: "home_delivery_section",
+                  })
+                }
+              >
+                {option.cta}
+              </a>
               </Reveal>
             ))}
           </div>
@@ -935,6 +1226,7 @@ function App({ initialPath } = {}) {
 
   return (
     <>
+      <MarketingTracker route={route || "/"} />
       {page}
       <FloatingWhatsapp />
     </>
