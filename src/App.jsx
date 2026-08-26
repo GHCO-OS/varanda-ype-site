@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Reveal } from "./Reveal.jsx";
 
-// Serves WebP with a PNG fallback via <picture>, ships explicit width/height so
+// Serves WebP with an image fallback via <picture>, ships explicit width/height so
 // the browser reserves space before the image loads (no layout shift), and
 // lazy-loads everything below the fold. Pass `priority` for the one hero image
 // that should load eagerly (the page's LCP candidate).
 function Img({ src, alt, width, height, className, priority = false, smSrc }) {
-  const webp = src.replace(/\.png$/, ".webp");
-  const webpSm = smSrc ? smSrc.replace(/\.png$/, ".webp") : null;
+  const webp = src.replace(/\.(png|jpe?g)$/i, ".webp");
+  const webpSm = smSrc ? smSrc.replace(/\.(png|jpe?g)$/i, ".webp") : null;
 
   return (
     <picture>
@@ -152,33 +152,39 @@ export const productPages = [
   {
     slug: "jantinha-campinas",
     eyebrow: "Jantinha",
-    title: "Jantinha com espetinhos em Campinas",
+    title: "Jantinha com 2 espetos por R$ 35,90 em Campinas",
     intro:
-      "Jantinha Expressa com espetinhos clássicos para quem quer comer à noite de um jeito prático, saboroso e com clima de boteco.",
-    image: "/porcoes/tulipa-frita.png",
-    imageAlt: "Espetinho e porção para jantinha no Varanda Ypê",
+      "A Jantinha Expressa do Varanda Ypê vem com 2 espetos, arroz, feijão, farofa e vinagrete ou saladinha por R$ 35,90. Um jantar prático, completo e com clima de boteco no Jardim Aurélia.",
+    image: "/pratos/jantinha-2-espetos-varanda-ype-campinas.jpg",
+    imageAlt:
+      "Jantinha Expressa do Varanda Ypê com 2 espetos, arroz, feijão, farofa e vinagrete ou saladinha por R$ 35,90 em Campinas",
+    price: "R$ 35,90",
+    priceValue: "35.90",
+    keywords:
+      "jantinha em Campinas, jantinha com espetinho, jantinha com 2 espetos, espetinho no Jardim Aurélia, jantar barato Campinas, arroz feijão farofa vinagrete",
     menuAnchor: "/menu#espetinhos",
     orderLabel: "Ver jantinha",
-    metaTitle: "Jantinha em Campinas | Varanda Ypê",
+    metaTitle: "Jantinha R$ 35,90 em Campinas | Varanda Ypê",
     metaDescription:
-      "Jantinha em Campinas no Varanda Ypê: espetinhos clássicos à noite, porções, chopp e jantar no Jardim Aurélia.",
+      "Jantinha em Campinas no Varanda Ypê por R$ 35,90: 2 espetos, arroz, feijão, farofa, vinagrete ou saladinha no Jardim Aurélia.",
     sections: [
       [
-        "Espetinhos no jantar",
-        "À noite, o Varanda Ypê trabalha com espetinhos clássicos, especiais e premium, além da Jantinha Expressa para quem quer resolver a refeição sem perder o clima de mesa de boteco.",
+        "Jantinha completa e sem complicar",
+        "Por R$ 35,90, a Jantinha Expressa reúne 2 espetos e acompanhamentos brasileiros de verdade: arroz, feijão, farofa e vinagrete ou saladinha. É para chegar, pedir e jantar bem.",
       ],
       [
-        "Opção prática para a noite",
-        "A Jantinha Expressa aparece no cardápio como uma escolha rápida com 2 espetinhos clássicos, boa para jantar leve ou para começar a noite.",
+        "Espetinho no Jardim Aurélia",
+        "A opção combina o sabor do espetinho com prato feito de boteco, ideal para quem procura jantar em Campinas com comida simples, saborosa e bem servida.",
       ],
       [
-        "Combine com porções e bebidas",
-        "Quem vem em grupo pode combinar espetinhos com fritas, mandioca, iscas, linguiça cuiabana, chopp, cervejas e refrigerantes.",
+        "Para comer no salão ou pedir",
+        "Consulte o cardápio online para ver disponibilidade no horário. A casa também tem porções, chopp, bebidas e outros espetinhos para completar a mesa.",
       ],
     ],
     faqs: [
       ["Quando tem jantinha no Varanda Ypê?", "A jantinha e os espetinhos são opções do período noturno. O jantar presencial funciona de segunda a sábado, das 18h às 23h."],
-      ["O que vem na Jantinha Expressa?", "No cardápio estudado, a Jantinha Expressa aparece com 2 espetinhos clássicos."],
+      ["O que vem na Jantinha Expressa?", "A Jantinha Expressa vem com 2 espetos, arroz, feijão, farofa e vinagrete ou saladinha."],
+      ["Quanto custa a Jantinha Expressa?", "A Jantinha Expressa custa R$ 35,90."],
       ["Onde fica o Varanda Ypê?", "Na Av. Brigadeiro Rafael Tobias de Aguiar, 1121, Jardim Aurélia, Campinas."],
     ],
   },
@@ -554,6 +560,7 @@ const menuItemImages = {
   "Isca de mignon": "/porcoes/isca-cordao-mignon.png",
   "Isca de tilápia": "/porcoes/isca-frango-milanesa.png",
   "Linguiça Cuiabana": "/porcoes/calabresa-com-fritas.png",
+  "Jantinha Expressa": "/pratos/jantinha-2-espetos-varanda-ype-campinas.jpg",
 };
 
 const companyServices = [
@@ -692,7 +699,7 @@ const fullMenuSections = [
       {
         name: "Jantinha Expressa",
         price: "R$ 35,90",
-        desc: "2 espetinhos clássicos.",
+        desc: "2 espetos com arroz, feijão, farofa e vinagrete ou saladinha.",
       },
     ],
   },
@@ -1288,6 +1295,7 @@ export function SatellitePage({ page }) {
             <nav className="breadcrumbs" aria-label="Navegação estrutural"><a href="/">Início</a><span>›</span><span>{page.eyebrow}</span></nav>
             <p className="section-label">{page.eyebrow}</p>
             <h1>{page.title}</h1>
+            {page.price && <strong className="product-price-badge">{page.price}</strong>}
             <p>{page.intro}</p>
             <div className="hero-actions">
               <a className="button button-primary" href="/menu">Ver cardápio</a>
@@ -1314,6 +1322,8 @@ export function SatellitePage({ page }) {
 }
 
 export function ProductPage({ page }) {
+  const pageUrl = `https://varandaype.com/${page.slug}/`;
+  const imageUrl = `https://varandaype.com${page.image}`;
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -1328,8 +1338,17 @@ export function ProductPage({ page }) {
     "@type": "WebPage",
     name: page.title,
     description: page.intro,
-    url: `https://varandaype.com/${page.slug}/`,
-    image: `https://varandaype.com${page.image}`,
+    url: pageUrl,
+    keywords: page.keywords,
+    image: imageUrl,
+    primaryImageOfPage: {
+      "@type": "ImageObject",
+      contentUrl: imageUrl,
+      url: imageUrl,
+      name: page.imageAlt,
+      caption: page.imageAlt,
+      representativeOfPage: true,
+    },
     isPartOf: {
       "@type": "WebSite",
       name: "Varanda Ypê",
@@ -1340,6 +1359,23 @@ export function ProductPage({ page }) {
       name: "Varanda Ypê",
       address: "Av. Brigadeiro Rafael Tobias de Aguiar, 1121 - Jardim Aurélia, Campinas/SP",
     },
+    ...(page.priceValue
+      ? {
+          mainEntity: {
+            "@type": "MenuItem",
+            name: page.title,
+            description: page.intro,
+            image: imageUrl,
+            offers: {
+              "@type": "Offer",
+              price: page.priceValue,
+              priceCurrency: "BRL",
+              availability: "https://schema.org/InStock",
+              url: pageUrl,
+            },
+          },
+        }
+      : {}),
   };
 
   return (

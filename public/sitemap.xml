@@ -30,7 +30,16 @@
   </url>
   <url><loc>https://varandaype.com/porcoes-chopp-jardim-aurelia</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://varandaype.com/pratos-executivos-campinas/</loc><changefreq>weekly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://varandaype.com/jantinha-campinas/</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url>
+    <loc>https://varandaype.com/jantinha-campinas/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://varandaype.com/pratos/jantinha-2-espetos-varanda-ype-campinas.webp</image:loc>
+      <image:title>Jantinha com 2 espetos por R$ 35,90 no Varanda Ypê</image:title>
+      <image:caption>Jantinha Expressa com 2 espetos, arroz, feijão, farofa e vinagrete ou saladinha no Jardim Aurélia, em Campinas.</image:caption>
+    </image:image>
+  </url>
   <url><loc>https://varandaype.com/pratos-familia-campinas/</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://varandaype.com/marmitas-jardim-aurelia/</loc><changefreq>weekly</changefreq><priority>0.85</priority></url>
   <url><loc>https://varandaype.com/carnes-por-kg-campinas/</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
