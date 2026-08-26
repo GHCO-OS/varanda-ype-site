@@ -191,34 +191,38 @@ export const productPages = [
   {
     slug: "pratos-familia-campinas",
     eyebrow: "Pratos família",
-    title: "Pratos família para compartilhar",
+    title: "Pratos família grandes, completos e saborosos",
     intro:
-      "Picanha Família, Costela Família e pratos grandes para dividir a mesa no Varanda Ypê, no Jardim Aurélia, em Campinas.",
-    image: "/pratos/fraldinha.png",
-    imageAlt: "Prato de carne para compartilhar no Varanda Ypê",
+      "Costela Família e Picanha Família do Varanda Ypê chegam grandes, completos e feitos para reunir todo mundo à mesa: 700g ou mais de carne, acompanhamentos brasileiros e aquele almoço de família que já resolve a fome de todos.",
+    image: "/pratos/prato-familia-costela-picanha-varanda-ype-campinas.jpg",
+    imageAlt:
+      "Prato família grande do Varanda Ypê com costela, carne, arroz, feijão tropeiro, farofa e acompanhamentos para compartilhar em Campinas",
+    keywords:
+      "pratos família em Campinas, prato grande para família, costela família, picanha família, restaurante familiar Jardim Aurélia, almoço em família Campinas, carne 700g para compartilhar",
     menuAnchor: "/menu#parmegiana-familia",
     orderLabel: "Ver pratos família",
-    metaTitle: "Pratos família em Campinas | Varanda Ypê",
+    metaTitle: "Pratos família grandes em Campinas | Varanda Ypê",
     metaDescription:
-      "Pratos família em Campinas para compartilhar: picanha, costela, acompanhamentos brasileiros e opções para até 4 pessoas no Varanda Ypê.",
+      "Pratos família em Campinas para compartilhar: Costela Família e Picanha Família com 700g ou mais de carne, acompanhamentos brasileiros e comida farta no Varanda Ypê.",
     sections: [
       [
-        "Mesa cheia sem complicar",
-        "Os pratos família são uma escolha para quem quer pedir uma opção central, com carne e acompanhamentos, em vez de montar vários pratos individuais.",
+        "Prato grande para a mesa inteira",
+        "Quando a família chega com fome, o pedido precisa vir à altura. Os pratos família do Varanda Ypê são grandes, completos e muito bem servidos, com 700g ou mais de carne para dividir sem miséria.",
       ],
       [
-        "Picanha e costela",
-        "No cardápio estudado, a Picanha Família acompanha arroz carreteiro, feijão tropeiro, farofa, vinagrete e fritas. A Costela Família acompanha arroz carreteiro, feijão tropeiro, farofa, vinagrete e mandioca frita.",
+        "Costela e picanha como protagonistas",
+        "Hoje as opções principais são Costela Família e Picanha Família. A Costela Família vem com arroz carreteiro, feijão tropeiro, farofa, vinagrete e mandioca frita. A Picanha Família vem com arroz carreteiro, feijão tropeiro, farofa, vinagrete e fritas.",
       ],
       [
-        "Para família e grupos",
-        "São opções pensadas para almoço de fim de semana, encontros de família e grupos que querem compartilhar comida brasileira bem servida.",
+        "Tilápia e frango em desenvolvimento",
+        "A casa está desenvolvendo novas versões família com tilápia e frango para ampliar as opções. A ideia é manter a mesma proposta: prato bonito, farto, completo e perfeito para pais, mães, avós, crianças e grupos comerem juntos.",
       ],
     ],
     faqs: [
-      ["Quantas pessoas os pratos família servem?", "O cardápio indica pratos família que servem até 4 pessoas."],
-      ["Quais pratos família existem no cardápio?", "No cardápio estudado aparecem Picanha Família e Costela Família."],
-      ["Esses pratos têm acompanhamentos?", "Sim. Eles acompanham arroz carreteiro, feijão tropeiro, farofa, vinagrete e fritas ou mandioca, conforme o prato."],
+      ["Quantas pessoas os pratos família servem?", "Os pratos família foram pensados para compartilhar e servir a mesa com fartura, com 700g ou mais de carne e acompanhamentos."],
+      ["Quais pratos família existem no cardápio?", "As opções principais são Picanha Família e Costela Família. Tilápia e frango estão em desenvolvimento."],
+      ["Esses pratos têm acompanhamentos?", "Sim. Eles acompanham arroz carreteiro, feijão tropeiro, farofa, vinagrete e fritas ou mandioca, conforme a opção escolhida."],
+      ["É uma boa opção para almoço em família?", "Sim. É uma das melhores escolhas para quem quer um prato central, grande e completo para compartilhar no almoço ou encontro em família."],
     ],
   },
   {
