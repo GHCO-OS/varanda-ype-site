@@ -380,16 +380,46 @@ const discoveryPages = [
   {
     slug: "restaurante-com-espaco-kids-campinas",
     eyebrow: "Família e espaço kids",
-    title: "Restaurante com espaço kids no Jardim Aurélia",
-    intro: "Uma opção em Campinas para reunir adultos e crianças em torno de comida brasileira, porções e pratos infantis.",
-    image: "/pratos/risoto-cuiabano.png",
-    imageAlt: "Prato do Varanda Ypê, restaurante para famílias em Campinas",
+    title: "Restaurante com espaço kids reformado no Jardim Aurélia",
+    intro:
+      "No Varanda Ypê, pais, mães, avós e crianças encontram comida brasileira, conforto e um espaço kids reformado e revisado em 2026 para a família aproveitar com tranquilidade.",
+    image: "/ambiente/espaco-kids-restaurante-varanda-ype-campinas.png",
+    imageAlt:
+      "Espaço kids com brinquedão colorido do restaurante familiar Varanda Ypê no Jardim Aurélia em Campinas",
+    keywords:
+      "restaurante com espaço kids em Campinas, restaurante com brinquedo no Jardim Aurélia, restaurante familiar, almoço com crianças, jantar em família, espaço para pais, mães, avós e crianças",
     sections: [
-      ["Mesa para a família", "O ambiente tem espaço kids e o cardápio inclui pratos infantis, além de opções para compartilhar. Consulte a equipe sobre a estrutura e a programação disponíveis na data da visita."],
-      ["Almoço de fim de semana", "A casa recebe famílias para o almoço presencial aos sábados e domingos, das 11h às 15h. Reservas e dúvidas podem ser tratadas diretamente pelo WhatsApp."],
-      ["Opções para adultos e crianças", "Há pratos kids com carne ou frango, acompanhados de arroz, feijão e fritas, além de grelhados, massas, risotos, porções e bebidas para o restante da mesa."],
+      [
+        "Brinquedo para as crianças, mesa tranquila para os adultos",
+        "O espaço kids do Varanda Ypê foi reformado e revisado em 2026 para oferecer mais conforto, comodidade e lazer. Enquanto as crianças brincam no brinquedão, a família aproveita almoço, jantar, porções e chopp com mais calma.",
+      ],
+      [
+        "Restaurante para pais, mães e avós em Campinas",
+        "A casa foi pensada para receber famílias de verdade: crianças com espaço para brincar, adultos à vontade na mesa e cardápio brasileiro para diferentes idades e fomes. É uma opção para almoço de fim de semana, jantar em família e encontros com avós, tios e amigos.",
+      ],
+      [
+        "Cuidado, acolhimento e boas mãos",
+        "Seus filhos ficam em um espaço preparado com atenção pela equipe do Varanda Ypê. O objetivo é que pais e responsáveis se sintam acolhidos, com as crianças por perto, se divertindo em um ambiente familiar e cuidado.",
+      ],
     ],
-    faqs: [["O Varanda Ypê tem espaço kids?", "Sim. A casa possui espaço kids. Consulte a equipe sobre a estrutura e eventual programação na data da visita."], ["Há pratos infantis?", "Sim. O cardápio possui opções kids com carne ou frango e acompanhamentos."], ["É possível reservar mesa?", "Sim. A reserva pode ser solicitada pelo WhatsApp do restaurante."]],
+    faqs: [
+      [
+        "O Varanda Ypê tem espaço kids com brinquedo?",
+        "Sim. O restaurante tem espaço kids com brinquedão para crianças no Jardim Aurélia, em Campinas.",
+      ],
+      [
+        "O espaço kids foi reformado?",
+        "Sim. O espaço kids foi reformado e revisado em 2026 para conforto, comodidade e lazer das famílias e crianças.",
+      ],
+      [
+        "É um restaurante indicado para famílias?",
+        "Sim. O Varanda Ypê recebe pais, mães, avós e crianças com comida brasileira, pratos kids, porções, almoço de fim de semana e jantar em família.",
+      ],
+      [
+        "É possível reservar mesa perto do espaço kids?",
+        "A reserva pode ser solicitada pelo WhatsApp do restaurante. A equipe orienta a melhor disponibilidade para famílias com crianças.",
+      ],
+    ],
   },
   {
     slug: "porcoes-chopp-jardim-aurelia",
@@ -1173,13 +1203,23 @@ function DiscoveryLinks({ currentSlug }) {
 
 export function SatellitePage({ page }) {
   const pageUrl = `https://varandaype.com/${page.slug}`;
+  const imageUrl = `https://varandaype.com${page.image}`;
   const pageSchema = {
     "@context": "https://schema.org",
     "@type": "WebPage",
     name: page.title,
     description: page.intro,
     url: pageUrl,
-    image: `https://varandaype.com${page.image}`,
+    keywords: page.keywords,
+    image: imageUrl,
+    primaryImageOfPage: {
+      "@type": "ImageObject",
+      contentUrl: imageUrl,
+      url: imageUrl,
+      name: page.imageAlt,
+      caption: page.imageAlt,
+      representativeOfPage: true,
+    },
     isPartOf: {
       "@type": "WebSite",
       name: "Varanda Ypê",

@@ -55,8 +55,8 @@ const pages = [
   },
   {
     route: "/restaurante-com-espaco-kids-campinas", file: path.join("restaurante-com-espaco-kids-campinas", "index.html"),
-    title: "Restaurante com espaço kids em Campinas | Varanda Ypê",
-    description: "Restaurante com espaço kids no Jardim Aurélia, em Campinas, com pratos infantis, almoço de fim de semana e comida brasileira.",
+    title: "Restaurante com espaço kids reformado em Campinas | Varanda Ypê",
+    description: "Restaurante com espaço kids no Jardim Aurélia, em Campinas. Brinquedão reformado em 2026, comida brasileira, pratos kids, almoço, jantar e ambiente familiar.",
     canonical: "https://varandaype.com/restaurante-com-espaco-kids-campinas",
   },
   {
