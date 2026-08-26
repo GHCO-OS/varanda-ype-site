@@ -4,6 +4,21 @@
     <loc>https://varandaype.com/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://varandaype.com/ambiente/salao-amplo-aberto-rampas-varanda-ype-campinas.webp</image:loc>
+      <image:title>Salão amplo aberto e confortável do Varanda Ypê</image:title>
+      <image:caption>Restaurante familiar no Jardim Aurélia com rampas de acesso, salão aberto, mesas confortáveis e excelente circulação de ar.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://varandaype.com/ambiente/espaco-kids-visivel-familia-varanda-ype-campinas.webp</image:loc>
+      <image:title>Espaço kids à vista da família no Varanda Ypê</image:title>
+      <image:caption>Espaço kids reformado e revisado em 2026 para conforto, lazer e comodidade de famílias com crianças em Campinas.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://varandaype.com/ambiente/restaurante-familiar-circulacao-ar-varanda-ype-campinas.webp</image:loc>
+      <image:title>Restaurante familiar arejado em Campinas</image:title>
+      <image:caption>Ambiente aberto, confortável e arejado, com espaço kids integrado à visão dos familiares no Varanda Ypê.</image:caption>
+    </image:image>
   </url>
   <url>
     <loc>https://varandaype.com/menu</loc>

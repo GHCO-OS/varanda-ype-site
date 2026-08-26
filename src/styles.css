@@ -1319,11 +1319,78 @@ h2 {
   align-items: end;
 }
 
+.about-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(280px, 0.75fr);
+  gap: clamp(32px, 6vw, 92px);
+  align-items: end;
+  margin-bottom: 34px;
+}
+
 .about p:not(.section-label) {
   margin-bottom: 8px;
   color: rgba(14, 53, 27, 0.78);
   font-size: 1.22rem;
   line-height: 1.55;
+}
+
+.about .about-head p:not(.section-label) {
+  margin: 0;
+}
+
+.ambience-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(300px, 0.9fr);
+  gap: 18px;
+}
+
+.ambience-card {
+  overflow: hidden;
+  border: 1px solid rgba(14, 53, 27, 0.16);
+  border-radius: 10px;
+  background: #fff9e9;
+  box-shadow: 0 18px 48px rgba(14, 53, 27, 0.08);
+}
+
+.ambience-card:first-child {
+  grid-row: span 2;
+}
+
+.ambience-card picture {
+  display: block;
+}
+
+.ambience-card img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  background: var(--green-deep);
+}
+
+.ambience-card:first-child img {
+  min-height: 520px;
+}
+
+.ambience-card div {
+  padding: 18px;
+}
+
+.ambience-card h3 {
+  margin: 0 0 8px;
+  color: var(--green-deep);
+  font-family: Montserrat, sans-serif;
+  font-size: 0.96rem;
+  font-weight: 800;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.about .ambience-card p {
+  margin: 0;
+  color: rgba(14, 53, 27, 0.74);
+  font-size: 1.02rem;
+  line-height: 1.45;
 }
 
 .menu {
@@ -1968,6 +2035,7 @@ h2 {
 
   .hero-grid,
   .about-grid,
+  .about-head,
   .section-heading,
   .online-menu-head,
   .ifood-hero-grid,
@@ -1977,6 +2045,18 @@ h2 {
   .experience-grid,
   .footer-grid {
     grid-template-columns: 1fr;
+  }
+
+  .ambience-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ambience-card:first-child {
+    grid-row: auto;
+  }
+
+  .ambience-card:first-child img {
+    min-height: 360px;
   }
 
   .hero-grid {
@@ -2170,6 +2250,10 @@ h2 {
     padding: 64px 0;
   }
 
+  .about-head {
+    margin-bottom: 24px;
+  }
+
   .company-hero h1 {
     font-size: clamp(2.45rem, 12.5vw, 3.55rem);
     line-height: 0.95;
@@ -2194,8 +2278,27 @@ h2 {
   }
 
   .gallery-grid,
+  .ambience-grid,
   .delivery-grid {
     grid-template-columns: 1fr;
+  }
+
+  .ambience-card img,
+  .ambience-card:first-child img {
+    min-height: 0;
+    aspect-ratio: 4 / 3;
+  }
+
+  .ambience-card div {
+    padding: 16px;
+  }
+
+  .ambience-grid {
+    padding-bottom: 28px;
+  }
+
+  .about .ambience-card p {
+    font-size: 0.98rem;
   }
 
   .dish-copy {

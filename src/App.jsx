@@ -541,6 +541,33 @@ const menuHighlights = [
   },
 ];
 
+const ambienceGallery = [
+  {
+    title: "Espaço kids à vista da família",
+    text:
+      "Brinquedão reformado e revisado em 2026, em uma área que permite aos familiares acompanharem as crianças com tranquilidade.",
+    image: "/ambiente/espaco-kids-visivel-familia-varanda-ype-campinas.jpg",
+    alt:
+      "Espaço kids com brinquedão colorido visível para famílias no restaurante Varanda Ypê em Campinas",
+  },
+  {
+    title: "Salão amplo, aberto e confortável",
+    text:
+      "Ambiente espaçoso, com rampas de acesso, circulação livre entre mesas e estrutura pensada para receber famílias e grupos com comodidade.",
+    image: "/ambiente/salao-amplo-aberto-rampas-varanda-ype-campinas.jpg",
+    alt:
+      "Salão amplo aberto e confortável do restaurante Varanda Ypê com rampas de acesso em Campinas",
+  },
+  {
+    title: "Excelente circulação de ar",
+    text:
+      "Área aberta, arejada e acolhedora, com o espaço kids integrado à visão dos familiares para um almoço ou jantar mais tranquilo.",
+    image: "/ambiente/restaurante-familiar-circulacao-ar-varanda-ype-campinas.jpg",
+    alt:
+      "Restaurante familiar Varanda Ypê com salão arejado e espaço kids ao fundo no Jardim Aurélia",
+  },
+];
+
 const experienceItems = [
   ["Pratos e espetinhos", "Comida brasileira para almoço, jantar e mesa cheia."],
   ["Chopp e porções", "Clima de boteco brasileiro com petiscos para compartilhar."],
@@ -1705,17 +1732,37 @@ export function HomePage() {
       </section>
 
       <section className="about section-cream" id="ambiente">
-        <Reveal className="section-inner about-grid">
-          <div>
-            <p className="section-label">Casa brasileira</p>
-            <h2>Uma casa brasileira para almoçar, brindar e ficar</h2>
+        <div className="section-inner">
+          <Reveal as="div" className="about-head">
+            <div>
+              <p className="section-label">Ambiente familiar</p>
+              <h2>Espaço amplo, aberto e confortável para a família inteira</h2>
+            </div>
+            <p>
+              O Varanda Ypê foi revisado e reformado em 2026 para receber famílias
+              com mais conforto, comodidade e lazer: salão aberto, excelente
+              circulação de ar, rampas de acesso e espaço kids na visão dos
+              familiares.
+            </p>
+          </Reveal>
+
+          <div className="ambience-grid">
+            {ambienceGallery.map((item, index) => (
+              <Reveal
+                as="article"
+                className="ambience-card"
+                key={item.title}
+                delay={Math.min(index, 2) * 60}
+              >
+                <Img src={item.image} alt={item.alt} width={720} height={540} />
+                <div>
+                  <h3>{item.title}</h3>
+                  <p>{item.text}</p>
+                </div>
+              </Reveal>
+            ))}
           </div>
-          <p>
-            O Varanda Ypê é aquele lugar para comer bem, reunir a família e ficar
-            à vontade. Tem pratos bem servidos, espetinhos, chopp, porções e espaço
-            kids para a mesa toda aproveitar.
-          </p>
-        </Reveal>
+        </div>
       </section>
 
       <section className="menu section-green seam-cream" id="cardapio">
