@@ -115,6 +115,298 @@ const googleBusinessUrl = "https://share.google/pxyfGTy3KNNdToPxk";
 const companyFormUrl = "https://form.jotform.com/262195555788070";
 const qualityReviewUrl = "https://form.jotform.com/262324465405050";
 
+export const productPages = [
+  {
+    slug: "pratos-executivos-campinas",
+    eyebrow: "Pratos executivos",
+    title: "Pratos executivos no Jardim Aurélia",
+    intro:
+      "Almoço bem servido em Campinas com pratos executivos, grelhados, massas, risotos e acompanhamentos brasileiros no Varanda Ypê.",
+    image: "/pratos/chorizo.png",
+    imageAlt: "Prato executivo servido no Varanda Ypê em Campinas",
+    menuAnchor: "/menu#la-carte",
+    orderLabel: "Ver executivos",
+    metaTitle: "Pratos executivos em Campinas | Varanda Ypê",
+    metaDescription:
+      "Pratos executivos no Jardim Aurélia, em Campinas: grelhados, carnes, frango, peixe, massas, risotos e almoço bem servido no Varanda Ypê.",
+    sections: [
+      [
+        "Almoço direto e completo",
+        "Os executivos do Varanda Ypê foram pensados para quem quer comer bem sem complicar: prato montado, acompanhamentos brasileiros e opções para diferentes fomes.",
+      ],
+      [
+        "Grelhados, massas e risotos",
+        "O cardápio reúne carnes grelhadas, frango, peixe, risotos e massas, com pratos como bife ancho, filé mignon, fraldinha, tilápia, salmão, risoto cuiabano e talharim 4 queijos.",
+      ],
+      [
+        "Para salão, retirada ou delivery",
+        "Consulte o cardápio online para ver preços e disponibilidade. Alguns itens podem variar conforme o horário de atendimento e o canal de pedido.",
+      ],
+    ],
+    faqs: [
+      ["Onde encontrar pratos executivos no Jardim Aurélia?", "No Varanda Ypê, na Av. Brigadeiro Rafael Tobias de Aguiar, 1121, Jardim Aurélia, Campinas."],
+      ["Quais tipos de executivos aparecem no cardápio?", "Há opções com carnes, frango, peixe, massas, risotos e acompanhamentos brasileiros."],
+      ["Dá para pedir executivo por delivery?", "Sim. Consulte os canais de pedido online para ver disponibilidade no horário."],
+    ],
+  },
+  {
+    slug: "jantinha-campinas",
+    eyebrow: "Jantinha",
+    title: "Jantinha com espetinhos em Campinas",
+    intro:
+      "Jantinha Expressa com espetinhos clássicos para quem quer comer à noite de um jeito prático, saboroso e com clima de boteco.",
+    image: "/porcoes/tulipa-frita.png",
+    imageAlt: "Espetinho e porção para jantinha no Varanda Ypê",
+    menuAnchor: "/menu#espetinhos",
+    orderLabel: "Ver jantinha",
+    metaTitle: "Jantinha em Campinas | Varanda Ypê",
+    metaDescription:
+      "Jantinha em Campinas no Varanda Ypê: espetinhos clássicos à noite, porções, chopp e jantar no Jardim Aurélia.",
+    sections: [
+      [
+        "Espetinhos no jantar",
+        "À noite, o Varanda Ypê trabalha com espetinhos clássicos, especiais e premium, além da Jantinha Expressa para quem quer resolver a refeição sem perder o clima de mesa de boteco.",
+      ],
+      [
+        "Opção prática para a noite",
+        "A Jantinha Expressa aparece no cardápio como uma escolha rápida com 2 espetinhos clássicos, boa para jantar leve ou para começar a noite.",
+      ],
+      [
+        "Combine com porções e bebidas",
+        "Quem vem em grupo pode combinar espetinhos com fritas, mandioca, iscas, linguiça cuiabana, chopp, cervejas e refrigerantes.",
+      ],
+    ],
+    faqs: [
+      ["Quando tem jantinha no Varanda Ypê?", "A jantinha e os espetinhos são opções do período noturno. O jantar presencial funciona de segunda a sábado, das 18h às 23h."],
+      ["O que vem na Jantinha Expressa?", "No cardápio estudado, a Jantinha Expressa aparece com 2 espetinhos clássicos."],
+      ["Onde fica o Varanda Ypê?", "Na Av. Brigadeiro Rafael Tobias de Aguiar, 1121, Jardim Aurélia, Campinas."],
+    ],
+  },
+  {
+    slug: "pratos-familia-campinas",
+    eyebrow: "Pratos família",
+    title: "Pratos família para compartilhar",
+    intro:
+      "Picanha Família, Costela Família e pratos grandes para dividir a mesa no Varanda Ypê, no Jardim Aurélia, em Campinas.",
+    image: "/pratos/fraldinha.png",
+    imageAlt: "Prato de carne para compartilhar no Varanda Ypê",
+    menuAnchor: "/menu#parmegiana-familia",
+    orderLabel: "Ver pratos família",
+    metaTitle: "Pratos família em Campinas | Varanda Ypê",
+    metaDescription:
+      "Pratos família em Campinas para compartilhar: picanha, costela, acompanhamentos brasileiros e opções para até 4 pessoas no Varanda Ypê.",
+    sections: [
+      [
+        "Mesa cheia sem complicar",
+        "Os pratos família são uma escolha para quem quer pedir uma opção central, com carne e acompanhamentos, em vez de montar vários pratos individuais.",
+      ],
+      [
+        "Picanha e costela",
+        "No cardápio estudado, a Picanha Família acompanha arroz carreteiro, feijão tropeiro, farofa, vinagrete e fritas. A Costela Família acompanha arroz carreteiro, feijão tropeiro, farofa, vinagrete e mandioca frita.",
+      ],
+      [
+        "Para família e grupos",
+        "São opções pensadas para almoço de fim de semana, encontros de família e grupos que querem compartilhar comida brasileira bem servida.",
+      ],
+    ],
+    faqs: [
+      ["Quantas pessoas os pratos família servem?", "O cardápio indica pratos família que servem até 4 pessoas."],
+      ["Quais pratos família existem no cardápio?", "No cardápio estudado aparecem Picanha Família e Costela Família."],
+      ["Esses pratos têm acompanhamentos?", "Sim. Eles acompanham arroz carreteiro, feijão tropeiro, farofa, vinagrete e fritas ou mandioca, conforme o prato."],
+    ],
+  },
+  {
+    slug: "marmitas-jardim-aurelia",
+    eyebrow: "Marmitas",
+    title: "Marmitas no Jardim Aurélia",
+    intro:
+      "Marmitaria e rotisseria todos os dias no almoço, com comida brasileira para rotina, retirada, delivery e pedidos sob consulta.",
+    image: "/pratos/risoto-cuiabano.png",
+    imageAlt: "Prato de almoço do Varanda Ypê para marmitas no Jardim Aurélia",
+    menuAnchor: "/menu",
+    orderLabel: "Ver cardápio",
+    metaTitle: "Marmitas no Jardim Aurélia, Campinas | Varanda Ypê",
+    metaDescription:
+      "Marmitas no Jardim Aurélia: marmitaria e rotisseria do Varanda Ypê todos os dias no almoço, das 11h às 14h30, em Campinas.",
+    sections: [
+      [
+        "Almoço para a rotina",
+        "A marmitaria do Varanda Ypê atende todos os dias no horário de almoço, com opções para quem está no trabalho, em casa ou procurando uma refeição prática no Jardim Aurélia.",
+      ],
+      [
+        "Rotisseria e pedidos do dia",
+        "A disponibilidade de pratos pode variar conforme a operação. O ideal é consultar o canal de pedido ou falar com a equipe para confirmar as opções do dia.",
+      ],
+      [
+        "Também para empresas",
+        "Empresas e equipes podem conversar com o Varanda Ypê sobre volume, datas, retirada ou entrega de refeições no almoço.",
+      ],
+    ],
+    faqs: [
+      ["Qual é o horário das marmitas?", "A marmitaria e rotisseria atende todos os dias, das 11h às 14h30."],
+      ["Tem marmita no Jardim Aurélia?", "Sim. O Varanda Ypê fica no Jardim Aurélia, em Campinas."],
+      ["Empresas podem pedir marmitas?", "Sim. Pedidos para equipes e volumes maiores podem ser combinados com antecedência."],
+    ],
+  },
+  {
+    slug: "carnes-por-kg-campinas",
+    eyebrow: "Carnes por kg",
+    title: "Carnes por kg em Campinas",
+    intro:
+      "Carnes assadas e grelhadas para encomendas, almoço de família, empresas e refeições em volume sob consulta no Varanda Ypê.",
+    image: "/pratos/chorizo.png",
+    imageAlt: "Carne grelhada do Varanda Ypê para pedidos por kg",
+    menuAnchor: "/empresa",
+    orderLabel: "Consultar pedido",
+    metaTitle: "Carnes por kg em Campinas | Varanda Ypê",
+    metaDescription:
+      "Carnes por kg em Campinas sob consulta no Varanda Ypê: opções para família, empresas, almoço, encomendas e eventos no Jardim Aurélia.",
+    sections: [
+      [
+        "Pedidos sob consulta",
+        "Para carnes por kg, o melhor caminho é falar com a equipe e informar data, quantidade de pessoas, tipo de carne e se o pedido será retirado ou entregue.",
+      ],
+      [
+        "Para família e empresas",
+        "A proposta atende ocasiões como almoço em família, reuniões, confraternizações e equipes que precisam organizar refeições com antecedência.",
+      ],
+      [
+        "Cardápio brasileiro",
+        "O Varanda Ypê trabalha com carnes, acompanhamentos brasileiros, porções e pratos bem servidos. A composição final depende do pedido e da disponibilidade.",
+      ],
+    ],
+    faqs: [
+      ["O Varanda Ypê vende carnes por kg?", "Pedidos de carnes por kg devem ser consultados diretamente com a equipe, conforme data, volume e disponibilidade."],
+      ["Serve para empresas?", "Sim. A casa atende consultas para refeições corporativas e pedidos em volume."],
+      ["Como faço orçamento?", "Fale pelo WhatsApp do Varanda Ypê e informe quantidade, data, horário e tipo de refeição."],
+    ],
+  },
+  {
+    slug: "chef-elisangela",
+    eyebrow: "Chef Elisângela",
+    title: "Chef Elisângela e a cozinha do Varanda Ypê",
+    intro:
+      "A assinatura da cozinha do Varanda Ypê passa por comida brasileira, pratos bem servidos e receitas pensadas para almoço, jantar e mesa de família.",
+    image: "/logo-varanda-icon.png",
+    imageAlt: "Marca do Varanda Ypê, restaurante de comida brasileira em Campinas",
+    menuAnchor: "/menu",
+    orderLabel: "Conhecer cardápio",
+    metaTitle: "Chef Elisângela | Varanda Ypê Campinas",
+    metaDescription:
+      "Conheça a cozinha do Varanda Ypê e a assinatura da Chef Elisângela em Campinas: comida brasileira, pratos executivos, família, boteco e marmitaria.",
+    sections: [
+      [
+        "Cozinha brasileira de verdade",
+        "A proposta da casa valoriza comida reconhecível, bem temperada e servida com cuidado: pratos executivos, carnes, risotos, massas, porções e opções para a família.",
+      ],
+      [
+        "Do almoço ao jantar",
+        "A cozinha conecta a rotina do almoço, a marmitaria, o jantar com espetinhos e as mesas maiores de fim de semana.",
+      ],
+      [
+        "Mais conteúdo em breve",
+        "Esta página será enriquecida com fotos, história, pratos autorais e programas especiais conforme novos materiais forem enviados.",
+      ],
+    ],
+    faqs: [
+      ["Quem é a Chef Elisângela?", "É a referência da cozinha do Varanda Ypê. A página será ampliada com história, fotos e pratos especiais enviados pela equipe."],
+      ["Que tipo de comida o Varanda Ypê serve?", "Comida brasileira, pratos executivos, carnes, massas, risotos, porções, espetinhos e opções para família."],
+      ["Onde vejo os pratos da casa?", "O cardápio completo está disponível na página de menu do Varanda Ypê."],
+    ],
+  },
+];
+
+const discoveryPages = [
+  {
+    slug: "delivery-varanda-ype-campinas",
+    eyebrow: "Delivery e apps",
+    title: "Encontre o Varanda Ypê nos apps e nas buscas",
+    intro:
+      "Procure por Varanda Ypê ou Varanda Ype em Campinas para achar a casa nos canais de pedido, mapas, delivery e sugestões de local.",
+    image: "/pratos/chorizo.png",
+    imageAlt: "Prato executivo do Varanda Ypê disponível para pedido em Campinas",
+    sections: [
+      [
+        "Nome igual em todos os lugares",
+        "Para facilitar a busca em apps como 99, 99Food, Uber, iFood, Google e mapas, use os nomes Varanda Ypê e Varanda Ype junto do bairro Jardim Aurélia ou da cidade Campinas.",
+      ],
+      [
+        "Canais de pedido conhecidos",
+        "O site aponta para iFood, 99Food e Expresso Varanda Ypê, além do WhatsApp oficial para tirar dúvidas, reservar mesa e confirmar disponibilidade.",
+      ],
+      [
+        "Endereço para sugestão de local",
+        "O endereço da casa é Av. Brigadeiro Rafael Tobias de Aguiar, 1121 - Jardim Aurélia, Campinas/SP. Manter esse dado igual nos apps ajuda os sistemas a reconhecerem o mesmo estabelecimento.",
+      ],
+    ],
+    faqs: [
+      ["Como procurar o Varanda Ypê nos apps?", "Busque por Varanda Ypê, Varanda Ype, restaurante Jardim Aurélia ou pelo endereço Av. Brigadeiro Rafael Tobias de Aguiar, 1121, Campinas."],
+      ["Quais canais de pedido aparecem no site?", "O site direciona para iFood, 99Food, Expresso Varanda Ypê e WhatsApp oficial."],
+      ["Por que o nome sem acento também aparece?", "Alguns apps e pesquisas tratam acentos de forma diferente. Usar Varanda Ypê e Varanda Ype ajuda a conectar buscas com e sem acento."],
+    ],
+  },
+  {
+    slug: "restaurante-jardim-aurelia",
+    eyebrow: "Restaurante no Jardim Aurélia",
+    title: "Comida brasileira no Jardim Aurélia, em Campinas",
+    intro: "O Varanda Ypê reúne almoço, jantar, porções, espetinhos e bebidas na Av. Brigadeiro Rafael Tobias de Aguiar, 1121, no Jardim Aurélia.",
+    image: "/pratos/chorizo.png",
+    imageAlt: "Prato executivo do restaurante Varanda Ypê no Jardim Aurélia",
+    sections: [
+      ["Uma casa para diferentes momentos", "Durante o almoço, a casa serve pratos bem acompanhados e opções para a rotina. À noite, espetinhos, porções e chopp deixam a mesa mais descontraída para famílias e grupos de amigos."],
+      ["Onde fica o Varanda Ypê", "Estamos na Av. Brigadeiro Rafael Tobias de Aguiar, 1121, Jardim Aurélia, Campinas. Para confirmar o funcionamento no dia da visita ou reservar uma mesa, fale com a equipe pelo WhatsApp."],
+      ["Comer no salão ou pedir em casa", "Além do atendimento presencial, é possível consultar o cardápio e escolher entre os canais de delivery disponíveis. A disponibilidade de itens e entrega pode variar conforme o horário."],
+    ],
+    faqs: [
+      ["Onde fica o Varanda Ypê?", "Na Av. Brigadeiro Rafael Tobias de Aguiar, 1121, Jardim Aurélia, Campinas."],
+      ["O restaurante serve almoço e jantar?", "Sim. Há atendimento presencial no almoço aos sábados e domingos e jantar de segunda a sábado. A marmitaria e rotisseria atende todos os dias no almoço."],
+      ["Como consultar o cardápio?", "O cardápio completo está disponível no site, com pratos, porções, espetinhos e bebidas."],
+    ],
+  },
+  {
+    slug: "almoco-jardim-aurelia",
+    eyebrow: "Almoço no Jardim Aurélia",
+    title: "Pratos para o almoço no Jardim Aurélia",
+    intro: "Executivos, grelhados, massas, risotos e opções para a família no almoço do Varanda Ypê, em Campinas.",
+    image: "/pratos/fraldinha.png",
+    imageAlt: "Fraldinha servida no almoço do Varanda Ypê em Campinas",
+    sections: [
+      ["Almoço bem servido", "O cardápio reúne carnes grelhadas, frango, peixe, massas, risotos e acompanhamentos brasileiros. Consulte os itens e preços atuais antes de vir ou pedir."],
+      ["Presencial e marmitaria", "O almoço presencial acontece aos sábados e domingos, das 11h às 15h. A marmitaria e rotisseria funciona todos os dias, das 11h às 14h30, sujeita à disponibilidade do dia."],
+      ["Almoço para equipes", "Empresas e grupos podem conversar com a equipe sobre quantidade, data, retirada ou entrega. Pedidos maiores devem ser combinados com antecedência."],
+    ],
+    faqs: [["Que horas é servido o almoço presencial?", "Aos sábados e domingos, das 11h às 15h."], ["Há almoço durante a semana?", "A marmitaria e rotisseria atende todos os dias, das 11h às 14h30. Confirme os itens disponíveis no dia."], ["O Varanda Ypê atende empresas?", "Sim. A casa recebe consultas para refeições de equipes, reuniões e pedidos em volume."]],
+  },
+  {
+    slug: "restaurante-com-espaco-kids-campinas",
+    eyebrow: "Família e espaço kids",
+    title: "Restaurante com espaço kids no Jardim Aurélia",
+    intro: "Uma opção em Campinas para reunir adultos e crianças em torno de comida brasileira, porções e pratos infantis.",
+    image: "/pratos/risoto-cuiabano.png",
+    imageAlt: "Prato do Varanda Ypê, restaurante para famílias em Campinas",
+    sections: [
+      ["Mesa para a família", "O ambiente tem espaço kids e o cardápio inclui pratos infantis, além de opções para compartilhar. Consulte a equipe sobre a estrutura e a programação disponíveis na data da visita."],
+      ["Almoço de fim de semana", "A casa recebe famílias para o almoço presencial aos sábados e domingos, das 11h às 15h. Reservas e dúvidas podem ser tratadas diretamente pelo WhatsApp."],
+      ["Opções para adultos e crianças", "Há pratos kids com carne ou frango, acompanhados de arroz, feijão e fritas, além de grelhados, massas, risotos, porções e bebidas para o restante da mesa."],
+    ],
+    faqs: [["O Varanda Ypê tem espaço kids?", "Sim. A casa possui espaço kids. Consulte a equipe sobre a estrutura e eventual programação na data da visita."], ["Há pratos infantis?", "Sim. O cardápio possui opções kids com carne ou frango e acompanhamentos."], ["É possível reservar mesa?", "Sim. A reserva pode ser solicitada pelo WhatsApp do restaurante."]],
+  },
+  {
+    slug: "porcoes-chopp-jardim-aurelia",
+    eyebrow: "Boteco no Jardim Aurélia",
+    title: "Porções, espetinhos e chopp no Jardim Aurélia",
+    intro: "Para jantar, petiscar e dividir a mesa: porções de boteco, espetinhos e bebidas no Varanda Ypê.",
+    image: "/porcoes/calabresa-com-fritas.png",
+    imageAlt: "Porção de calabresa com fritas do Varanda Ypê",
+    sections: [
+      ["Porções para compartilhar", "O cardápio inclui fritas, mandioca, calabresa, torresmo, iscas, linguiça e outras opções para dividir. Preços e disponibilidade podem ser consultados no cardápio online."],
+      ["Espetinhos no jantar", "À noite, a casa serve espetinhos clássicos e especiais, além de pratos, lanches e acompanhamentos. O jantar presencial funciona de segunda a sábado, das 18h às 23h."],
+      ["Bebidas para acompanhar", "Chopp, cervejas, refrigerantes, sucos e drinks completam a experiência de boteco brasileiro no Jardim Aurélia."],
+    ],
+    faqs: [["Quando são servidos os espetinhos?", "Os espetinhos são servidos no período noturno."], ["Qual é o horário do jantar?", "De segunda a sábado, das 18h às 23h."], ["O cardápio de porções está online?", "Sim. O site apresenta as porções, tamanhos e preços para consulta."]],
+  },
+];
+
 function QualityReviewBanner() {
   return (
     <aside className="quality-review-banner" aria-label="Avaliação anônima de qualidade">
@@ -865,6 +1157,212 @@ export function CompanyPage() {
   );
 }
 
+function DiscoveryLinks({ currentSlug }) {
+  return (
+    <nav className="discovery-links" aria-label="Conheça o Varanda Ypê">
+      <h2>Mais formas de conhecer a casa</h2>
+      <div>
+        {discoveryPages.filter((page) => page.slug !== currentSlug).map((page) => (
+          <a href={`/${page.slug}`} key={page.slug}>{page.eyebrow}</a>
+        ))}
+        <a href="/menu">Ver cardápio completo</a>
+      </div>
+    </nav>
+  );
+}
+
+export function SatellitePage({ page }) {
+  const pageUrl = `https://varandaype.com/${page.slug}`;
+  const pageSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: page.title,
+    description: page.intro,
+    url: pageUrl,
+    image: `https://varandaype.com${page.image}`,
+    isPartOf: {
+      "@type": "WebSite",
+      name: "Varanda Ypê",
+      url: "https://varandaype.com/",
+    },
+    about: {
+      "@type": "Restaurant",
+      "@id": "https://varandaype.com/#restaurant",
+      name: "Varanda Ypê",
+      alternateName: ["Varanda Ype", "Varanda Ypê - Jd. Aurélia"],
+      telephone: "+551931991971",
+      hasMenu: "https://varandaype.com/menu",
+      sameAs: [googleBusinessUrl, ifoodUrl, ninetyNineFoodPrimaryUrl, expressoUrl],
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: "Av. Brigadeiro Rafael Tobias de Aguiar, 1121",
+        addressLocality: "Campinas",
+        addressRegion: "SP",
+        addressCountry: "BR",
+      },
+    },
+  };
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Início",
+        item: "https://varandaype.com/",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: page.eyebrow,
+        item: pageUrl,
+      },
+    ],
+  };
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: page.faqs.map(([question, answer]) => ({
+      "@type": "Question", name: question,
+      acceptedAnswer: { "@type": "Answer", text: answer },
+    })),
+  };
+
+  return (
+    <main className="satellite-page">
+      <header className="menu-page-header">
+        <a className="brand" href="/" aria-label="Voltar para a home do Varanda Ypê">
+          <Img src="/logo-icon-96.png" alt="" width={52} height={52} priority />
+          <span>Varanda Ypê</span>
+        </a>
+        <a className="header-cta" href="/menu">Cardápio</a>
+        <a className="delivery-header-button" href={whatsappUrl} target="_blank" rel="noreferrer">Reservar</a>
+      </header>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(pageSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      <section className="satellite-hero">
+        <div className="section-inner satellite-hero-grid">
+          <div>
+            <nav className="breadcrumbs" aria-label="Navegação estrutural"><a href="/">Início</a><span>›</span><span>{page.eyebrow}</span></nav>
+            <p className="section-label">{page.eyebrow}</p>
+            <h1>{page.title}</h1>
+            <p>{page.intro}</p>
+            <div className="hero-actions">
+              <a className="button button-primary" href="/menu">Ver cardápio</a>
+              <a className="button button-secondary" href={whatsappUrl} target="_blank" rel="noreferrer">Falar no WhatsApp</a>
+            </div>
+          </div>
+          <Img src={page.image} alt={page.imageAlt} width={560} height={500} priority />
+        </div>
+      </section>
+      <section className="satellite-content section-cream">
+        <div className="section-inner satellite-section-grid">
+          {page.sections.map(([title, copy]) => <article key={title}><h2>{title}</h2><p>{copy}</p></article>)}
+        </div>
+      </section>
+      <section className="satellite-faq section-green">
+        <div className="section-inner">
+          <p className="section-label">Dúvidas frequentes</p><h2>Antes de visitar ou pedir</h2>
+          <div className="faq-grid">{page.faqs.map(([question, answer]) => <article key={question}><h3>{question}</h3><p>{answer}</p></article>)}</div>
+        </div>
+      </section>
+      <div className="section-inner"><DiscoveryLinks currentSlug={page.slug} /></div>
+    </main>
+  );
+}
+
+export function ProductPage({ page }) {
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: page.faqs.map(([question, answer]) => ({
+      "@type": "Question",
+      name: question,
+      acceptedAnswer: { "@type": "Answer", text: answer },
+    })),
+  };
+  const pageSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: page.title,
+    description: page.intro,
+    url: `https://varandaype.com/${page.slug}/`,
+    image: `https://varandaype.com${page.image}`,
+    isPartOf: {
+      "@type": "WebSite",
+      name: "Varanda Ypê",
+      url: "https://varandaype.com/",
+    },
+    about: {
+      "@type": "FoodEstablishment",
+      name: "Varanda Ypê",
+      address: "Av. Brigadeiro Rafael Tobias de Aguiar, 1121 - Jardim Aurélia, Campinas/SP",
+    },
+  };
+
+  return (
+    <main className="satellite-page product-page">
+      <header className="menu-page-header">
+        <a className="brand" href="/" aria-label="Voltar para a home do Varanda Ypê">
+          <Img src="/logo-icon-96.png" alt="" width={52} height={52} priority />
+          <span>Varanda Ypê</span>
+        </a>
+        <a className="header-cta" href="/menu">Cardápio</a>
+        <a className="delivery-header-button" href={ifoodUrl} target="_blank" rel="noreferrer">Delivery</a>
+      </header>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(pageSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      <section className="satellite-hero product-hero">
+        <div className="section-inner satellite-hero-grid">
+          <div>
+            <nav className="breadcrumbs" aria-label="Navegação estrutural">
+              <a href="/">Início</a>
+              <span>›</span>
+              <a href="/menu">Cardápio</a>
+              <span>›</span>
+              <span>{page.eyebrow}</span>
+            </nav>
+            <p className="section-label">{page.eyebrow}</p>
+            <h1>{page.title}</h1>
+            <p>{page.intro}</p>
+            <div className="hero-actions">
+              <a className="button button-primary" href={page.menuAnchor}>{page.orderLabel}</a>
+              <a className="button button-secondary" href={ifoodUrl} target="_blank" rel="noreferrer">Pedir delivery</a>
+            </div>
+          </div>
+          <Img src={page.image} alt={page.imageAlt} width={560} height={500} priority />
+        </div>
+      </section>
+      <section className="satellite-content section-cream">
+        <div className="section-inner satellite-section-grid">
+          {page.sections.map(([title, copy]) => (
+            <article key={title}>
+              <h2>{title}</h2>
+              <p>{copy}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+      <section className="satellite-faq section-green">
+        <div className="section-inner">
+          <p className="section-label">Dúvidas frequentes</p>
+          <h2>Antes de pedir</h2>
+          <div className="faq-grid">
+            {page.faqs.map(([question, answer]) => (
+              <article key={question}>
+                <h3>{question}</h3>
+                <p>{answer}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+    </main>
+  );
+}
+
 export function HomePage() {
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -923,19 +1421,40 @@ export function HomePage() {
         </header>
 
         <div className="hero-grid">
+          <div className="hero-utility-grid" aria-label="Informações e facilidades do Varanda Ypê">
+            <article className="hero-utility-card">
+              <span className="hero-utility-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 7v5l3 2"/></svg>
+              </span>
+              <div>
+                <strong>Horários da casa</strong>
+                <span>Jantar: seg. a sáb. · 18h às 23h</span>
+                <small>Almoço: sáb. e dom. · 11h às 15h</small>
+                <small>Marmitaria: todos os dias · 11h às 14h30</small>
+              </div>
+            </article>
+            <a className="hero-utility-card" href="https://whatsapp.com/channel/0029VbAcHLXFSAsxCt6lly0a" target="_blank" rel="noreferrer" aria-label="Abrir o canal do Varanda Ypê no WhatsApp">
+              <span className="hero-utility-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M20 11.5a8 8 0 0 1-12 6.9L4 20l1.6-3.8A8 8 0 1 1 20 11.5Z"/><path d="M9 9.5c.8 2 2 3.2 4 4"/></svg>
+              </span>
+              <div>
+                <strong>Canal no WhatsApp</strong>
+                <span>Novidades direto da casa</span>
+                <small>Seguir o canal</small>
+              </div>
+            </a>
+            <a className="hero-utility-card" href="https://expresso.varandaype.com/loja/fidelidade" target="_blank" rel="noreferrer">
+              <span className="hero-utility-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><rect x="4" y="7" width="16" height="13" rx="2"/><path d="M12 7v13M4 11h16M8.5 7C6 7 6 3.5 8 3.5c2.2 0 4 3.5 4 3.5M15.5 7c2.5 0 2.5-3.5.5-3.5-2.2 0-4 3.5-4 3.5"/></svg>
+              </span>
+              <div>
+                <strong>Programa de fidelidade</strong>
+                <span>Acumule pontos e cashback</span>
+                <small>Conheça os benefícios</small>
+              </div>
+            </a>
+          </div>
           <div className="hero-copy">
-            <div className="hero-status" aria-label="Horários de atendimento">
-              <span>Horários da casa</span>
-              <div className="hero-status-list">
-                <strong>Presencial</strong>
-                <p>Jantar: 18h às 23h - segunda a sábado</p>
-                <p>Almoço: 11h às 15h - sábado e domingo</p>
-              </div>
-              <div className="hero-status-list">
-                <strong>Marmitaria / rotisseria</strong>
-                <p>Todos os dias - 11h às 14h30</p>
-              </div>
-            </div>
             <p className="signature">Comida brasileira • Boteco • Família</p>
             <h1>Restaurante no Jardim Aurélia para almoço, jantar e delivery</h1>
             <p className="hero-text">
@@ -1006,9 +1525,6 @@ export function HomePage() {
                 height={560}
                 priority
               />
-            </div>
-            <div className="seal-card">
-              <Img src="/logo-varanda-icon.png" alt="Símbolo do Varanda Ypê" width={260} height={260} priority />
             </div>
           </div>
         </div>
@@ -1172,8 +1688,14 @@ export function HomePage() {
 
       <section className="experience section-cream" id="horarios">
         <Reveal className="section-inner experience-grid">
-          <div className="round-photo" aria-hidden="true">
-            <span>Varanda Ypê</span>
+          <div className="round-photo">
+            <Img
+              src="/pratos/fraldinha.png"
+              smSrc="/pratos/fraldinha-sm.png"
+              alt="Fraldinha servida no Varanda Ypê"
+              width={600}
+              height={600}
+            />
           </div>
           <div>
             <p className="section-label">Almoço, jantar e família</p>
@@ -1192,6 +1714,8 @@ export function HomePage() {
           </div>
         </Reveal>
       </section>
+
+      <div className="section-inner"><DiscoveryLinks /></div>
 
       <footer className="footer" id="contato">
         <div className="section-inner footer-grid">
@@ -1242,7 +1766,13 @@ function App({ initialPath } = {}) {
   } else if (route === "/empresa") {
     page = <CompanyPage />;
   } else {
-    page = <HomePage />;
+    const productPage = productPages.find((item) => route === `/${item.slug}`);
+    const discoveryPage = discoveryPages.find((item) => route === `/${item.slug}`);
+    if (productPage) {
+      page = <ProductPage page={productPage} />;
+    } else {
+      page = discoveryPage ? <SatellitePage page={discoveryPage} /> : <HomePage />;
+    }
   }
 
   return (

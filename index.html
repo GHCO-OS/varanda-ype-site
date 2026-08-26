@@ -7,6 +7,11 @@
       name="description"
       content="Restaurante Varanda Ypê em Campinas, no Jardim Aurélia. Comida brasileira, pratos executivos, espetinhos, chopp, porções e espaço kids."
     />
+    <meta name="robots" content="index,follow,max-image-preview:large" />
+    <meta
+      name="keywords"
+      content="Varanda Ypê, Varanda Ype, restaurante Jardim Aurélia, restaurante Campinas, 99Food Campinas, iFood Campinas, Uber Eats Campinas, almoço Jardim Aurélia, jantar Jardim Aurélia"
+    />
     <meta name="theme-color" content="#ea1d2c" />
     <link rel="canonical" href="https://varandaype.com/" />
     <meta property="og:type" content="restaurant.restaurant" />
@@ -28,12 +33,19 @@
       {
         "@context": "https://schema.org",
         "@type": "Restaurant",
+        "@id": "https://varandaype.com/#restaurant",
         "name": "Varanda Ypê",
+        "alternateName": ["Varanda Ype", "Varanda Ypê - Jd. Aurélia", "Varanda Ypê Grill Executivos"],
         "url": "https://varandaype.com/",
+        "description": "Restaurante de comida brasileira no Jardim Aurélia, em Campinas, com almoço, jantar, pratos executivos, espetinhos, porções, chopp, espaço kids e delivery.",
         "image": "https://varandaype.com/logo-varanda-icon.png",
         "telephone": "+551931991971",
-        "servesCuisine": "Comida brasileira",
+        "servesCuisine": ["Comida brasileira", "Boteco brasileiro", "Grelhados", "Espetinhos", "Marmitaria"],
         "priceRange": "$$",
+        "acceptsReservations": "True",
+        "hasMenu": "https://varandaype.com/menu",
+        "menu": "https://varandaype.com/menu",
+        "hasMap": "https://share.google/pxyfGTy3KNNdToPxk",
         "address": {
           "@type": "PostalAddress",
           "streetAddress": "Av. Brigadeiro Rafael Tobias de Aguiar, 1121",
@@ -41,19 +53,39 @@
           "addressRegion": "SP",
           "addressCountry": "BR"
         },
-        "areaServed": "Jardim Aurélia, Campinas",
+        "areaServed": ["Jardim Aurélia", "Campinas", "Campinas/SP"],
+        "keywords": "Varanda Ypê, Varanda Ype, restaurante no Jardim Aurélia, restaurante em Campinas, comida brasileira, almoço, jantar, delivery, 99Food, iFood, Uber Eats, marmitaria, espaço kids",
         "sameAs": [
           "https://instagram.com/varandaype",
           "https://share.google/pxyfGTy3KNNdToPxk",
-          "https://www.ifood.com.br/delivery/campinas-sp/varanda-ype---grill--executivos-jardim-aurelia/2ba9a14c-3df9-4725-8b6b-1294c2c1b156"
+          "https://www.ifood.com.br/delivery/campinas-sp/varanda-ype---grill--executivos-jardim-aurelia/2ba9a14c-3df9-4725-8b6b-1294c2c1b156",
+          "https://oia.99app.com/dlp9/C94oJv?area=BR",
+          "https://oia.99app.com/dlp9/ceXoR0?area=BR",
+          "https://expresso.varandaype.com"
+        ],
+        "potentialAction": [
+          {
+            "@type": "OrderAction",
+            "name": "Pedir no iFood",
+            "target": "https://www.ifood.com.br/delivery/campinas-sp/varanda-ype---grill--executivos-jardim-aurelia/2ba9a14c-3df9-4725-8b6b-1294c2c1b156"
+          },
+          {
+            "@type": "OrderAction",
+            "name": "Pedir no 99Food",
+            "target": "https://oia.99app.com/dlp9/C94oJv?area=BR"
+          },
+          {
+            "@type": "OrderAction",
+            "name": "Pedir direto no Expresso Varanda Ypê",
+            "target": "https://expresso.varandaype.com"
+          },
+          {
+            "@type": "ReserveAction",
+            "name": "Reservar mesa pelo WhatsApp",
+            "target": "https://wa.me/551931991971"
+          }
         ],
         "openingHoursSpecification": [
-          {
-            "@type": "OpeningHoursSpecification",
-            "dayOfWeek": "Friday",
-            "opens": "11:00",
-            "closes": "14:30"
-          },
           {
             "@type": "OpeningHoursSpecification",
             "dayOfWeek": "Saturday",
@@ -64,13 +96,25 @@
             "@type": "OpeningHoursSpecification",
             "dayOfWeek": "Sunday",
             "opens": "11:00",
-            "closes": "16:00"
+            "closes": "15:00"
           },
           {
             "@type": "OpeningHoursSpecification",
             "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
             "opens": "18:00",
             "closes": "23:00"
+          }
+        ],
+        "department": [
+          {
+            "@type": "FoodEstablishment",
+            "name": "Marmitaria e rotisseria Varanda Ypê",
+            "openingHoursSpecification": {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+              "opens": "11:00",
+              "closes": "14:30"
+            }
           }
         ]
       }

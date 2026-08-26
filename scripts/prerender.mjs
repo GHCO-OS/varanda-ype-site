@@ -33,7 +33,49 @@ const pages = [
       "Pedidos para empresas no Varanda Ypê em Campinas: almoço para equipes, reuniões, volume sob consulta, pratos executivos, porções e chopp.",
     canonical: "https://varandaype.com/empresa",
   },
+  {
+    route: "/delivery-varanda-ype-campinas",
+    file: path.join("delivery-varanda-ype-campinas", "index.html"),
+    title: "Delivery Varanda Ypê em Campinas | 99Food, iFood e pedidos",
+    description:
+      "Encontre o Varanda Ypê nos apps e buscas: delivery em Campinas, 99Food, iFood, Expresso, WhatsApp, endereço no Jardim Aurélia e nome sem acento Varanda Ype.",
+    canonical: "https://varandaype.com/delivery-varanda-ype-campinas",
+  },
+  {
+    route: "/restaurante-jardim-aurelia", file: path.join("restaurante-jardim-aurelia", "index.html"),
+    title: "Restaurante no Jardim Aurélia, Campinas | Varanda Ypê",
+    description: "Restaurante no Jardim Aurélia, em Campinas, com comida brasileira, almoço, jantar, porções, espetinhos, espaço kids e delivery.",
+    canonical: "https://varandaype.com/restaurante-jardim-aurelia",
+  },
+  {
+    route: "/almoco-jardim-aurelia", file: path.join("almoco-jardim-aurelia", "index.html"),
+    title: "Almoço no Jardim Aurélia, Campinas | Varanda Ypê",
+    description: "Almoço no Jardim Aurélia com grelhados, massas, risotos, pratos para a família, marmitaria e atendimento para empresas.",
+    canonical: "https://varandaype.com/almoco-jardim-aurelia",
+  },
+  {
+    route: "/restaurante-com-espaco-kids-campinas", file: path.join("restaurante-com-espaco-kids-campinas", "index.html"),
+    title: "Restaurante com espaço kids em Campinas | Varanda Ypê",
+    description: "Restaurante com espaço kids no Jardim Aurélia, em Campinas, com pratos infantis, almoço de fim de semana e comida brasileira.",
+    canonical: "https://varandaype.com/restaurante-com-espaco-kids-campinas",
+  },
+  {
+    route: "/porcoes-chopp-jardim-aurelia", file: path.join("porcoes-chopp-jardim-aurelia", "index.html"),
+    title: "Porções e chopp no Jardim Aurélia | Varanda Ypê",
+    description: "Porções, espetinhos, chopp e bebidas no Jardim Aurélia, em Campinas. Consulte o cardápio e venha jantar no Varanda Ypê.",
+    canonical: "https://varandaype.com/porcoes-chopp-jardim-aurelia",
+  },
 ];
+
+function pageForProduct(product) {
+  return {
+    route: `/${product.slug}`,
+    file: path.join(product.slug, "index.html"),
+    title: product.metaTitle || `${product.eyebrow} em Campinas | Varanda Ypê`,
+    description: product.metaDescription || product.intro,
+    canonical: `https://varandaype.com/${product.slug}/`,
+  };
+}
 
 function applyHead(html, page) {
   return html
@@ -72,9 +114,9 @@ const vite = await createServer({
 
 try {
   const template = await fs.readFile(templatePath, "utf8");
-  const { default: App } = await vite.ssrLoadModule("/src/App.jsx");
+  const { default: App, productPages } = await vite.ssrLoadModule("/src/App.jsx");
 
-  for (const page of pages) {
+  for (const page of [...pages, ...productPages.map(pageForProduct)]) {
     const markup = stripRootPreloads(
       renderToString(React.createElement(App, { initialPath: page.route })),
     );
