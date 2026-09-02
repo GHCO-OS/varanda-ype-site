@@ -523,6 +523,16 @@ const discoveryPages = [
 ];
 
 function QualityReviewBanner() {
+  const [hidden, setHidden] = useState(false);
+
+  useEffect(() => {
+    try {
+      if (sessionStorage.getItem("vy_qr_dismissed")) setHidden(true);
+    } catch (e) {}
+  }, []);
+
+  if (hidden) return null;
+
   return (
     <aside className="quality-review-banner" aria-label="Avaliação anônima de qualidade">
       <div>
@@ -537,6 +547,19 @@ function QualityReviewBanner() {
       >
         Avaliar agora
       </a>
+      <button
+        type="button"
+        className="quality-review-dismiss"
+        aria-label="Fechar aviso de avaliação"
+        onClick={() => {
+          try {
+            sessionStorage.setItem("vy_qr_dismissed", "1");
+          } catch (e) {}
+          setHidden(true);
+        }}
+      >
+        ×
+      </button>
     </aside>
   );
 }
@@ -2213,8 +2236,8 @@ function App({ initialPath } = {}) {
       <MarketingTracker route={route || "/"} />
       <QualityReviewBanner />
       {page}
-      <FloatingWhatsapp />
       <CookieConsent />
+      <FloatingWhatsapp />
     </>
   );
 }

@@ -43,14 +43,34 @@ img {
 
 .quality-review-banner {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-columns: minmax(0, 1fr) auto auto;
   align-items: center;
-  gap: 18px;
-  padding: 10px clamp(20px, 4vw, 64px);
+  gap: 14px;
+  padding: 10px clamp(16px, 4vw, 64px);
   color: var(--green-deep);
   background: var(--gold);
   border-bottom: 1px solid rgba(8, 39, 19, 0.16);
   font-family: "Montserrat", Arial, sans-serif;
+}
+
+.quality-review-dismiss {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: inherit;
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.quality-review-dismiss:hover {
+  background: rgba(8, 39, 19, 0.14);
 }
 
 .quality-review-banner div {
@@ -2516,30 +2536,38 @@ input:focus-visible,
 }
 
 @media (max-width: 640px) {
+  /* One compact line: title + "Avaliar" + dismiss. */
   .quality-review-banner {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr) auto auto;
     gap: 8px;
-    padding: 10px 16px 12px;
+    padding: 7px 10px 7px 14px;
   }
 
   .quality-review-banner div {
-    display: grid;
-    gap: 2px;
-    justify-items: center;
+    display: block;
+    text-align: left;
+    min-width: 0;
   }
 
   .quality-review-banner strong {
-    font-size: 0.78rem;
+    font-size: 0.72rem;
   }
 
   .quality-review-banner span {
-    font-size: 0.76rem;
-    line-height: 1.25;
+    display: none;
   }
 
   .quality-review-banner a {
-    width: 100%;
-    min-height: 34px;
+    width: auto;
+    min-height: 32px;
+    padding: 0 12px;
+    font-size: 0.64rem;
+  }
+
+  .quality-review-dismiss {
+    width: 30px;
+    height: 30px;
+    font-size: 1.15rem;
   }
 
   .hero {
@@ -2578,12 +2606,13 @@ input:focus-visible,
   }
 
   h1 {
-    font-size: clamp(2.28rem, 11.4vw, 3.15rem);
-    line-height: 0.98;
+    font-size: clamp(2rem, 9.4vw, 2.5rem);
+    line-height: 1.04;
   }
 
   h2 {
-    font-size: clamp(2.05rem, 10.5vw, 3.2rem);
+    font-size: clamp(1.75rem, 8vw, 2.3rem);
+    line-height: 1.08;
   }
 
   .hero-grid {
@@ -2623,16 +2652,22 @@ input:focus-visible,
 
   .hero-actions {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
     gap: 10px;
-    margin-top: 24px;
+    margin-top: 22px;
   }
 
   .hero-actions .button {
     width: 100%;
     min-height: 46px;
-    padding: 0 18px;
-    font-size: 0.74rem;
+    padding: 0 14px;
+    font-size: 0.72rem;
+    text-align: center;
+  }
+
+  /* Reserve stays the primary full-width action; the rest pair up 2-up. */
+  .hero-actions .button-primary {
+    grid-column: 1 / -1;
   }
 
   .quick-groups {
@@ -2905,6 +2940,10 @@ input:focus-visible,
   .satellite-hero { padding-top: 38px; }
   .satellite-hero-grid { gap: 32px; }
   .satellite-hero-grid > picture img { height: 340px; }
+  .satellite-hero h1 { font-size: clamp(1.95rem, 8.6vw, 2.4rem); line-height: 1.08; margin: 10px 0 16px; }
+  .satellite-hero p:not(.section-label) { font-size: 1.02rem; }
+  .breadcrumbs { margin-bottom: 24px; }
+  .satellite-content, .satellite-faq, .discovery-links { padding: 48px 0; }
 }
 
 /* Interface editorial: imagens previsíveis, superfícies planas e leitura rápida. */
@@ -3168,8 +3207,8 @@ h2 {
 
   .hero-copy h1 {
     width: 100%;
-    font-size: clamp(2.65rem, 13vw, 3.5rem);
-    line-height: 1.02;
+    font-size: clamp(1.95rem, 9vw, 2.35rem);
+    line-height: 1.06;
   }
 
   .hero-status {
@@ -3338,10 +3377,35 @@ h2 {
 }
 
 @media (max-width: 640px) {
+  /* Flush bottom bar instead of a card floating over content. */
   .cookie-consent {
-    left: 12px;
-    right: 12px;
-    bottom: 74px;
+    left: 0;
+    right: 0;
+    bottom: 0;
     max-width: none;
+    gap: 10px;
+    padding: 14px 16px calc(14px + env(safe-area-inset-bottom));
+    border-radius: 14px 14px 0 0;
+    border-width: 1px 0 0;
+  }
+
+  .cookie-consent p {
+    font-size: 0.82rem;
+    line-height: 1.4;
+  }
+
+  .cookie-consent-actions {
+    justify-content: stretch;
+  }
+
+  .cookie-consent-actions button {
+    flex: 1;
+    min-height: 44px;
+  }
+
+  /* While the consent bar occupies the bottom edge, get the floating
+     WhatsApp out of the way (it returns once the choice is made). */
+  .cookie-consent ~ .floating-whatsapp {
+    display: none;
   }
 }
