@@ -48,6 +48,7 @@ const pages = [
     description:
       "Encontre Varanda Ypê - Marmitas, Executivos & Grelhados no iFood e 99Food. Delivery em Campinas, Jardim Aurélia, cardápio e pedidos online.",
     canonical: "https://varandaype.com/delivery-varanda-ype-campinas/",
+    image: "https://varandaype.com/pratos/chorizo.webp",
   },
   {
     route: "/restaurante-jardim-aurelia", file: path.join("restaurante-jardim-aurelia", "index.html"),
@@ -60,18 +61,21 @@ const pages = [
     title: "Almoço no Jardim Aurélia, Campinas | Varanda Ypê",
     description: "Almoço no Jardim Aurélia com grelhados, massas, risotos, pratos para a família, marmitaria e atendimento para empresas.",
     canonical: "https://varandaype.com/almoco-jardim-aurelia/",
+    image: "https://varandaype.com/pratos/fraldinha.webp",
   },
   {
     route: "/restaurante-com-espaco-kids-campinas", file: path.join("restaurante-com-espaco-kids-campinas", "index.html"),
     title: "Restaurante com espaço kids reformado em Campinas | Varanda Ypê",
     description: "Restaurante com espaço kids no Jardim Aurélia, em Campinas. Brinquedão reformado em 2026, comida brasileira, pratos kids, almoço, jantar e ambiente familiar.",
     canonical: "https://varandaype.com/restaurante-com-espaco-kids-campinas/",
+    image: "https://varandaype.com/ambiente/espaco-kids-restaurante-varanda-ype-campinas.webp",
   },
   {
     route: "/porcoes-chopp-jardim-aurelia", file: path.join("porcoes-chopp-jardim-aurelia", "index.html"),
     title: "Porções e chopp no Jardim Aurélia | Varanda Ypê",
     description: "Porções, espetinhos, chopp e bebidas no Jardim Aurélia, em Campinas. Consulte o cardápio e venha jantar no Varanda Ypê.",
     canonical: "https://varandaype.com/porcoes-chopp-jardim-aurelia/",
+    image: "https://varandaype.com/porcoes/calabresa-com-fritas.webp",
   },
   {
     route: "/privacidade",
@@ -83,6 +87,13 @@ const pages = [
   },
 ];
 
+const SITE = "https://varandaype.com";
+
+function absImage(src) {
+  if (!src) return null;
+  return src.startsWith("http") ? src : `${SITE}${src}`;
+}
+
 function pageForProduct(product) {
   return {
     route: `/${product.slug}`,
@@ -90,11 +101,12 @@ function pageForProduct(product) {
     title: product.metaTitle || `${product.eyebrow} em Campinas | Varanda Ypê`,
     description: product.metaDescription || product.intro,
     canonical: `https://varandaype.com/${product.slug}/`,
+    image: absImage(product.image),
   };
 }
 
 function applyHead(html, page) {
-  return html
+  let out = html
     .replace(/<title>.*?<\/title>/s, `<title>${page.title}</title>`)
     .replace(
       /<meta\s+name="description"\s+content="[^"]*"\s*\/>/s,
@@ -116,6 +128,20 @@ function applyHead(html, page) {
       /<meta\s+property="og:url"\s+content="[^"]*"\s*\/>/s,
       `<meta property="og:url" content="${page.canonical}" />`,
     );
+
+  if (page.image) {
+    out = out
+      .replace(
+        /<meta\s+property="og:image"\s+content="[^"]*"\s*\/>/s,
+        `<meta property="og:image" content="${page.image}" />`,
+      )
+      .replace(
+        /<meta\s+name="twitter:image"\s+content="[^"]*"\s*\/>/s,
+        `<meta name="twitter:image" content="${page.image}" />`,
+      );
+  }
+
+  return out;
 }
 
 function stripRootPreloads(markup) {
