@@ -1135,6 +1135,45 @@ function OnlineMenuContent() {
   );
 }
 
+// Structured data for /menu. Prices in the cardápio are free text
+// ("R$ 52 / R$ 99", "R$ 10/un", ...); only emit an Offer when the value is a
+// single clean "R$ NN" so we never ship a malformed price to Google.
+function buildMenuSchema() {
+  const priceRe = /^R\$\s?\d[\d.,]*$/;
+  return {
+    "@context": "https://schema.org",
+    "@type": "Menu",
+    name: "Cardápio Varanda Ypê",
+    url: "https://varandaype.com/menu/",
+    inLanguage: "pt-BR",
+    provider: {
+      "@type": "Restaurant",
+      "@id": "https://varandaype.com/#restaurant",
+      name: "Varanda Ypê",
+    },
+    hasMenuSection: fullMenuSections.map((section) => ({
+      "@type": "MenuSection",
+      name: section.title,
+      description: section.note,
+      hasMenuItem: section.items.map((item) => {
+        const node = { "@type": "MenuItem", name: item.name };
+        const description = [item.meta, item.desc].filter(Boolean).join(" — ");
+        if (description) node.description = description;
+        const price = (item.price || "").trim();
+        if (priceRe.test(price)) {
+          node.offers = {
+            "@type": "Offer",
+            price: price.replace(/[^\d,]/g, "").replace(",", "."),
+            priceCurrency: "BRL",
+            availability: "https://schema.org/InStock",
+          };
+        }
+        return node;
+      }),
+    })),
+  };
+}
+
 export function MenuPage() {
   return (
     <main className="menu-page">
@@ -1153,6 +1192,10 @@ export function MenuPage() {
           Empresas
         </a>
       </header>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(buildMenuSchema()) }}
+      />
       <OnlineMenuContent />
     </main>
   );
@@ -1971,6 +2014,7 @@ export function HomePage() {
             <a href="https://instagram.com/varandaype" target="_blank" rel="noreferrer">
               @varandaype
             </a>
+            <a href="/privacidade/">Privacidade</a>
             <p>Av. Brigadeiro Rafael Tobias de Aguiar, 1121 - Jardim Aurélia</p>
           </div>
           <div>
@@ -1981,6 +2025,86 @@ export function HomePage() {
           </div>
         </div>
       </footer>
+    </main>
+  );
+}
+
+export function PrivacyPage() {
+  const sections = [
+    [
+      "Quem somos",
+      "Este site é o site institucional do restaurante Varanda Ypê, na Av. Brigadeiro Rafael Tobias de Aguiar, 1121, Jardim Aurélia, Campinas/SP. O site é informativo: apresenta o cardápio, o ambiente e os canais de atendimento e de pedido. Não há cadastro, login ou pagamento dentro deste site.",
+    ],
+    [
+      "Quais dados são tratados",
+      "Navegação: ao acessar o site, o provedor de hospedagem (Cloudflare) registra dados técnicos padrão, como endereço IP, data e hora, páginas acessadas e tipo de navegador, para segurança e funcionamento do serviço. Contato e formulários: se você fala com a casa pelo WhatsApp ou preenche um dos formulários (cotação para empresas ou pesquisa de qualidade), trata-se dos dados que você mesmo informa, como nome, telefone, empresa e o conteúdo da mensagem. A pesquisa de qualidade é respondida de forma anônima.",
+    ],
+    [
+      "Para que os dados são usados",
+      "Para responder contatos e orçamentos, organizar pedidos e reservas, entender a satisfação dos clientes e melhorar o atendimento, e para manter o site seguro e no ar. Os dados não são vendidos.",
+    ],
+    [
+      "Ferramentas de terceiros",
+      "Os formulários são hospedados pelo JotForm e as conversas de atendimento acontecem pelo WhatsApp (Meta); os dados enviados por esses canais são tratados também por essas plataformas, conforme as políticas delas. Os botões de delivery levam a iFood, 99Food e ao pedido direto (Expresso), que são serviços independentes, com políticas próprias. As fontes de texto são carregadas do Google Fonts. Caso o site passe a usar ferramentas de medição de audiência ou de anúncios (por exemplo, Google e Meta), esta página será atualizada e, quando exigido, será apresentado um aviso de cookies.",
+    ],
+    [
+      "Cookies",
+      "No momento, o site não usa cookies de rastreamento ou de publicidade. Podem existir apenas armazenamentos técnicos necessários para a exibição das páginas.",
+    ],
+    [
+      "Seus direitos (LGPD)",
+      "Você pode solicitar acesso, correção, atualização, portabilidade ou exclusão dos seus dados, além de informações sobre com quem eles são compartilhados. Para exercer esses direitos, fale com a casa pelo WhatsApp oficial. A retenção dos dados ocorre pelo tempo necessário às finalidades acima ou a obrigações legais.",
+    ],
+  ];
+
+  return (
+    <main className="satellite-page">
+      <header className="menu-page-header">
+        <a className="brand" href="/" aria-label="Voltar para a home do Varanda Ypê">
+          <Img src="/logo-icon-96.png" alt="" width={52} height={52} priority />
+          <span>Varanda Ypê</span>
+        </a>
+        <a className="header-cta" href="/menu/">Cardápio</a>
+        <a className="delivery-header-button" href={whatsappUrl} target="_blank" rel="noreferrer">
+          WhatsApp
+        </a>
+      </header>
+      <section className="satellite-hero">
+        <div className="section-inner">
+          <nav className="breadcrumbs" aria-label="Navegação estrutural">
+            <a href="/">Início</a>
+            <span>›</span>
+            <span>Privacidade</span>
+          </nav>
+          <p className="section-label">Privacidade</p>
+          <h1>Política de Privacidade</h1>
+          <p>
+            Como o Varanda Ypê trata os dados de quem visita este site e fala com
+            a casa. Atualizada em setembro de 2026.
+          </p>
+        </div>
+      </section>
+      <section className="satellite-content section-cream">
+        <div className="section-inner satellite-section-grid">
+          {sections.map(([title, copy]) => (
+            <article key={title}>
+              <h2>{title}</h2>
+              <p>{copy}</p>
+            </article>
+          ))}
+          <article>
+            <h2>Contato</h2>
+            <p>
+              Dúvidas sobre privacidade ou sobre seus dados:{" "}
+              <a href={whatsappUrl} target="_blank" rel="noreferrer">
+                WhatsApp do Varanda Ypê
+              </a>
+              . Endereço: Av. Brigadeiro Rafael Tobias de Aguiar, 1121, Jardim
+              Aurélia, Campinas/SP.
+            </p>
+          </article>
+        </div>
+      </section>
     </main>
   );
 }
@@ -2001,6 +2125,8 @@ function App({ initialPath } = {}) {
     page = <CompanyPage />;
   } else if (route === "/delivery") {
     page = <DeliveryHubPage />;
+  } else if (route === "/privacidade") {
+    page = <PrivacyPage />;
   } else {
     const productPage = productPages.find((item) => route === `/${item.slug}`);
     const discoveryPage = discoveryPages.find((item) => route === `/${item.slug}`);
