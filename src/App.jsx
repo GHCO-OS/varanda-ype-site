@@ -1278,16 +1278,16 @@ function DiscoveryLinks({ currentSlug }) {
           <a href={`/${page.slug}/`} key={page.slug}>{page.eyebrow}</a>
         ))}
         {discoveryPages.filter((page) => page.slug !== currentSlug).map((page) => (
-          <a href={`/${page.slug}`} key={page.slug}>{page.eyebrow}</a>
+          <a href={`/${page.slug}/`} key={page.slug}>{page.eyebrow}</a>
         ))}
-        <a href="/menu">Ver cardápio completo</a>
+        <a href="/menu/">Ver cardápio completo</a>
       </div>
     </nav>
   );
 }
 
 export function SatellitePage({ page }) {
-  const pageUrl = `https://varandaype.com/${page.slug}`;
+  const pageUrl = `https://varandaype.com/${page.slug}/`;
   const imageUrl = `https://varandaype.com${page.image}`;
   const pageSchema = {
     "@context": "https://schema.org",
