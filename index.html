@@ -167,16 +167,38 @@
       }
     </script>
     <title>Varanda Ypê | Restaurante no Jardim Aurélia, Campinas</title>
+    <!-- Consent Mode v2 defaults (must run before GTM). Analytics is on by
+         default (first-party audience measurement); advertising storage stays
+         denied until the visitor accepts in the cookie banner. -->
     <script>
       window.dataLayer = window.dataLayer || [];
-      window.dataLayer.push({
-        event: "site_boot",
-        site: "varanda_ype",
-        page_path: window.location.pathname
+      function gtag() { dataLayer.push(arguments); }
+      var vyConsent = null;
+      try { vyConsent = localStorage.getItem("vy_consent"); } catch (e) {}
+      gtag("consent", "default", {
+        ad_storage: vyConsent === "granted" ? "granted" : "denied",
+        ad_user_data: vyConsent === "granted" ? "granted" : "denied",
+        ad_personalization: vyConsent === "granted" ? "granted" : "denied",
+        analytics_storage: vyConsent === "denied" ? "denied" : "granted",
+        functionality_storage: "granted",
+        security_storage: "granted",
+        wait_for_update: 500
       });
+      dataLayer.push({ event: "site_boot", site: "varanda_ype", page_path: location.pathname });
     </script>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-56F5TM96');</script>
+    <!-- End Google Tag Manager -->
   </head>
   <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-56F5TM96"
+      height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>

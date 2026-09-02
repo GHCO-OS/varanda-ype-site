@@ -56,6 +56,67 @@ function FloatingWhatsapp() {
   );
 }
 
+// Consent Mode: the index.html inline script sets defaults (ads denied,
+// analytics granted). This updates Google's consent state and remembers the
+// choice so the banner stays dismissed on the next visit.
+function updateConsent(granted) {
+  if (typeof window === "undefined") return;
+  const value = granted ? "granted" : "denied";
+  try {
+    localStorage.setItem("vy_consent", value);
+  } catch (e) {}
+  const gtag =
+    window.gtag ||
+    function () {
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push(arguments);
+    };
+  gtag("consent", "update", {
+    ad_storage: value,
+    ad_user_data: value,
+    ad_personalization: value,
+    analytics_storage: granted ? "granted" : "denied",
+  });
+  trackEvent(granted ? "consent_accept" : "consent_reject");
+}
+
+function CookieConsent() {
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    let stored = null;
+    try {
+      stored = localStorage.getItem("vy_consent");
+    } catch (e) {}
+    if (!stored) setVisible(true);
+  }, []);
+
+  if (!visible) return null;
+
+  function decide(granted) {
+    updateConsent(granted);
+    setVisible(false);
+  }
+
+  return (
+    <div className="cookie-consent" role="dialog" aria-live="polite" aria-label="Aviso de cookies">
+      <p>
+        Usamos cookies para medir a audiência do site e, com a sua autorização,
+        para anúncios. Saiba mais na{" "}
+        <a href="/privacidade/">Política de Privacidade</a>.
+      </p>
+      <div className="cookie-consent-actions">
+        <button type="button" className="cookie-reject" onClick={() => decide(false)}>
+          Rejeitar
+        </button>
+        <button type="button" className="cookie-accept" onClick={() => decide(true)}>
+          Aceitar
+        </button>
+      </div>
+    </div>
+  );
+}
+
 function trackEvent(eventName, payload = {}) {
   if (typeof window === "undefined") return;
 
@@ -2050,16 +2111,20 @@ export function PrivacyPage() {
       "Para responder contatos e orçamentos, organizar pedidos e reservas, entender a satisfação dos clientes e melhorar o atendimento, e para manter o site seguro e no ar. Os dados não são vendidos.",
     ],
     [
-      "Ferramentas de terceiros",
-      "Os formulários são hospedados pelo JotForm e as conversas de atendimento acontecem pelo WhatsApp (Meta); os dados enviados por esses canais são tratados também por essas plataformas, conforme as políticas delas. Os botões de delivery levam a iFood, 99Food e ao pedido direto (Expresso), que são serviços independentes, com políticas próprias. As fontes de texto são carregadas do Google Fonts. Caso o site passe a usar ferramentas de medição de audiência ou de anúncios (por exemplo, Google e Meta), esta página será atualizada e, quando exigido, será apresentado um aviso de cookies.",
+      "Medição de audiência e anúncios",
+      "O site usa o Google Tag Manager para carregar o Google Analytics 4 (medição de audiência) e tags do Google Ads. Essas ferramentas coletam dados de uso de forma pseudonimizada, como páginas vistas, origem da visita, dispositivo e interações, e podem gravar cookies. Usamos o Modo de Consentimento do Google: a medição de audiência é ativada por padrão e os cookies de anúncios só são ativados se você aceitar no aviso de cookies. Os dados são tratados pelo Google conforme as políticas da empresa.",
     ],
     [
-      "Cookies",
-      "No momento, o site não usa cookies de rastreamento ou de publicidade. Podem existir apenas armazenamentos técnicos necessários para a exibição das páginas.",
+      "Outras ferramentas de terceiros",
+      "Os formulários são hospedados pelo JotForm e as conversas de atendimento acontecem pelo WhatsApp (Meta); os dados enviados por esses canais são tratados também por essas plataformas, conforme as políticas delas. Os botões de delivery levam a iFood, 99Food e ao pedido direto (Expresso), que são serviços independentes, com políticas próprias. As fontes de texto são carregadas do Google Fonts.",
+    ],
+    [
+      "Cookies e como controlar",
+      "Ao entrar no site, um aviso permite aceitar ou rejeitar os cookies de anúncios. Você pode mudar de ideia a qualquer momento limpando os cookies e os dados do site no seu navegador, o que faz o aviso aparecer de novo. Cookies estritamente necessários para a exibição das páginas não podem ser desativados.",
     ],
     [
       "Seus direitos (LGPD)",
-      "Você pode solicitar acesso, correção, atualização, portabilidade ou exclusão dos seus dados, além de informações sobre com quem eles são compartilhados. Para exercer esses direitos, fale com a casa pelo WhatsApp oficial. A retenção dos dados ocorre pelo tempo necessário às finalidades acima ou a obrigações legais.",
+      "Você pode solicitar acesso, correção, atualização, portabilidade ou exclusão dos seus dados, revogar o consentimento e pedir informações sobre com quem eles são compartilhados. Para exercer esses direitos, fale com a casa pelo WhatsApp oficial. A retenção dos dados ocorre pelo tempo necessário às finalidades acima ou a obrigações legais.",
     ],
   ];
 
@@ -2149,6 +2214,7 @@ function App({ initialPath } = {}) {
       <QualityReviewBanner />
       {page}
       <FloatingWhatsapp />
+      <CookieConsent />
     </>
   );
 }
