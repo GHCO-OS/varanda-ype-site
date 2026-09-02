@@ -1,0 +1,18 @@
+# Cloudflare Pages response headers.
+# Applied on top of Pages defaults; _redirects still handles /ifood, /99, etc.
+
+/*
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: geolocation=(), microphone=(), camera=(), payment=(), usb=()
+  Strict-Transport-Security: max-age=31536000
+  # Static marketing site: no fetch/XHR, no forms posted to our origin, never framed.
+  # When GTM / GA4 / Meta Pixel are added, extend script-src, img-src, connect-src
+  # and frame-src with their hosts (googletagmanager.com, google-analytics.com,
+  # connect.facebook.net, facebook.com).
+  Content-Security-Policy: default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; img-src 'self' data:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self'; form-action 'self'; upgrade-insecure-requests
+
+# Vite emits content-hashed filenames here, so they can be cached forever.
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
