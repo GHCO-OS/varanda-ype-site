@@ -2112,7 +2112,7 @@ export function PrivacyPage() {
     ],
     [
       "Medição de audiência e anúncios",
-      "O site usa o Google Tag Manager para carregar o Google Analytics 4 (medição de audiência) e tags do Google Ads. Essas ferramentas coletam dados de uso de forma pseudonimizada, como páginas vistas, origem da visita, dispositivo e interações, e podem gravar cookies. Usamos o Modo de Consentimento do Google: a medição de audiência é ativada por padrão e os cookies de anúncios só são ativados se você aceitar no aviso de cookies. Os dados são tratados pelo Google conforme as políticas da empresa.",
+      "O site usa o Google Tag Manager para carregar o Google Analytics 4 (medição de audiência), tags do Google Ads e o Meta Pixel (Facebook/Instagram). Essas ferramentas coletam dados de uso de forma pseudonimizada, como páginas vistas, origem da visita, dispositivo e interações, e podem gravar cookies. Usamos o Modo de Consentimento do Google: a medição de audiência é ativada por padrão e as tags de anúncios, incluindo o Meta Pixel, só são ativadas se você aceitar no aviso de cookies. Os dados são tratados pelo Google e pela Meta conforme as políticas de cada empresa.",
     ],
     [
       "Outras ferramentas de terceiros",
