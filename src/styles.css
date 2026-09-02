@@ -1311,6 +1311,19 @@ nav a,
   letter-spacing: 0;
 }
 
+/* Bright gold reads at ~2:1 on the cream background (fails WCAG AA). Keep it
+   on the dark-green sections and the hero signature; use a deeper gold on
+   light backgrounds where it needs 4.5:1. */
+.section-label {
+  color: #82640f;
+}
+
+.section-green .section-label,
+.satellite-hero .section-label,
+.company-hero .section-label {
+  color: var(--gold);
+}
+
 h1,
 h2,
 h3,
@@ -1892,6 +1905,19 @@ h2 {
 .menu-search input:focus {
   border-color: var(--gold);
   box-shadow: 0 0 0 4px rgba(201, 168, 76, 0.16);
+}
+
+/* Visible keyboard focus for every interactive element (mouse clicks are
+   unaffected because of :focus-visible). Double ring so it shows on both the
+   cream and dark-green backgrounds. */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+[tabindex]:focus-visible {
+  outline: 3px solid var(--green-deep);
+  outline-offset: 2px;
+  border-radius: 3px;
+  box-shadow: 0 0 0 5px rgba(255, 249, 233, 0.9);
 }
 
 .menu-shortcuts {
