@@ -837,7 +837,7 @@ const fullMenuSections = [
       {
         name: "Jantinha Expressa",
         price: "R$ 35,90",
-        desc: "2 espetos clássicos com arroz, feijão e farofa.",
+        desc: "2 espetos clássicos com arroz, feijão, farofa e vinagrete ou saladinha, à escolha.",
       },
     ],
   },
