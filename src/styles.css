@@ -501,6 +501,12 @@ nav a,
 /* Featured order channel ("Novidade" — marmitaria no 99Food) */
 .channel-highlight {
   position: relative;
+}
+
+/* Compound selectors so the gold ring wins over each card's own border. */
+.delivery-card.channel-highlight,
+.delivery-app-card.channel-highlight,
+.order-channel-card.channel-highlight {
   border-color: var(--gold);
   box-shadow:
     0 0 0 2px var(--gold),
