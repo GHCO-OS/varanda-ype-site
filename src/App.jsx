@@ -103,7 +103,7 @@ export const productPages = [
       "Almoço bem servido em Campinas com pratos executivos, grelhados, massas, risotos e acompanhamentos brasileiros no Varanda Ypê.",
     image: "/pratos/chorizo.png",
     imageAlt: "Prato executivo servido no Varanda Ypê em Campinas",
-    menuAnchor: "/menu#la-carte",
+    menuAnchor: "/menu/#la-carte",
     orderLabel: "Ver executivos",
     metaTitle: "Pratos executivos em Campinas | Varanda Ypê",
     metaDescription:
@@ -141,7 +141,7 @@ export const productPages = [
     priceValue: "35.90",
     keywords:
       "jantinha em Campinas, jantinha com espetinho, jantinha com 2 espetos, espetinho no Jardim Aurélia, jantar barato Campinas, arroz feijão farofa vinagrete",
-    menuAnchor: "/menu#espetinhos",
+    menuAnchor: "/menu/#espetinhos",
     orderLabel: "Ver jantinha",
     metaTitle: "Jantinha R$ 35,90 em Campinas | Varanda Ypê",
     metaDescription:
@@ -177,7 +177,7 @@ export const productPages = [
     imageAlt: "Chorizo grelhado com acompanhamentos no Varanda Ypê em Campinas",
     keywords:
       "grelhados Campinas, carnes grelhadas Jardim Aurélia, prato executivo Campinas, chorizo grelhado, fraldinha grelhada, almoço Jardim Aurélia",
-    menuAnchor: "/menu#la-carte",
+    menuAnchor: "/menu/#la-carte",
     orderLabel: "Ver grelhados",
     metaTitle: "Grelhados em Campinas, Jardim Aurélia | Varanda Ypê",
     metaDescription:
@@ -213,7 +213,7 @@ export const productPages = [
       "Prato família grande do Varanda Ypê com costela, carne, arroz, feijão tropeiro, farofa e acompanhamentos para compartilhar em Campinas",
     keywords:
       "pratos família em Campinas, prato grande para família, costela família, picanha família, restaurante familiar Jardim Aurélia, almoço em família Campinas, carne 700g para compartilhar",
-    menuAnchor: "/menu#parmegiana-familia",
+    menuAnchor: "/menu/#parmegiana-familia",
     orderLabel: "Ver pratos família",
     metaTitle: "Pratos família grandes em Campinas | Varanda Ypê",
     metaDescription:
@@ -247,7 +247,7 @@ export const productPages = [
       "Marmitaria e rotisseria todos os dias no almoço, com comida brasileira para rotina, retirada, delivery e pedidos sob consulta.",
     image: "/pratos/risoto-cuiabano.png",
     imageAlt: "Prato de almoço do Varanda Ypê para marmitas no Jardim Aurélia",
-    menuAnchor: "/menu",
+    menuAnchor: "/menu/",
     orderLabel: "Ver cardápio",
     metaTitle: "Marmitas no Jardim Aurélia, Campinas | Varanda Ypê",
     metaDescription:
@@ -280,7 +280,7 @@ export const productPages = [
       "Carnes assadas e grelhadas para encomendas, almoço de família, empresas e refeições em volume sob consulta no Varanda Ypê.",
     image: "/pratos/chorizo.png",
     imageAlt: "Carne grelhada do Varanda Ypê para pedidos por kg",
-    menuAnchor: "/empresa",
+    menuAnchor: "/empresa/",
     orderLabel: "Consultar pedido",
     metaTitle: "Carnes por kg em Campinas | Varanda Ypê",
     metaDescription:
@@ -313,7 +313,7 @@ export const productPages = [
       "A assinatura da cozinha do Varanda Ypê passa por comida brasileira, pratos bem servidos e receitas pensadas para almoço, jantar e mesa de família.",
     image: "/logo-varanda-icon.png",
     imageAlt: "Marca do Varanda Ypê, restaurante de comida brasileira em Campinas",
-    menuAnchor: "/menu",
+    menuAnchor: "/menu/",
     orderLabel: "Conhecer cardápio",
     metaTitle: "Chef Elisângela | Varanda Ypê Campinas",
     metaDescription:
@@ -529,9 +529,9 @@ const deliveryOptions = [
 ];
 
 const quickGroups = [
-  ["Executivos", "Pratos do dia para almoço", "/menu#la-carte"],
-  ["Jantinha", "Espetinhos com acompanhamentos", "/menu#espetinhos"],
-  ["Cardápio completo", "Preços e descrições online", "/menu"],
+  ["Executivos", "Pratos do dia para almoço", "/menu/#la-carte"],
+  ["Jantinha", "Espetinhos com acompanhamentos", "/menu/#espetinhos"],
+  ["Cardápio completo", "Preços e descrições online", "/menu/"],
   ["Burgers N Smoke", "Nossa hamburgueria", burgersUrl],
 ];
 
@@ -1185,10 +1185,10 @@ export function MenuPage() {
         <a className="header-cta" href="/" aria-label="Voltar para a home">
           Home
         </a>
-        <a className="delivery-header-button" href="/delivery">
+        <a className="delivery-header-button" href="/delivery/">
           Delivery
         </a>
-        <a className="header-cta" href="/empresa">
+        <a className="header-cta" href="/empresa/">
           Empresas
         </a>
       </header>
@@ -1209,7 +1209,7 @@ export function CompanyPage() {
           <Img src="/logo-icon-96.png" alt="" width={52} height={52} priority />
           <span>Varanda Ypê</span>
         </a>
-        <a className="header-cta" href="/menu">
+        <a className="header-cta" href="/menu/">
           Cardápio
         </a>
         <a className="ifood-header-button" href={companyWhatsappUrl} target="_blank" rel="noreferrer">
@@ -1234,7 +1234,7 @@ export function CompanyPage() {
               <a className="button button-secondary" href={companyFormUrl} target="_blank" rel="noreferrer">
                 Pedir cotação
               </a>
-              <a className="button button-secondary" href="/menu">
+              <a className="button button-secondary" href="/menu/">
                 Ver cardápio
               </a>
             </div>
@@ -1404,7 +1404,7 @@ export function SatellitePage({ page }) {
           <Img src="/logo-icon-96.png" alt="" width={52} height={52} priority />
           <span>Varanda Ypê</span>
         </a>
-        <a className="header-cta" href="/menu">Cardápio</a>
+        <a className="header-cta" href="/menu/">Cardápio</a>
         <a className="delivery-header-button" href={whatsappUrl} target="_blank" rel="noreferrer">Reservar</a>
       </header>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(pageSchema) }} />
@@ -1419,7 +1419,7 @@ export function SatellitePage({ page }) {
             {page.price && <strong className="product-price-badge">{page.price}</strong>}
             <p>{page.intro}</p>
             <div className="hero-actions">
-              <a className="button button-primary" href="/menu">Ver cardápio</a>
+              <a className="button button-primary" href="/menu/">Ver cardápio</a>
               <a className="button button-secondary" href={whatsappUrl} target="_blank" rel="noreferrer">Falar no WhatsApp</a>
             </div>
           </div>
@@ -1506,8 +1506,8 @@ export function ProductPage({ page }) {
           <Img src="/logo-icon-96.png" alt="" width={52} height={52} priority />
           <span>Varanda Ypê</span>
         </a>
-        <a className="header-cta" href="/menu">Cardápio</a>
-        <a className="delivery-header-button" href="/delivery">Delivery</a>
+        <a className="header-cta" href="/menu/">Cardápio</a>
+        <a className="delivery-header-button" href="/delivery/">Delivery</a>
       </header>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(pageSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
@@ -1517,7 +1517,7 @@ export function ProductPage({ page }) {
             <nav className="breadcrumbs" aria-label="Navegação estrutural">
               <a href="/">Início</a>
               <span>›</span>
-              <a href="/menu">Cardápio</a>
+              <a href="/menu/">Cardápio</a>
               <span>›</span>
               <span>{page.eyebrow}</span>
             </nav>
@@ -1526,7 +1526,7 @@ export function ProductPage({ page }) {
             <p>{page.intro}</p>
             <div className="hero-actions">
               <a className="button button-primary" href={page.menuAnchor}>{page.orderLabel}</a>
-              <a className="button button-secondary" href="/delivery">Pedir delivery</a>
+              <a className="button button-secondary" href="/delivery/">Pedir delivery</a>
             </div>
           </div>
           <Img src={page.image} alt={page.imageAlt} width={560} height={500} priority />
@@ -1594,7 +1594,7 @@ export function DeliveryHubPage() {
           <Img src="/logo-icon-96.png" alt="" width={52} height={52} priority />
           <span>Varanda Ypê</span>
         </a>
-        <a className="header-cta" href="/menu">Cardápio</a>
+        <a className="header-cta" href="/menu/">Cardápio</a>
         <a className="delivery-header-button" href={whatsappUrl} target="_blank" rel="noreferrer">Atendimento</a>
       </header>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(hubSchema) }} />
@@ -1683,10 +1683,10 @@ export function HomePage() {
             <span>Varanda Ypê</span>
           </a>
           <nav id="primary-nav" className={menuOpen ? "nav-open" : ""} onClick={() => setMenuOpen(false)}>
-            <a href="/menu">Cardápio</a>
-            <a href="/empresa">Empresas</a>
+            <a href="/menu/">Cardápio</a>
+            <a href="/empresa/">Empresas</a>
             <a href="#pedido">Pedido online</a>
-            <a href="/delivery">Delivery</a>
+            <a href="/delivery/">Delivery</a>
             <a href={burgersUrl} target="_blank" rel="noreferrer">
               Burgers N Smoke
             </a>
@@ -1733,12 +1733,12 @@ export function HomePage() {
               >
                 Reservar mesa
               </a>
-              <a className="button button-secondary" href="/menu">
+              <a className="button button-secondary" href="/menu/">
                 Ver cardápio
               </a>
               <a
                 className="button button-secondary button-delivery-hot"
-                href="/delivery"
+                href="/delivery/"
                 onClick={() =>
                   trackEvent("delivery_hub_click", { location: "hero" })
                 }
@@ -2007,7 +2007,7 @@ export function HomePage() {
             <a href={whatsappUrl} target="_blank" rel="noreferrer">
               Reservas pelo WhatsApp
             </a>
-            <a href="/delivery">Peça delivery</a>
+            <a href="/delivery/">Peça delivery</a>
             <a href={burgersUrl} target="_blank" rel="noreferrer">
               Burgers N Smoke
             </a>
