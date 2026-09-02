@@ -1,0 +1,15 @@
+{
+  "name": "Varanda Ypê",
+  "short_name": "Varanda Ypê",
+  "description": "Restaurante de comida brasileira no Jardim Aurélia, Campinas: almoço, jantar, espaço kids, delivery e marmitaria.",
+  "lang": "pt-BR",
+  "start_url": "/",
+  "scope": "/",
+  "display": "browser",
+  "background_color": "#f4eed7",
+  "theme_color": "#ea1d2c",
+  "icons": [
+    { "src": "/logo-icon-96.png", "sizes": "96x96", "type": "image/png" },
+    { "src": "/logo-varanda-icon.png", "sizes": "1254x1254", "type": "image/png", "purpose": "any" }
+  ]
+}
