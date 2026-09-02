@@ -2340,7 +2340,7 @@ input:focus-visible,
   .ifood-header-button:hover {
     box-shadow: 0 16px 32px rgba(234, 29, 44, 0.3);
   }
-  nav a:hover {
+  #primary-nav a:hover {
     color: var(--cream);
   }
 
@@ -2379,7 +2379,15 @@ input:focus-visible,
     display: flex;
   }
 
-  nav {
+  .nav-toggle[aria-expanded="true"] {
+    position: fixed;
+    top: calc(14px + env(safe-area-inset-top));
+    right: 16px;
+    z-index: 130;
+    background: rgba(8, 39, 19, 0.92);
+  }
+
+  #primary-nav {
     display: none;
     position: fixed;
     inset: 0;
@@ -2388,18 +2396,18 @@ input:focus-visible,
     justify-content: flex-start;
     align-items: flex-start;
     gap: 8px;
-    padding: calc(96px + env(safe-area-inset-top)) 20px calc(28px + env(safe-area-inset-bottom));
+    padding: calc(74px + env(safe-area-inset-top)) 20px calc(28px + env(safe-area-inset-bottom));
     overflow-y: auto;
     background:
       linear-gradient(180deg, rgba(8, 39, 19, 0.98), rgba(8, 39, 19, 1)),
       var(--green-deep);
   }
 
-  nav.nav-open {
+  #primary-nav.nav-open {
     display: flex;
   }
 
-  nav a {
+  #primary-nav a {
     width: 100%;
     min-height: 52px;
     display: flex;
@@ -2411,6 +2419,17 @@ input:focus-visible,
     color: var(--cream);
     font-size: 0.9rem;
     line-height: 1;
+  }
+
+  /* The global `nav {}` rule turns these into a flex row; on narrow screens
+     the heading and the link cloud must stack instead. */
+  .breadcrumbs {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+
+  .discovery-links {
+    display: block;
   }
 
   .hero-grid,
@@ -2529,15 +2548,21 @@ input:focus-visible,
   }
 
   .menu-page-header {
-    grid-template-columns: 1fr auto;
-    gap: 10px;
-    padding: 14px 20px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
   }
 
+  .menu-page-header .brand {
+    flex: 1 0 100%;
+  }
+
+  .menu-page-header .header-cta,
   .menu-page-header .ifood-header-button,
-  .menu-page-header .delivery-header-button,
-  .menu-page-header .header-cta:not(:first-of-type) {
-    display: none;
+  .menu-page-header .delivery-header-button {
+    flex: 0 0 auto;
   }
 
   .brand span {
