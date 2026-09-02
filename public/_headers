@@ -11,7 +11,7 @@
   # When GTM / GA4 / Meta Pixel are added, extend script-src, img-src, connect-src
   # and frame-src with their hosts (googletagmanager.com, google-analytics.com,
   # connect.facebook.net, facebook.com).
-  Content-Security-Policy: default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; img-src 'self' data:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self'; form-action 'self'; upgrade-insecure-requests
+  Content-Security-Policy: default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; img-src 'self' data:; script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://cloudflareinsights.com; form-action 'self'; upgrade-insecure-requests
 
 # Vite emits content-hashed filenames here, so they can be cached forever.
 /assets/*
