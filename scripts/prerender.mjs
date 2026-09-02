@@ -14,15 +14,15 @@ const pages = [
     file: "index.html",
     title: "Varanda Ypê | Restaurante no Jardim Aurélia, Campinas",
     description:
-      "Restaurante Varanda Ypê em Campinas, no Jardim Aurélia. Comida brasileira, pratos executivos, espetinhos, chopp, porções e espaço kids.",
+      "Restaurante Varanda Ypê no Jardim Aurélia, Campinas. Reserve sua mesa para almoço, jantar e encontros em família. Espaço kids, delivery e marmitaria.",
     canonical: "https://varandaype.com/",
   },
   {
     route: "/menu",
     file: path.join("menu", "index.html"),
-    title: "Cardápio Varanda Ypê | Pratos, espetinhos, porções e bebidas",
+    title: "Cardápio Varanda Ypê | Marmitas, executivos e grelhados",
     description:
-      "Cardápio do Varanda Ypê em Campinas com pratos executivos, grelhados, espetinhos, porções, chopp, bebidas e opções kids.",
+      "Cardápio do Varanda Ypê em Campinas com marmitas, pratos executivos, grelhados, espetinhos, porções, bebidas e opções kids.",
     canonical: "https://varandaype.com/menu",
   },
   {
@@ -34,11 +34,19 @@ const pages = [
     canonical: "https://varandaype.com/empresa",
   },
   {
+    route: "/delivery",
+    file: path.join("delivery", "index.html"),
+    title: "Delivery Varanda Ypê | iFood, 99Food e pedido direto",
+    description:
+      "Escolha o canal oficial para pedir Varanda Ypê ou Burgers N' Smoke em Campinas: iFood, 99Food, pedido direto e WhatsApp.",
+    canonical: "https://varandaype.com/delivery",
+  },
+  {
     route: "/delivery-varanda-ype-campinas",
     file: path.join("delivery-varanda-ype-campinas", "index.html"),
     title: "Delivery Varanda Ypê em Campinas | 99Food, iFood e pedidos",
     description:
-      "Encontre o Varanda Ypê nos apps e buscas: delivery em Campinas, 99Food, iFood, Expresso, WhatsApp, endereço no Jardim Aurélia e nome sem acento Varanda Ype.",
+      "Encontre Varanda Ypê - Marmitas, Executivos & Grelhados no iFood e 99Food. Delivery em Campinas, Jardim Aurélia, cardápio e pedidos online.",
     canonical: "https://varandaype.com/delivery-varanda-ype-campinas",
   },
   {

@@ -191,6 +191,11 @@ img {
   line-height: 1.2;
 }
 
+.hero-utility-burger .hero-utility-icon {
+  color: #f4eed7;
+  background: #5c1a22;
+}
+
 .hero-utility-pending {
   cursor: default;
 }
@@ -426,7 +431,8 @@ nav a,
   box-shadow: 0 14px 30px rgba(255, 204, 0, 0.26);
 }
 
-.delivery-button-expresso {
+.delivery-button-expresso,
+.delivery-button-alloy {
   color: var(--green-deep);
   background: var(--gold);
   box-shadow: 0 14px 30px rgba(201, 168, 76, 0.3);
@@ -470,6 +476,191 @@ nav a,
 
 .delivery-card .delivery-button {
   justify-self: start;
+}
+
+.delivery-hub-page {
+  min-height: 100vh;
+  color: var(--green-deep);
+  background: var(--cream);
+}
+
+.delivery-hub-inner {
+  width: min(1180px, calc(100% - 40px));
+  margin: 0 auto;
+}
+
+.delivery-hub-hero {
+  padding: 64px 0 44px;
+  background: #fff;
+  border-bottom: 1px solid rgba(14, 53, 27, 0.12);
+}
+
+.delivery-hub-hero .breadcrumbs {
+  margin-bottom: 30px;
+}
+
+.delivery-hub-hero h1 {
+  max-width: 760px;
+  margin: 8px 0 14px;
+  color: var(--green);
+  font-family: "Fraunces", Georgia, serif;
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  line-height: 0.96;
+}
+
+.delivery-hub-hero > div > p:last-child {
+  max-width: 700px;
+  margin: 0;
+  color: rgba(14, 53, 27, 0.72);
+  font-size: clamp(1rem, 1.7vw, 1.15rem);
+  line-height: 1.5;
+}
+
+.delivery-hub-content {
+  padding: 38px 0 76px;
+}
+
+.delivery-app-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.delivery-app-card {
+  overflow: hidden;
+  border: 1px solid rgba(14, 53, 27, 0.13);
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 18px 46px rgba(14, 53, 27, 0.08);
+}
+
+.delivery-app-card picture,
+.delivery-app-card > picture img {
+  display: block;
+  width: 100%;
+}
+
+.delivery-app-card > picture img {
+  height: 190px;
+  object-fit: cover;
+}
+
+.delivery-app-card-body {
+  display: grid;
+  gap: 9px;
+  padding: 20px;
+}
+
+.delivery-app-provider {
+  justify-self: start;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-family: "Montserrat", Arial, sans-serif;
+  font-size: 0.72rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.delivery-app-ifood .delivery-app-provider {
+  color: #fff;
+  background: var(--delivery-red);
+}
+
+.delivery-app-ninetynine .delivery-app-provider {
+  color: #1c1c1c;
+  background: var(--delivery-yellow);
+}
+
+.delivery-app-card h2 {
+  margin: 2px 0 0;
+  color: var(--green);
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 1.8rem;
+  line-height: 1;
+}
+
+.delivery-app-card strong {
+  color: rgba(14, 53, 27, 0.78);
+  font-size: 0.9rem;
+}
+
+.delivery-app-card p {
+  min-height: 3.9em;
+  margin: 0 0 5px;
+  color: rgba(14, 53, 27, 0.66);
+  font-size: 0.94rem;
+  line-height: 1.42;
+}
+
+.delivery-app-card .delivery-button {
+  width: 100%;
+}
+
+.delivery-direct-panel {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: 28px;
+  align-items: center;
+  margin-top: 22px;
+  padding: 28px;
+  border-radius: 18px;
+  color: var(--cream);
+  background: var(--green);
+}
+
+.delivery-direct-panel h2 {
+  margin: 5px 0 8px;
+  color: #fff;
+  font-family: "Fraunces", Georgia, serif;
+  font-size: clamp(1.8rem, 3vw, 2.7rem);
+  line-height: 1;
+}
+
+.delivery-direct-panel p {
+  margin: 0;
+  color: rgba(244, 238, 215, 0.76);
+  line-height: 1.45;
+}
+
+.delivery-direct-actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.delivery-direct-actions a {
+  display: grid;
+  gap: 4px;
+  padding: 16px;
+  border: 1px solid rgba(244, 238, 215, 0.18);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.delivery-direct-actions strong,
+.delivery-direct-actions em {
+  color: var(--gold);
+  font-family: "Montserrat", Arial, sans-serif;
+  font-style: normal;
+  font-weight: 900;
+}
+
+.delivery-direct-actions span {
+  color: rgba(244, 238, 215, 0.75);
+  font-size: 0.86rem;
+}
+
+.delivery-direct-actions em {
+  margin-top: 8px;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+}
+
+.delivery-hub-note {
+  margin: 18px 0 0;
+  color: rgba(14, 53, 27, 0.58);
+  font-size: 0.82rem;
+  text-align: center;
 }
 
 .order-preview {
@@ -705,6 +896,145 @@ nav a,
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
+}
+
+.menu-storefront-header {
+  align-items: center;
+}
+
+.storefront-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(300px, 360px);
+  gap: 22px;
+  align-items: start;
+}
+
+.storefront-main {
+  min-width: 0;
+}
+
+.storefront-main .online-menu-grid {
+  grid-template-columns: 1fr;
+}
+
+.order-channels-panel {
+  position: sticky;
+  top: 96px;
+  display: grid;
+  gap: 16px;
+  padding: 18px;
+  border: 1px solid rgba(14, 53, 27, 0.14);
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 24px 60px rgba(14, 53, 27, 0.12);
+}
+
+.order-panel-head {
+  display: grid;
+  gap: 8px;
+}
+
+.order-panel-head > span {
+  color: var(--terracotta);
+  font-family: "Montserrat", Arial, sans-serif;
+  font-size: 0.78rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.order-panel-head h3 {
+  margin: 0;
+  color: var(--green);
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 1.9rem;
+  line-height: 1;
+}
+
+.order-panel-head p,
+.order-panel-note span {
+  margin: 0;
+  color: rgba(14, 53, 27, 0.7);
+  font-size: 0.96rem;
+  line-height: 1.4;
+}
+
+.order-channel-list {
+  display: grid;
+  gap: 10px;
+}
+
+.order-channel-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 4px 12px;
+  align-items: center;
+  min-height: 76px;
+  padding: 14px;
+  border: 1px solid rgba(14, 53, 27, 0.1);
+  border-radius: 8px;
+  background: rgba(14, 53, 27, 0.04);
+}
+
+.order-channel-card strong {
+  color: var(--green-deep);
+  font-family: "Montserrat", Arial, sans-serif;
+  font-size: 0.95rem;
+  font-weight: 900;
+}
+
+.order-channel-card span {
+  color: rgba(14, 53, 27, 0.68);
+  font-size: 0.88rem;
+  line-height: 1.28;
+}
+
+.order-channel-card em {
+  grid-row: 1 / span 2;
+  grid-column: 2;
+  display: inline-flex;
+  align-items: center;
+  min-height: 34px;
+  padding: 0 10px;
+  border-radius: 8px;
+  color: var(--green-deep);
+  background: var(--gold);
+  font-family: "Montserrat", Arial, sans-serif;
+  font-size: 0.68rem;
+  font-style: normal;
+  font-weight: 900;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.order-channel-ifood em {
+  color: #fff;
+  background: var(--delivery-red);
+}
+
+.order-channel-ninetynine em {
+  color: #1c1c1c;
+  background: var(--delivery-yellow);
+}
+
+.order-panel-note {
+  display: grid;
+  gap: 4px;
+  padding: 13px;
+  border-radius: 8px;
+  color: var(--cream);
+  background: var(--green);
+}
+
+.order-panel-note strong {
+  color: var(--gold);
+  font-family: "Montserrat", Arial, sans-serif;
+  font-size: 0.78rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.order-panel-note span {
+  color: rgba(244, 238, 215, 0.78);
 }
 
 .ifood-page {
@@ -1114,6 +1444,12 @@ h2 {
   color: var(--green-deep);
   background: var(--gold);
   box-shadow: 0 18px 34px rgba(201, 168, 76, 0.28);
+}
+
+.button-burger {
+  border-color: rgba(244, 238, 215, 0.52);
+  color: var(--cream);
+  background: rgba(92, 26, 34, 0.64);
 }
 
 .button-secondary {
@@ -1595,11 +1931,29 @@ h2 {
   font-size: 1rem;
 }
 
+.menu-shortcuts small {
+  display: inline-grid;
+  place-items: center;
+  min-width: 24px;
+  height: 22px;
+  padding: 0 6px;
+  border-radius: 999px;
+  color: rgba(14, 53, 27, 0.72);
+  background: rgba(14, 53, 27, 0.08);
+  font-size: 0.68rem;
+  font-weight: 900;
+}
+
 .menu-shortcuts button.is-active {
   border-color: var(--green);
   color: var(--cream);
   background: var(--green);
   box-shadow: 0 10px 22px rgba(14, 53, 27, 0.18);
+}
+
+.menu-shortcuts button.is-active small {
+  color: var(--green-deep);
+  background: var(--gold);
 }
 
 .menu-empty-state {
@@ -2101,6 +2455,15 @@ h2 {
     grid-template-columns: 1fr;
   }
 
+  .storefront-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .order-channels-panel {
+    position: static;
+    order: -1;
+  }
+
   .company-card-grid,
   .company-detail-list {
     grid-template-columns: 1fr;
@@ -2350,8 +2713,13 @@ h2 {
     padding: 12px;
   }
 
+  .menu-storefront-header {
+    gap: 14px;
+  }
+
   .store-order-panel,
-  .order-preview-shell {
+  .order-preview-shell,
+  .order-channels-panel {
     border-radius: 14px;
   }
 
@@ -2383,6 +2751,26 @@ h2 {
 
   .menu-shortcuts {
     padding-bottom: 2px;
+  }
+
+  .order-channels-panel {
+    padding: 16px;
+  }
+
+  .order-panel-head h3 {
+    font-size: 1.55rem;
+  }
+
+  .order-channel-card {
+    grid-template-columns: 1fr;
+    min-height: 0;
+  }
+
+  .order-channel-card em {
+    grid-row: auto;
+    grid-column: auto;
+    justify-content: center;
+    width: 100%;
   }
 
   .online-menu-section header {
@@ -2422,17 +2810,6 @@ h2 {
     bottom: -2px;
   }
 
-}
-
-/* Google "Avaliações" link inside nav: align the multicolor G with the label. */
-.nav-google {
-  display: inline-flex !important;
-  align-items: center;
-  gap: 8px;
-}
-
-.nav-google svg {
-  flex: none;
 }
 
 /* Site-wide floating WhatsApp button. */
@@ -2776,5 +3153,79 @@ h2 {
   .company-cta-box,
   .footer {
     padding-bottom: calc(64px + env(safe-area-inset-bottom));
+  }
+}
+
+@media (max-width: 900px) {
+  .delivery-app-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .delivery-app-card {
+    display: grid;
+    grid-template-columns: minmax(220px, 0.72fr) minmax(0, 1fr);
+  }
+
+  .delivery-app-card > picture img {
+    height: 100%;
+    min-height: 280px;
+  }
+
+  .delivery-direct-panel {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .delivery-hub-inner {
+    width: min(100% - 28px, 1180px);
+  }
+
+  .delivery-hub-hero {
+    padding: 40px 0 30px;
+  }
+
+  .delivery-hub-hero .breadcrumbs {
+    margin-bottom: 22px;
+  }
+
+  .delivery-hub-content {
+    padding: 18px 0 54px;
+  }
+
+  .delivery-app-grid {
+    gap: 12px;
+  }
+
+  .delivery-app-card {
+    display: block;
+    border-radius: 14px;
+  }
+
+  .delivery-app-card > picture img {
+    height: 156px;
+    min-height: 0;
+  }
+
+  .delivery-app-card-body {
+    padding: 16px;
+  }
+
+  .delivery-app-card h2 {
+    font-size: 1.55rem;
+  }
+
+  .delivery-app-card p {
+    min-height: 0;
+  }
+
+  .delivery-direct-panel {
+    gap: 18px;
+    padding: 20px;
+    border-radius: 14px;
+  }
+
+  .delivery-direct-actions {
+    grid-template-columns: 1fr;
   }
 }

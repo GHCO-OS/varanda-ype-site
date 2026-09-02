@@ -3,6 +3,11 @@ dist/
 .wrangler/
 .playwright-mcp/
 .claude/
+.codex/
+
+# Local scratch / reference material, not part of the site
+/apoio/
+/dauns-menu-desktop.png
 
 .env
 .env.*

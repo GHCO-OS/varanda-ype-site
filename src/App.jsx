@@ -56,29 +56,6 @@ function FloatingWhatsapp() {
   );
 }
 
-function GoogleIcon() {
-  return (
-    <svg viewBox="0 0 48 48" width="16" height="16" aria-hidden="true" focusable="false">
-      <path
-        fill="#EA4335"
-        d="M24 9.5c3.4 0 6.4 1.17 8.8 3.46l6.55-6.55C35.3 2.6 30 0.5 24 0.5 14.6 0.5 6.5 5.9 2.6 13.7l7.62 5.92C12.1 13.5 17.6 9.5 24 9.5Z"
-      />
-      <path
-        fill="#4285F4"
-        d="M46.5 24.5c0-1.64-.15-3.2-.42-4.7H24v9h12.6c-.55 2.9-2.2 5.35-4.68 7l7.4 5.75C43.6 37.4 46.5 31.5 46.5 24.5Z"
-      />
-      <path
-        fill="#FBBC05"
-        d="M10.22 27.9a14.4 14.4 0 0 1 0-7.8l-7.62-5.9a24 24 0 0 0 0 19.6l7.62-5.9Z"
-      />
-      <path
-        fill="#34A853"
-        d="M24 47.5c6 0 11.3-2 15.02-5.35l-7.4-5.75c-2.06 1.4-4.7 2.2-7.62 2.2-6.4 0-11.9-4-13.78-9.6l-7.62 5.9C6.5 42.1 14.6 47.5 24 47.5Z"
-      />
-    </svg>
-  );
-}
-
 function trackEvent(eventName, payload = {}) {
   if (typeof window === "undefined") return;
 
@@ -103,10 +80,12 @@ function MarketingTracker({ route }) {
 }
 
 const ifoodUrl =
-  "https://www.ifood.com.br/delivery/campinas-sp/varanda-ype---grill--executivos-jardim-aurelia/2ba9a14c-3df9-4725-8b6b-1294c2c1b156";
+  "https://www.ifood.com.br/delivery/link-cardapio/sitemercado/2ba9a14c-3df9-4725-8b6b-1294c2c1b156";
 const ninetyNineFoodPrimaryUrl = "https://oia.99app.com/dlp9/C94oJv?area=BR";
-const ninetyNineFoodSecondaryUrl = "https://oia.99app.com/dlp9/ceXoR0?area=BR";
+const ninetyNineFoodSecondaryUrl = "https://oia.99app.com/dlp9/X2TmjJ?area=BR";
 const expressoUrl = "https://expresso.varandaype.com";
+const alloyUrl = expressoUrl;
+const burgersUrl = "https://burgersnsmoke.com";
 const whatsappUrl = "https://wa.me/551931991971";
 const companyWhatsappUrl =
   "https://wa.me/551931991971?text=Ol%C3%A1%2C%20quero%20falar%20sobre%20pedido%20para%20empresa%20no%20Varanda%20Yp%C3%AA.";
@@ -186,6 +165,41 @@ export const productPages = [
       ["O que vem na Jantinha Expressa?", "A Jantinha Expressa vem com 2 espetos, arroz, feijão, farofa e vinagrete ou saladinha."],
       ["Quanto custa a Jantinha Expressa?", "A Jantinha Expressa custa R$ 35,90."],
       ["Onde fica o Varanda Ypê?", "Na Av. Brigadeiro Rafael Tobias de Aguiar, 1121, Jardim Aurélia, Campinas."],
+    ],
+  },
+  {
+    slug: "grelhados-campinas",
+    eyebrow: "Grelhados",
+    title: "Grelhados no Jardim Aurélia, em Campinas",
+    intro:
+      "Carnes, frango e peixe grelhados com acompanhamentos brasileiros, em pratos executivos para almoço, salão e delivery no Varanda Ypê.",
+    image: "/pratos/chorizo.png",
+    imageAlt: "Chorizo grelhado com acompanhamentos no Varanda Ypê em Campinas",
+    keywords:
+      "grelhados Campinas, carnes grelhadas Jardim Aurélia, prato executivo Campinas, chorizo grelhado, fraldinha grelhada, almoço Jardim Aurélia",
+    menuAnchor: "/menu#la-carte",
+    orderLabel: "Ver grelhados",
+    metaTitle: "Grelhados em Campinas, Jardim Aurélia | Varanda Ypê",
+    metaDescription:
+      "Grelhados no Jardim Aurélia, em Campinas: carnes, frango e peixe com acompanhamentos brasileiros em pratos executivos no Varanda Ypê.",
+    sections: [
+      [
+        "Carnes, frango e peixe na grelha",
+        "O cardápio reúne opções como chorizo, fraldinha, filé mignon, frango, tilápia e salmão, preparadas para combinar sabor, praticidade e uma refeição completa.",
+      ],
+      [
+        "Grelhados com acompanhamentos brasileiros",
+        "Os pratos combinam proteínas grelhadas com arroz, feijão, fritas, legumes, saladas e outros acompanhamentos, conforme a opção escolhida no cardápio.",
+      ],
+      [
+        "No Jardim Aurélia ou por delivery",
+        "Consulte preços e disponibilidade no cardápio online. Os itens podem ser pedidos nos canais de delivery ou aproveitados no restaurante em Campinas.",
+      ],
+    ],
+    faqs: [
+      ["Onde comer grelhados no Jardim Aurélia?", "O Varanda Ypê fica na Av. Brigadeiro Rafael Tobias de Aguiar, 1121, Jardim Aurélia, Campinas."],
+      ["Quais grelhados aparecem no cardápio?", "Há opções com carnes bovinas, frango e peixes, além de acompanhamentos brasileiros."],
+      ["É possível pedir grelhados por delivery?", "Sim. Consulte os canais de pedido para verificar disponibilidade, valores e entrega no momento do pedido."],
     ],
   },
   {
@@ -332,13 +346,13 @@ const discoveryPages = [
     eyebrow: "Delivery e apps",
     title: "Encontre o Varanda Ypê nos apps e nas buscas",
     intro:
-      "Procure por Varanda Ypê ou Varanda Ype em Campinas para achar a casa nos canais de pedido, mapas, delivery e sugestões de local.",
+      "Procure por Varanda Ypê - Marmitas, Executivos & Grelhados no iFood e no 99Food. Em mapas e buscas locais, procure também por Varanda Ypê ou Varanda Ype em Campinas.",
     image: "/pratos/chorizo.png",
     imageAlt: "Prato executivo do Varanda Ypê disponível para pedido em Campinas",
     sections: [
       [
         "Nome igual em todos os lugares",
-        "Para facilitar a busca em apps como 99, 99Food, Uber, iFood, Google e mapas, use os nomes Varanda Ypê e Varanda Ype junto do bairro Jardim Aurélia ou da cidade Campinas.",
+        "No iFood e no 99Food, o nome da loja é Varanda Ypê - Marmitas, Executivos & Grelhados. No Google e nos mapas, use também Varanda Ypê ou Varanda Ype junto de Jardim Aurélia ou Campinas.",
       ],
       [
         "Canais de pedido conhecidos",
@@ -350,7 +364,7 @@ const discoveryPages = [
       ],
     ],
     faqs: [
-      ["Como procurar o Varanda Ypê nos apps?", "Busque por Varanda Ypê, Varanda Ype, restaurante Jardim Aurélia ou pelo endereço Av. Brigadeiro Rafael Tobias de Aguiar, 1121, Campinas."],
+      ["Como procurar o Varanda Ypê nos apps?", "No iFood e no 99Food, busque por Varanda Ypê - Marmitas, Executivos & Grelhados. Em mapas, use Varanda Ypê, Jardim Aurélia ou o endereço Av. Brigadeiro Rafael Tobias de Aguiar, 1121, Campinas."],
       ["Quais canais de pedido aparecem no site?", "O site direciona para iFood, 99Food, Expresso Varanda Ypê e WhatsApp oficial."],
       ["Por que o nome sem acento também aparece?", "Alguns apps e pesquisas tratam acentos de forma diferente. Usar Varanda Ypê e Varanda Ype ajuda a conectar buscas com e sem acento."],
     ],
@@ -471,45 +485,54 @@ function QualityReviewBanner() {
 // out of sync with each other.
 const deliveryOptions = [
   {
-    key: "99food-principal",
-    provider: "99Food",
-    note: "App principal",
-    url: ninetyNineFoodPrimaryUrl,
-    tone: "ninetynine",
-    cta: "99Food principal",
-  },
-  {
-    key: "99food-secundaria",
-    provider: "99Food",
-    note: "Link alternativo",
-    url: ninetyNineFoodSecondaryUrl,
-    tone: "ninetynine",
-    cta: "99Food alternativo",
-  },
-  {
     key: "ifood",
     provider: "iFood",
-    note: "Delivery oficial",
+    store: "Varanda Ypê",
+    note: "Marmitas, executivos e grelhados",
+    description: "Peça a linha Varanda Ypê pelo cardápio oficial do iFood.",
+    image: "/pratos/chorizo.png",
     url: ifoodUrl,
     tone: "ifood",
     cta: "Pedir no iFood",
   },
   {
-    key: "expresso",
-    provider: "Expresso",
-    note: "Direto da loja · só no almoço · acumula pontos e cashback",
-    url: expressoUrl,
-    tone: "expresso",
-    cta: "Pedir no Expresso",
+    key: "99food-varanda",
+    provider: "99Food",
+    store: "Varanda Ypê",
+    note: "Marmitas, executivos e grelhados",
+    description: "Encontre o cardápio Varanda Ypê também no 99Food.",
+    image: "/pratos/fraldinha.png",
+    url: ninetyNineFoodPrimaryUrl,
+    tone: "ninetynine",
+    cta: "Pedir no 99Food",
+  },
+  {
+    key: "99food-burgers-smoke",
+    provider: "99Food",
+    store: "Burgers N' Smoke",
+    note: "Hambúrgueres, carnes e espetinhos",
+    description: "A operação Burgers N' Smoke no 99Food, com identidade e cardápio próprios.",
+    image: "/pratos/jantinha-2-espetos-varanda-ype-campinas.jpg",
+    url: ninetyNineFoodSecondaryUrl,
+    tone: "ninetynine",
+    cta: "Pedir Burgers N' Smoke",
+  },
+  {
+    key: "alloy",
+    provider: "Alloy",
+    store: "Pedido direto",
+    note: "Pedido direto da loja · pontos e cashback",
+    url: alloyUrl,
+    tone: "alloy",
+    cta: "Pedir pela Alloy",
   },
 ];
 
 const quickGroups = [
   ["Executivos", "Pratos do dia para almoço", "/menu#la-carte"],
-  ["Porções", "Boteco para compartilhar", "/#porcoes"],
-  ["Espetinhos", "Jantar leve e direto", "/menu#espetinhos"],
-  ["Chopp", "Mesa com amigos", "/menu#bebidas"],
-  ["Família", "Espaço kids", "/#horarios"],
+  ["Jantinha", "Espetinhos com acompanhamentos", "/menu#espetinhos"],
+  ["Cardápio completo", "Preços e descrições online", "/menu"],
+  ["Burgers N Smoke", "Nossa hamburgueria", burgersUrl],
 ];
 
 const orderBenefits = [
@@ -896,15 +919,15 @@ function MenuItem({ item, sectionId }) {
         )}
         <a
           className="menu-add-button"
-          href={expressoUrl}
+          href={alloyUrl}
           target="_blank"
           rel="noreferrer"
-          aria-label={`Pedir ${item.name} no Expresso`}
+          aria-label={`Pedir ${item.name} pela Alloy`}
           onClick={() =>
             trackEvent("menu_add_click", {
               item: item.name,
               section: sectionId,
-              destination: "expresso",
+              destination: "alloy",
             })
           }
         >
@@ -915,10 +938,54 @@ function MenuItem({ item, sectionId }) {
   );
 }
 
+function OrderChannelsPanel() {
+  return (
+    <Reveal as="aside" className="order-channels-panel" aria-label="Onde pedir Varanda Ypê">
+      <div className="order-panel-head">
+        <span>🛵 Onde pedir</span>
+        <h3>Escolha o canal e finalize fora do site</h3>
+        <p>
+          O cardápio aqui é para consulta rápida. Disponibilidade, taxa de entrega,
+          promoções e pagamento aparecem no app ou na Alloy.
+        </p>
+      </div>
+
+      <div className="order-channel-list">
+        {deliveryOptions.map((option) => (
+          <a
+            key={option.key}
+            className={`order-channel-card order-channel-${option.tone}`}
+            href={option.url}
+            target="_blank"
+            rel="noreferrer"
+            onClick={() =>
+              trackEvent("delivery_click", {
+                provider: option.provider,
+                channel: option.key,
+                location: "menu_order_panel",
+              })
+            }
+          >
+            <strong>{option.provider}</strong>
+            <span>{option.note}</span>
+            <em>{option.cta}</em>
+          </a>
+        ))}
+      </div>
+
+      <div className="order-panel-note">
+        <strong>Sem checkout no site</strong>
+        <span>Toque em um item ou canal para continuar no app escolhido.</span>
+      </div>
+    </Reveal>
+  );
+}
+
 function OnlineMenuContent() {
   const [query, setQuery] = useState("");
   const [activeSection, setActiveSection] = useState("todos");
   const normalizedQuery = query.trim().toLocaleLowerCase("pt-BR");
+  const totalMenuItems = fullMenuSections.reduce((sum, section) => sum + section.items.length, 0);
   const visibleSections = fullMenuSections
     .filter((section) => activeSection === "todos" || section.id === activeSection)
     .map((section) => ({
@@ -949,143 +1016,120 @@ function OnlineMenuContent() {
         <div className="online-menu-head">
           <div>
             <p className="section-label">Cardápio completo online</p>
-            <h2>Leve para abrir, fácil de escolher</h2>
+            <h2>Cardápio online do Varanda Ypê</h2>
           </div>
           <p>
-            Aqui tem comida de casa, grelhados, espetinhos, porções e bebidas
-            para escolher com calma antes de chegar ou pedir.
+            Consulte pratos, porções, espetinhos, bebidas, descrições e preços.
+            Depois finalize pelo iFood, 99Food, Alloy ou atendimento direto.
           </p>
         </div>
 
-        <Reveal as="aside" className="store-order-panel" aria-label="Resumo da loja">
+        <Reveal as="aside" className="store-order-panel menu-storefront-header" aria-label="Resumo da loja">
           <div className="store-logo-block">
             <Img src="/logo-icon-96.png" alt="" width={64} height={64} priority />
             <div>
-              <strong>Expresso Varanda Ypê</strong>
-              <span>Pedido próprio • pontos e cashback</span>
+              <strong>Varanda Ypê Grill & Executivos</strong>
+              <span>Jardim Aurélia, Campinas • almoço, jantar e delivery</span>
             </div>
           </div>
           <div className="store-status-list">
-            <span>Almoço no Expresso</span>
-            <span>Entrega ou retirada</span>
-            <span>WhatsApp para dúvidas</span>
+            <span>{totalMenuItems} itens</span>
+            <span>Busca rápida</span>
+            <span>Preços visíveis</span>
+            <span>Sem checkout interno</span>
           </div>
           <a
             className="store-order-button"
-            href={expressoUrl}
+            href={alloyUrl}
             target="_blank"
             rel="noreferrer"
-            onClick={() => trackEvent("delivery_click", { provider: "Expresso", channel: "expresso", location: "store_order_panel" })}
+            onClick={() => trackEvent("delivery_click", { provider: "Alloy", channel: "alloy", location: "store_order_panel" })}
           >
-            Abrir pedidos
+            Pedir pela Alloy
           </a>
         </Reveal>
 
-        <Reveal as="aside" className="delivery-callout" aria-label="Opções de delivery">
-          <div>
-            <span>🛵 Delivery</span>
-            <h3>Peça Varanda Ypê sem sair de casa</h3>
-            <p>
-              Escolha o app ou canal que preferir para ver disponibilidade,
-              promoções e formas de entrega.
-            </p>
-          </div>
-          <div className="delivery-callout-actions">
-            {deliveryOptions.map((option) => (
-              <a
-                key={option.key}
-                className={`delivery-button delivery-button-${option.tone}`}
-                href={option.url}
-                target="_blank"
-                rel="noreferrer"
-                onClick={() =>
-                  trackEvent("delivery_click", {
-                    provider: option.provider,
-                    channel: option.key,
-                    location: "menu_callout",
-                  })
-                }
-              >
-                {option.cta}
-              </a>
-            ))}
-          </div>
-        </Reveal>
-
-        <div className="menu-filter-card" aria-label="Filtros do cardápio">
-          <label className="menu-search">
-            <span>Buscar no cardápio</span>
-            <input
-              type="search"
-              value={query}
-              placeholder="Ex.: fraldinha, fritas, chopp"
-              onChange={(event) => {
-                setQuery(event.target.value);
-                trackEvent("menu_search_input", { has_query: event.target.value.trim().length > 0 });
-              }}
-            />
-          </label>
-          <div className="menu-shortcuts" aria-label="Selecionar grupo do cardápio">
-            <button
-              type="button"
-              className={activeSection === "todos" ? "is-active" : ""}
-              onClick={() => selectSection("todos", "Todos")}
-            >
-              <span>★</span>
-              Todos
-            </button>
-            {fullMenuSections.map((section) => (
-              <button
-                type="button"
-                className={activeSection === section.id ? "is-active" : ""}
-                key={section.id}
-                onClick={() => selectSection(section.id, section.title)}
-              >
-                <span>{section.emoji}</span>
-                {section.title}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        <div className="online-menu-grid">
-          {visibleSections.map((section, index) => (
-            <Reveal
-              as="article"
-              className="online-menu-section"
-              id={section.id}
-              key={section.id}
-              delay={Math.min(index, 4) * 70}
-            >
-              <header>
-                <span className="section-emoji" aria-hidden="true">
-                  {section.emoji}
-                </span>
-                <div>
-                  <h3>{section.title}</h3>
-                  <p>{section.note}</p>
-                </div>
-              </header>
-              <ul>
-                {section.items.map((item) => (
-                  <MenuItem item={item} sectionId={section.id} key={`${section.id}-${item.name}`} />
+        <div className="storefront-layout">
+          <div className="storefront-main">
+            <div className="menu-filter-card" aria-label="Filtros do cardápio">
+              <label className="menu-search">
+                <span>Buscar no cardápio</span>
+                <input
+                  type="search"
+                  value={query}
+                  placeholder="Ex.: fraldinha, fritas, chopp"
+                  onInput={(event) => {
+                    setQuery(event.target.value);
+                    trackEvent("menu_search_input", { has_query: event.target.value.trim().length > 0 });
+                  }}
+                />
+              </label>
+              <div className="menu-shortcuts" aria-label="Selecionar grupo do cardápio">
+                <button
+                  type="button"
+                  className={activeSection === "todos" ? "is-active" : ""}
+                  onClick={() => selectSection("todos", "Todos")}
+                >
+                  <span>★</span>
+                  Todos
+                  <small>{totalMenuItems}</small>
+                </button>
+                {fullMenuSections.map((section) => (
+                  <button
+                    type="button"
+                    className={activeSection === section.id ? "is-active" : ""}
+                    key={section.id}
+                    onClick={() => selectSection(section.id, section.title)}
+                  >
+                    <span>{section.emoji}</span>
+                    {section.title}
+                    <small>{section.items.length}</small>
+                  </button>
                 ))}
-              </ul>
-            </Reveal>
-          ))}
-        </div>
-        {visibleSections.length === 0 && (
-          <div className="menu-empty-state" role="status">
-            <h3>Nenhum item encontrado</h3>
-            <p>Tente buscar por outro prato ou veja todos os grupos do cardápio.</p>
-            <button type="button" onClick={() => {
-              setQuery("");
-              setActiveSection("todos");
-            }}>
-              Limpar filtros
-            </button>
+              </div>
+            </div>
+
+            <div className="online-menu-grid">
+              {visibleSections.map((section, index) => (
+                <Reveal
+                  as="article"
+                  className="online-menu-section"
+                  id={section.id}
+                  key={section.id}
+                  delay={Math.min(index, 4) * 70}
+                >
+                  <header>
+                    <span className="section-emoji" aria-hidden="true">
+                      {section.emoji}
+                    </span>
+                    <div>
+                      <h3>{section.title}</h3>
+                      <p>{section.note}</p>
+                    </div>
+                  </header>
+                  <ul>
+                    {section.items.map((item) => (
+                      <MenuItem item={item} sectionId={section.id} key={`${section.id}-${item.name}`} />
+                    ))}
+                  </ul>
+                </Reveal>
+              ))}
+            </div>
+            {visibleSections.length === 0 && (
+              <div className="menu-empty-state" role="status">
+                <h3>Nenhum item encontrado</h3>
+                <p>Tente buscar por outro prato ou veja todos os grupos do cardápio.</p>
+                <button type="button" onClick={() => {
+                  setQuery("");
+                  setActiveSection("todos");
+                }}>
+                  Limpar filtros
+                </button>
+              </div>
+            )}
           </div>
-        )}
+          <OrderChannelsPanel />
+        </div>
       </div>
     </section>
   );
@@ -1102,7 +1146,7 @@ export function MenuPage() {
         <a className="header-cta" href="/" aria-label="Voltar para a home">
           Home
         </a>
-        <a className="delivery-header-button" href="/#delivery">
+        <a className="delivery-header-button" href="/delivery">
           Delivery
         </a>
         <a className="header-cta" href="/empresa">
@@ -1230,6 +1274,9 @@ function DiscoveryLinks({ currentSlug }) {
     <nav className="discovery-links" aria-label="Conheça o Varanda Ypê">
       <h2>Mais formas de conhecer a casa</h2>
       <div>
+        {productPages.filter((page) => page.slug !== currentSlug).map((page) => (
+          <a href={`/${page.slug}/`} key={page.slug}>{page.eyebrow}</a>
+        ))}
         {discoveryPages.filter((page) => page.slug !== currentSlug).map((page) => (
           <a href={`/${page.slug}`} key={page.slug}>{page.eyebrow}</a>
         ))}
@@ -1417,7 +1464,7 @@ export function ProductPage({ page }) {
           <span>Varanda Ypê</span>
         </a>
         <a className="header-cta" href="/menu">Cardápio</a>
-        <a className="delivery-header-button" href={ifoodUrl} target="_blank" rel="noreferrer">Delivery</a>
+        <a className="delivery-header-button" href="/delivery">Delivery</a>
       </header>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(pageSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
@@ -1436,7 +1483,7 @@ export function ProductPage({ page }) {
             <p>{page.intro}</p>
             <div className="hero-actions">
               <a className="button button-primary" href={page.menuAnchor}>{page.orderLabel}</a>
-              <a className="button button-secondary" href={ifoodUrl} target="_blank" rel="noreferrer">Pedir delivery</a>
+              <a className="button button-secondary" href="/delivery">Pedir delivery</a>
             </div>
           </div>
           <Img src={page.image} alt={page.imageAlt} width={560} height={500} priority />
@@ -1464,6 +1511,107 @@ export function ProductPage({ page }) {
               </article>
             ))}
           </div>
+        </div>
+      </section>
+      <div className="section-inner"><DiscoveryLinks currentSlug={page.slug} /></div>
+    </main>
+  );
+}
+
+export function DeliveryHubPage() {
+  const marketplaceOptions = deliveryOptions.filter((option) => option.key !== "alloy");
+  const hubSchema = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "Delivery Varanda Ypê",
+    description: "Canais oficiais para pedir Varanda Ypê e Burgers N' Smoke em Campinas.",
+    url: "https://varandaype.com/delivery",
+    inLanguage: "pt-BR",
+    mainEntity: {
+      "@type": "ItemList",
+      itemListElement: marketplaceOptions.map((option, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        name: `${option.provider} - ${option.store}`,
+        url: option.url,
+      })),
+    },
+    isPartOf: {
+      "@type": "WebSite",
+      "@id": "https://varandaype.com/#website",
+      name: "Varanda Ypê",
+      url: "https://varandaype.com/",
+    },
+  };
+
+  return (
+    <main className="delivery-hub-page">
+      <header className="menu-page-header">
+        <a className="brand" href="/" aria-label="Voltar para a home do Varanda Ypê">
+          <Img src="/logo-icon-96.png" alt="" width={52} height={52} priority />
+          <span>Varanda Ypê</span>
+        </a>
+        <a className="header-cta" href="/menu">Cardápio</a>
+        <a className="delivery-header-button" href={whatsappUrl} target="_blank" rel="noreferrer">Atendimento</a>
+      </header>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(hubSchema) }} />
+
+      <section className="delivery-hub-hero">
+        <div className="delivery-hub-inner">
+          <nav className="breadcrumbs" aria-label="Navegação estrutural"><a href="/">Início</a><span>›</span><span>Delivery</span></nav>
+          <p className="section-label">Canais oficiais</p>
+          <h1>Escolha onde fazer seu pedido</h1>
+          <p>
+            Compare o canal que preferir e finalize no aplicativo escolhido. Taxas,
+            prazo, promoções e disponibilidade são informados pelo próprio app.
+          </p>
+        </div>
+      </section>
+
+      <section className="delivery-hub-content">
+        <div className="delivery-hub-inner">
+          <div className="delivery-app-grid" aria-label="Aplicativos de delivery">
+            {marketplaceOptions.map((option) => (
+              <article className={`delivery-app-card delivery-app-${option.tone}`} key={option.key}>
+                <Img src={option.image} alt={`${option.store} disponível no ${option.provider}`} width={520} height={300} priority />
+                <div className="delivery-app-card-body">
+                  <span className="delivery-app-provider">{option.provider}</span>
+                  <h2>{option.store}</h2>
+                  <strong>{option.note}</strong>
+                  <p>{option.description}</p>
+                  <a
+                    className={`delivery-button delivery-button-${option.tone}`}
+                    href={option.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    onClick={() => trackEvent("delivery_click", { provider: option.provider, channel: option.key, location: "delivery_hub" })}
+                  >
+                    {option.cta}
+                  </a>
+                </div>
+              </article>
+            ))}
+          </div>
+
+          <aside className="delivery-direct-panel">
+            <div>
+              <p className="section-label">Outros canais</p>
+              <h2>Pedido direto e atendimento</h2>
+              <p>Use o canal próprio para consultar o cardápio ou fale com a equipe pelo WhatsApp.</p>
+            </div>
+            <div className="delivery-direct-actions">
+              <a href={alloyUrl} target="_blank" rel="noreferrer" onClick={() => trackEvent("delivery_click", { provider: "Alloy", channel: "alloy", location: "delivery_hub" })}>
+                <strong>Pedido direto</strong><span>Pontos e cashback na Alloy</span><em>Abrir cardápio</em>
+              </a>
+              <a href={whatsappUrl} target="_blank" rel="noreferrer" onClick={() => trackEvent("whatsapp_click", { location: "delivery_hub" })}>
+                <strong>WhatsApp</strong><span>Dúvidas, reservas e atendimento</span><em>Falar com a equipe</em>
+              </a>
+            </div>
+          </aside>
+
+          <p className="delivery-hub-note">
+            O Varanda Ypê não controla preços, cupons, taxas ou prazos exibidos pelos aplicativos.
+          </p>
         </div>
       </section>
     </main>
@@ -1495,12 +1643,9 @@ export function HomePage() {
             <a href="/menu">Cardápio</a>
             <a href="/empresa">Empresas</a>
             <a href="#pedido">Pedido online</a>
-            <a href="#delivery">Delivery</a>
-            <a href="#ambiente">Ambiente</a>
-            <a href="#porcoes">Porções</a>
-            <a href="#horarios">Horários</a>
-            <a className="nav-google" href={googleBusinessUrl} target="_blank" rel="noreferrer">
-              <GoogleIcon /> Avaliações
+            <a href="/delivery">Delivery</a>
+            <a href={burgersUrl} target="_blank" rel="noreferrer">
+              Burgers N Smoke
             </a>
             <a href="#contato">Contato</a>
           </nav>
@@ -1528,85 +1673,43 @@ export function HomePage() {
         </header>
 
         <div className="hero-grid">
-          <div className="hero-utility-grid" aria-label="Informações e facilidades do Varanda Ypê">
-            <article className="hero-utility-card">
-              <span className="hero-utility-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 7v5l3 2"/></svg>
-              </span>
-              <div>
-                <strong>Horários da casa</strong>
-                <span>Jantar: seg. a sáb. · 18h às 23h</span>
-                <small>Almoço: sáb. e dom. · 11h às 15h</small>
-                <small>Marmitaria: todos os dias · 11h às 14h30</small>
-              </div>
-            </article>
-            <a className="hero-utility-card" href="https://whatsapp.com/channel/0029VbAcHLXFSAsxCt6lly0a" target="_blank" rel="noreferrer" aria-label="Abrir o canal do Varanda Ypê no WhatsApp">
-              <span className="hero-utility-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24"><path d="M20 11.5a8 8 0 0 1-12 6.9L4 20l1.6-3.8A8 8 0 1 1 20 11.5Z"/><path d="M9 9.5c.8 2 2 3.2 4 4"/></svg>
-              </span>
-              <div>
-                <strong>Canal no WhatsApp</strong>
-                <span>Novidades direto da casa</span>
-                <small>Seguir o canal</small>
-              </div>
-            </a>
-            <a className="hero-utility-card" href="https://expresso.varandaype.com/loja/fidelidade" target="_blank" rel="noreferrer">
-              <span className="hero-utility-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24"><rect x="4" y="7" width="16" height="13" rx="2"/><path d="M12 7v13M4 11h16M8.5 7C6 7 6 3.5 8 3.5c2.2 0 4 3.5 4 3.5M15.5 7c2.5 0 2.5-3.5.5-3.5-2.2 0-4 3.5-4 3.5"/></svg>
-              </span>
-              <div>
-                <strong>Programa de fidelidade</strong>
-                <span>Acumule pontos e cashback</span>
-                <small>Conheça os benefícios</small>
-              </div>
-            </a>
-          </div>
           <div className="hero-copy">
             <p className="signature">Comida brasileira • Boteco • Família</p>
-            <h1>Restaurante no Jardim Aurélia para almoço, jantar e delivery</h1>
+            <h1>Restaurante no Jardim Aurélia para encontrar, celebrar e comer bem</h1>
             <p className="hero-text">
-              Pratos executivos, espetinhos, porções, chopp e espaço kids em
-              Campinas. Venha para a mesa ou peça pelos canais de delivery.
+              Venha aproveitar comida brasileira, espaço kids, porções e chopp em
+              Campinas. Reserve sua mesa ou conte também com delivery e marmitaria.
             </p>
-            <div className="quick-groups" aria-label="Escolha rápida por ocasião">
-              {quickGroups.map(([title, text, href]) => (
-                <a
-                  href={href}
-                  key={title}
-                  onClick={() => trackEvent("quick_group_click", { label: title, location: "hero" })}
-                >
-                  <strong>{title}</strong>
-                  <span>{text}</span>
-                </a>
-              ))}
-            </div>
             <div className="hero-actions">
-              <a className="button button-primary" href="/menu">
+              <a
+                className="button button-primary"
+                href={whatsappUrl}
+                target="_blank"
+                rel="noreferrer"
+                onClick={() => trackEvent("whatsapp_click", { location: "hero_primary" })}
+              >
+                Reservar mesa
+              </a>
+              <a className="button button-secondary" href="/menu">
                 Ver cardápio
               </a>
               <a
                 className="button button-secondary button-delivery-hot"
-                href={ifoodUrl}
-                target="_blank"
-                rel="noreferrer"
+                href="/delivery"
                 onClick={() =>
-                  trackEvent("delivery_click", {
-                    provider: "iFood",
-                    channel: "ifood",
-                    location: "hero_primary",
-                  })
+                  trackEvent("delivery_hub_click", { location: "hero" })
                 }
               >
-                Pedir no iFood
+                Pedir delivery
               </a>
               <a
-                className="button button-secondary"
-                href={whatsappUrl}
+                className="button button-secondary button-burger"
+                href={burgersUrl}
                 target="_blank"
                 rel="noreferrer"
-                onClick={() => trackEvent("whatsapp_click", { location: "hero" })}
+                onClick={() => trackEvent("partner_click", { brand: "Burgers N Smoke", location: "hero" })}
               >
-                Reservar mesa
+                Burgers N Smoke
               </a>
             </div>
             <div className="order-benefits" aria-label="Facilidades de pedido">
@@ -1664,7 +1767,12 @@ export function HomePage() {
             </div>
             <div className="order-preview-categories" aria-label="Categorias de pedido">
               {quickGroups.slice(0, 4).map(([title, text, href]) => (
-                <a href={href} key={title}>
+                <a
+                  href={href}
+                  target={href.startsWith("http") ? "_blank" : undefined}
+                  rel={href.startsWith("http") ? "noreferrer" : undefined}
+                  key={title}
+                >
                   <strong>{title}</strong>
                   <span>{text}</span>
                 </a>
@@ -1856,12 +1964,12 @@ export function HomePage() {
             <a href={whatsappUrl} target="_blank" rel="noreferrer">
               Reservas pelo WhatsApp
             </a>
-            <a href="#delivery">Peça delivery</a>
+            <a href="/delivery">Peça delivery</a>
+            <a href={burgersUrl} target="_blank" rel="noreferrer">
+              Burgers N Smoke
+            </a>
             <a href="https://instagram.com/varandaype" target="_blank" rel="noreferrer">
               @varandaype
-            </a>
-            <a href={googleBusinessUrl} target="_blank" rel="noreferrer">
-              Ver no Google
             </a>
             <p>Av. Brigadeiro Rafael Tobias de Aguiar, 1121 - Jardim Aurélia</p>
           </div>
@@ -1882,16 +1990,17 @@ function App({ initialPath } = {}) {
     initialPath || (typeof window === "undefined" ? "/" : window.location.pathname);
   const route = currentPath.replace(/\/$/, "");
 
-  if (route === "/ifood") {
-    window.location.replace(ifoodUrl);
-    return null;
-  }
+  // /ifood, /99, /99food are handled at the edge by public/_redirects
+  // (and public/ifood/index.html as a static fallback), so they never reach
+  // the React app.
 
   let page;
   if (route === "/menu") {
     page = <MenuPage />;
   } else if (route === "/empresa") {
     page = <CompanyPage />;
+  } else if (route === "/delivery") {
+    page = <DeliveryHubPage />;
   } else {
     const productPage = productPages.find((item) => route === `/${item.slug}`);
     const discoveryPage = discoveryPages.find((item) => route === `/${item.slug}`);
