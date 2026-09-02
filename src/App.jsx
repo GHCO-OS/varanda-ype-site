@@ -144,6 +144,7 @@ const ifoodUrl =
   "https://www.ifood.com.br/delivery/link-cardapio/sitemercado/2ba9a14c-3df9-4725-8b6b-1294c2c1b156";
 const ninetyNineFoodPrimaryUrl = "https://oia.99app.com/dlp9/C94oJv?area=BR";
 const ninetyNineFoodSecondaryUrl = "https://oia.99app.com/dlp9/X2TmjJ?area=BR";
+const ninetyNineFoodMarmitariaUrl = "https://oia.99app.com/dlp9/ceXoR0?area=BR";
 const expressoUrl = "https://expresso.varandaype.com";
 const alloyUrl = expressoUrl;
 const burgersUrl = "https://burgersnsmoke.com";
@@ -568,6 +569,19 @@ function QualityReviewBanner() {
 // hero CTA, the /menu callout and the dedicated delivery section can't drift
 // out of sync with each other.
 const deliveryOptions = [
+  {
+    key: "99food-marmitaria",
+    provider: "99Food",
+    store: "Marmitaria Varanda Ypê",
+    note: "Canal exclusivo da marmitaria",
+    description:
+      "Loja só de marmitas no 99Food, com o cardápio da marmitaria Varanda Ypê e entrega no almoço.",
+    image: "/pratos/risoto-cuiabano.png",
+    url: ninetyNineFoodMarmitariaUrl,
+    tone: "ninetynine",
+    cta: "Pedir marmita no 99Food",
+    badge: "Novidade",
+  },
   {
     key: "ifood",
     provider: "iFood",
@@ -1112,7 +1126,7 @@ function OrderChannelsPanel() {
         {deliveryOptions.map((option) => (
           <a
             key={option.key}
-            className={`order-channel-card order-channel-${option.tone}`}
+            className={`order-channel-card order-channel-${option.tone}${option.badge ? " channel-highlight" : ""}`}
             href={option.url}
             target="_blank"
             rel="noreferrer"
@@ -1124,6 +1138,11 @@ function OrderChannelsPanel() {
               })
             }
           >
+            {option.badge && (
+              <span className="channel-badge" aria-label={`${option.badge}: ${option.store}`}>
+                ✨ {option.badge}
+              </span>
+            )}
             <strong>{option.provider}</strong>
             <span>{option.note}</span>
             <em>{option.cta}</em>
@@ -1779,7 +1798,8 @@ export function DeliveryHubPage() {
         <div className="delivery-hub-inner">
           <div className="delivery-app-grid" aria-label="Aplicativos de delivery">
             {marketplaceOptions.map((option) => (
-              <article className={`delivery-app-card delivery-app-${option.tone}`} key={option.key}>
+              <article className={`delivery-app-card delivery-app-${option.tone}${option.badge ? " channel-highlight" : ""}`} key={option.key}>
+                {option.badge && <span className="channel-badge">✨ {option.badge}</span>}
                 <Img src={option.image} alt={`${option.store} disponível no ${option.provider}`} width={520} height={300} priority />
                 <div className="delivery-app-card-body">
                   <span className="delivery-app-provider">{option.provider}</span>
@@ -2019,10 +2039,11 @@ export function HomePage() {
             {deliveryOptions.map((option, index) => (
               <Reveal
                 as="article"
-                className="delivery-card"
+                className={`delivery-card${option.badge ? " channel-highlight" : ""}`}
                 key={option.key}
                 delay={Math.min(index, 3) * 70}
               >
+                {option.badge && <span className="channel-badge">✨ {option.badge}</span>}
                 <span className="delivery-provider">{option.provider}</span>
                 <p>{option.note}</p>
                 <a

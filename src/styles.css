@@ -498,6 +498,47 @@ nav a,
   justify-self: start;
 }
 
+/* Featured order channel ("Novidade" — marmitaria no 99Food) */
+.channel-highlight {
+  position: relative;
+  border-color: var(--gold);
+  box-shadow:
+    0 0 0 2px var(--gold),
+    0 20px 46px rgba(201, 168, 76, 0.3);
+}
+
+.channel-badge {
+  position: absolute;
+  top: -11px;
+  left: 14px;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--gold);
+  color: var(--green-deep);
+  font-family: "Montserrat", Arial, sans-serif;
+  font-size: 0.64rem;
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  box-shadow: 0 6px 16px rgba(201, 168, 76, 0.42);
+}
+
+/* .delivery-app-card clips its rounded image, so keep the badge inside */
+.delivery-app-card .channel-badge {
+  top: 12px;
+  left: 12px;
+}
+
+.channel-highlight .delivery-button,
+.channel-highlight em {
+  box-shadow: 0 10px 24px rgba(201, 168, 76, 0.4);
+}
+
 .delivery-hub-page {
   min-height: 100vh;
   color: var(--green-deep);
