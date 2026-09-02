@@ -16,6 +16,10 @@ const pages = [
     description:
       "Restaurante Varanda Ypê no Jardim Aurélia, Campinas. Reserve sua mesa para almoço, jantar e encontros em família. Espaço kids, delivery e marmitaria.",
     canonical: "https://varandaype.com/",
+    preload: {
+      srcset: "/pratos/chorizo-sm.webp 420w, /pratos/chorizo.webp 600w",
+      sizes: "(max-width: 640px) 420px, 600px",
+    },
   },
   {
     route: "/menu",
@@ -32,6 +36,10 @@ const pages = [
     description:
       "Pedidos para empresas no Varanda Ypê em Campinas: almoço para equipes, reuniões, volume sob consulta, pratos executivos, porções e chopp.",
     canonical: "https://varandaype.com/empresa/",
+    preload: {
+      srcset: "/pratos/fraldinha-sm.webp 420w, /pratos/fraldinha.webp 600w",
+      sizes: "(max-width: 640px) 420px, 600px",
+    },
   },
   {
     route: "/delivery",
@@ -48,6 +56,7 @@ const pages = [
     description:
       "Encontre Varanda Ypê - Marmitas, Executivos & Grelhados no iFood e 99Food. Delivery em Campinas, Jardim Aurélia, cardápio e pedidos online.",
     canonical: "https://varandaype.com/delivery-varanda-ype-campinas/",
+    preload: { href: "/pratos/chorizo.webp" },
     image: "https://varandaype.com/pratos/chorizo.webp",
   },
   {
@@ -55,12 +64,14 @@ const pages = [
     title: "Restaurante no Jardim Aurélia, Campinas | Varanda Ypê",
     description: "Restaurante no Jardim Aurélia, em Campinas, com comida brasileira, almoço, jantar, porções, espetinhos, espaço kids e delivery.",
     canonical: "https://varandaype.com/restaurante-jardim-aurelia/",
+    preload: { href: "/pratos/chorizo.webp" },
   },
   {
     route: "/almoco-jardim-aurelia", file: path.join("almoco-jardim-aurelia", "index.html"),
     title: "Almoço no Jardim Aurélia, Campinas | Varanda Ypê",
     description: "Almoço no Jardim Aurélia com grelhados, massas, risotos, pratos para a família, marmitaria e atendimento para empresas.",
     canonical: "https://varandaype.com/almoco-jardim-aurelia/",
+    preload: { href: "/pratos/fraldinha.webp" },
     image: "https://varandaype.com/pratos/fraldinha.webp",
   },
   {
@@ -68,6 +79,7 @@ const pages = [
     title: "Restaurante com espaço kids reformado em Campinas | Varanda Ypê",
     description: "Restaurante com espaço kids no Jardim Aurélia, em Campinas. Brinquedão reformado em 2026, comida brasileira, pratos kids, almoço, jantar e ambiente familiar.",
     canonical: "https://varandaype.com/restaurante-com-espaco-kids-campinas/",
+    preload: { href: "/ambiente/espaco-kids-restaurante-varanda-ype-campinas.webp" },
     image: "https://varandaype.com/ambiente/espaco-kids-restaurante-varanda-ype-campinas.webp",
   },
   {
@@ -75,6 +87,7 @@ const pages = [
     title: "Porções e chopp no Jardim Aurélia | Varanda Ypê",
     description: "Porções, espetinhos, chopp e bebidas no Jardim Aurélia, em Campinas. Consulte o cardápio e venha jantar no Varanda Ypê.",
     canonical: "https://varandaype.com/porcoes-chopp-jardim-aurelia/",
+    preload: { href: "/porcoes/calabresa-com-fritas.webp" },
     image: "https://varandaype.com/porcoes/calabresa-com-fritas.webp",
   },
   {
@@ -95,6 +108,9 @@ function absImage(src) {
 }
 
 function pageForProduct(product) {
+  const webp = product.image
+    ? product.image.replace(/\.(png|jpe?g)$/i, ".webp")
+    : null;
   return {
     route: `/${product.slug}`,
     file: path.join(product.slug, "index.html"),
@@ -102,7 +118,18 @@ function pageForProduct(product) {
     description: product.metaDescription || product.intro,
     canonical: `https://varandaype.com/${product.slug}/`,
     image: absImage(product.image),
+    preload: webp ? { href: webp } : null,
   };
+}
+
+// LCP hint for the one eager hero image on the page. Injected into <head> so
+// the browser can start the fetch during HTML parse instead of after render.
+function preloadTag(preload) {
+  if (!preload) return "";
+  const attrs = preload.srcset
+    ? `imagesrcset="${preload.srcset}" imagesizes="${preload.sizes}"`
+    : `href="${preload.href}"`;
+  return `<link rel="preload" as="image" type="image/webp" ${attrs} fetchpriority="high" />`;
 }
 
 function applyHead(html, page) {
@@ -139,6 +166,10 @@ function applyHead(html, page) {
         /<meta\s+name="twitter:image"\s+content="[^"]*"\s*\/>/s,
         `<meta name="twitter:image" content="${page.image}" />`,
       );
+  }
+
+  if (page.preload) {
+    out = out.replace("</head>", `  ${preloadTag(page.preload)}\n  </head>`);
   }
 
   return out;
