@@ -73,6 +73,14 @@ const pages = [
     description: "Porções, espetinhos, chopp e bebidas no Jardim Aurélia, em Campinas. Consulte o cardápio e venha jantar no Varanda Ypê.",
     canonical: "https://varandaype.com/porcoes-chopp-jardim-aurelia/",
   },
+  {
+    route: "/privacidade",
+    file: path.join("privacidade", "index.html"),
+    title: "Política de Privacidade | Varanda Ypê",
+    description:
+      "Como o Varanda Ypê trata os dados de quem visita o site e fala com a casa: navegação, formulários, ferramentas de terceiros, cookies e direitos previstos na LGPD.",
+    canonical: "https://varandaype.com/privacidade/",
+  },
 ];
 
 function pageForProduct(product) {
