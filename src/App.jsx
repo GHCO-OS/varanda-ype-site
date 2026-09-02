@@ -1359,14 +1359,20 @@ export function SatellitePage({ page }) {
       name: "Varanda Ypê",
       alternateName: ["Varanda Ype", "Varanda Ypê - Jd. Aurélia"],
       telephone: "+551931991971",
-      hasMenu: "https://varandaype.com/menu",
+      hasMenu: "https://varandaype.com/menu/",
       sameAs: [googleBusinessUrl, ifoodUrl, ninetyNineFoodPrimaryUrl, expressoUrl],
       address: {
         "@type": "PostalAddress",
-        streetAddress: "Av. Brigadeiro Rafael Tobias de Aguiar, 1121",
+        streetAddress: "Av. Brigadeiro Rafael Tobias de Aguiar, 1121 - Jardim Aurélia",
         addressLocality: "Campinas",
         addressRegion: "SP",
+        postalCode: "13033-010",
         addressCountry: "BR",
+      },
+      geo: {
+        "@type": "GeoCoordinates",
+        latitude: -22.9010251,
+        longitude: -47.09676,
       },
     },
   };
