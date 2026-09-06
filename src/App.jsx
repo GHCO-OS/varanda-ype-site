@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Reveal } from "./Reveal.jsx";
+const DeliveryRouter = React.lazy(() => import('./delivery/DeliveryRouter.jsx'));
+import { destinations } from '../shared/delivery.js';
 
 // Serves WebP with an image fallback via <picture>, ships explicit width/height so
 // the browser reserves space before the image loads (no layout shift), and
@@ -140,12 +142,11 @@ function MarketingTracker({ route }) {
   return null;
 }
 
-const ifoodUrl =
-  "https://www.ifood.com.br/delivery/link-cardapio/sitemercado/2ba9a14c-3df9-4725-8b6b-1294c2c1b156";
-const ninetyNineFoodPrimaryUrl = "https://oia.99app.com/dlp9/C94oJv?area=BR";
-const ninetyNineFoodSecondaryUrl = "https://oia.99app.com/dlp9/X2TmjJ?area=BR";
-const ninetyNineFoodMarmitariaUrl = "https://oia.99app.com/dlp9/ceXoR0?area=BR";
-const expressoUrl = "https://expresso.varandaype.com";
+const ifoodUrl = destinations.ifood_restaurante.url;
+const ninetyNineFoodPrimaryUrl = destinations.food99_restaurante.url;
+const ninetyNineFoodSecondaryUrl = destinations.food99_hamburgueria.url;
+const ninetyNineFoodMarmitariaUrl = destinations.food99_marmitas.url;
+const expressoUrl = destinations.expresso_varanda.url;
 const alloyUrl = expressoUrl;
 const burgersUrl = "https://burgersnsmoke.com";
 const whatsappUrl = "https://wa.me/551931991971";
@@ -1744,106 +1745,6 @@ export function ProductPage({ page }) {
   );
 }
 
-export function DeliveryHubPage() {
-  const marketplaceOptions = deliveryOptions.filter((option) => option.key !== "alloy");
-  const hubSchema = {
-    "@context": "https://schema.org",
-    "@type": "CollectionPage",
-    name: "Delivery Varanda Ypê",
-    description: "Canais oficiais para pedir Varanda Ypê e Burgers N' Smoke em Campinas.",
-    url: "https://varandaype.com/delivery",
-    inLanguage: "pt-BR",
-    mainEntity: {
-      "@type": "ItemList",
-      itemListElement: marketplaceOptions.map((option, index) => ({
-        "@type": "ListItem",
-        position: index + 1,
-        name: `${option.provider} - ${option.store}`,
-        url: option.url,
-      })),
-    },
-    isPartOf: {
-      "@type": "WebSite",
-      "@id": "https://varandaype.com/#website",
-      name: "Varanda Ypê",
-      url: "https://varandaype.com/",
-    },
-  };
-
-  return (
-    <main className="delivery-hub-page">
-      <header className="menu-page-header">
-        <a className="brand" href="/" aria-label="Voltar para a home do Varanda Ypê">
-          <Img src="/logo-icon-96.png" alt="" width={52} height={52} priority />
-          <span>Varanda Ypê</span>
-        </a>
-        <a className="header-cta" href="/menu/">Cardápio</a>
-        <a className="delivery-header-button" href={whatsappUrl} target="_blank" rel="noreferrer">Atendimento</a>
-      </header>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(hubSchema) }} />
-
-      <section className="delivery-hub-hero">
-        <div className="delivery-hub-inner">
-          <nav className="breadcrumbs" aria-label="Navegação estrutural"><a href="/">Início</a><span>›</span><span>Delivery</span></nav>
-          <p className="section-label">Canais oficiais</p>
-          <h1>Escolha onde fazer seu pedido</h1>
-          <p>
-            Compare o canal que preferir e finalize no aplicativo escolhido. Taxas,
-            prazo, promoções e disponibilidade são informados pelo próprio app.
-          </p>
-        </div>
-      </section>
-
-      <section className="delivery-hub-content">
-        <div className="delivery-hub-inner">
-          <div className="delivery-app-grid" aria-label="Aplicativos de delivery">
-            {marketplaceOptions.map((option) => (
-              <article className={`delivery-app-card delivery-app-${option.tone}${option.badge ? " channel-highlight" : ""}`} key={option.key}>
-                {option.badge && <span className="channel-badge">✨ {option.badge}</span>}
-                <Img src={option.image} alt={`${option.store} disponível no ${option.provider}`} width={520} height={300} priority />
-                <div className="delivery-app-card-body">
-                  <span className="delivery-app-provider">{option.provider}</span>
-                  <h2>{option.store}</h2>
-                  <strong>{option.note}</strong>
-                  <p>{option.description}</p>
-                  <a
-                    className={`delivery-button delivery-button-${option.tone}`}
-                    href={option.url}
-                    target="_blank"
-                    rel="noreferrer"
-                    onClick={() => trackEvent("delivery_click", { provider: option.provider, channel: option.key, location: "delivery_hub" })}
-                  >
-                    {option.cta}
-                  </a>
-                </div>
-              </article>
-            ))}
-          </div>
-
-          <aside className="delivery-direct-panel">
-            <div>
-              <p className="section-label">Outros canais</p>
-              <h2>Pedido direto e atendimento</h2>
-              <p>Use o canal próprio para consultar o cardápio ou fale com a equipe pelo WhatsApp.</p>
-            </div>
-            <div className="delivery-direct-actions">
-              <a href={alloyUrl} target="_blank" rel="noreferrer" onClick={() => trackEvent("delivery_click", { provider: "Alloy", channel: "alloy", location: "delivery_hub" })}>
-                <strong>Pedido direto</strong><span>Pontos e cashback na Alloy</span><em>Abrir cardápio</em>
-              </a>
-              <a href={whatsappUrl} target="_blank" rel="noreferrer" onClick={() => trackEvent("whatsapp_click", { location: "delivery_hub" })}>
-                <strong>WhatsApp</strong><span>Dúvidas, reservas e atendimento</span><em>Falar com a equipe</em>
-              </a>
-            </div>
-          </aside>
-
-          <p className="delivery-hub-note">
-            O Varanda Ypê não controla preços, cupons, taxas ou prazos exibidos pelos aplicativos.
-          </p>
-        </div>
-      </section>
-    </main>
-  );
-}
 
 export function HomePage() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -2237,6 +2138,10 @@ export function PrivacyPage() {
       "Os formulários são hospedados pelo JotForm e as conversas de atendimento acontecem pelo WhatsApp (Meta); os dados enviados por esses canais são tratados também por essas plataformas, conforme as políticas delas. Os botões de delivery levam a iFood, 99Food e ao pedido direto (Expresso), que são serviços independentes, com políticas próprias. As fontes de texto são carregadas do Google Fonts.",
     ],
     [
+      "Direcionamento e medição de delivery",
+      "Nas páginas de delivery, registramos a origem da campanha, a página acessada e o canal escolhido. Quando a medição está permitida, usamos IDs aleatórios de visita, sessão e evento; a sessão expira após 30 minutos de inatividade e guarda a primeira e a última origem informada nessa sessão. IDs de anúncios, como GCLID e FBCLID, são tratados apenas com a autorização para anúncios. Os links de pedido continuam funcionando após rejeitar a medição. A medição própria não recebe dados do pedido ou pagamento e não considera o clique como uma compra. A preferência pode ser alterada no rodapé das páginas de delivery. O endpoint próprio só mantém registros persistentes quando o armazenamento do serviço estiver configurado.",
+    ],
+    [
       "Cookies e como controlar",
       "Ao entrar no site, um aviso permite aceitar ou rejeitar os cookies de anúncios. Você pode mudar de ideia a qualquer momento limpando os cookies e os dados do site no seu navegador, o que faz o aviso aparecer de novo. Cookies estritamente necessários para a exibição das páginas não podem ser desativados.",
     ],
@@ -2302,6 +2207,9 @@ function App({ initialPath } = {}) {
   const currentPath =
     initialPath || (typeof window === "undefined" ? "/" : window.location.pathname);
   const route = currentPath.replace(/\/$/, "");
+  if (route === '/delivery') return <React.Suspense><DeliveryRouter /></React.Suspense>;
+  const deliveryOperation = route.match(/^\/delivery\/(restaurante|marmitas|hamburgueria)$/)?.[1];
+  if (deliveryOperation) return <React.Suspense><DeliveryRouter operation={deliveryOperation} /></React.Suspense>;
 
   // /ifood, /99, /99food are handled at the edge by public/_redirects
   // (and public/ifood/index.html as a static fallback), so they never reach
@@ -2312,8 +2220,6 @@ function App({ initialPath } = {}) {
     page = <MenuPage />;
   } else if (route === "/empresa") {
     page = <CompanyPage />;
-  } else if (route === "/delivery") {
-    page = <DeliveryHubPage />;
   } else if (route === "/privacidade") {
     page = <PrivacyPage />;
   } else {

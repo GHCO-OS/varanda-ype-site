@@ -190,6 +190,7 @@ try {
   const { default: App, productPages } = await vite.ssrLoadModule("/src/App.jsx");
 
   for (const page of [...pages, ...productPages.map(pageForProduct)]) {
+    if (page.route === '/delivery') continue; // Lightweight delivery renderer runs next.
     const markup = stripRootPreloads(
       renderToString(React.createElement(App, { initialPath: page.route })),
     );

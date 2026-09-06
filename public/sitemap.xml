@@ -137,4 +137,7 @@
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
+  <url><loc>https://varandaype.com/delivery/restaurante/</loc></url>
+  <url><loc>https://varandaype.com/delivery/marmitas/</loc></url>
+  <url><loc>https://varandaype.com/delivery/hamburgueria/</loc></url>
 </urlset>

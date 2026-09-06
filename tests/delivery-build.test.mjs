@@ -1,0 +1,26 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import { createHash } from 'node:crypto';
+import { gzipSync } from 'node:zlib';
+import { destinations, operations } from '../shared/delivery.js';
+test('SSG canonical, one GTM, no React/fonts, native destinations and minimal payload',()=>{
+  for(const op of ['hub',...Object.keys(operations)]) {
+    const path=op==='hub'?'/delivery/':`/delivery/${op}/`;
+    const html=fs.readFileSync(`dist${path}index.html`,'utf8');
+    assert.equal((html.match(/<h1>/g)||[]).length,1);
+    assert.ok(html.includes(`rel="canonical" href="https://varandaype.com${path}"`));
+    assert.equal((html.match(/'GTM-56F5TM96'/g)||[]).length,1);
+    assert.ok(!html.includes('/assets/index-')); assert.ok(!html.includes('fonts.googleapis.com'));
+    assert.ok(!html.includes('{{delivery:'));
+    for(const match of html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)) assert.equal(JSON.parse(match[1])['@type'],'CollectionPage');
+    for(const id of operations[op]?.destinations || []) assert.ok(html.includes(destinations[id].url));
+  }
+  assert.ok(gzipSync(fs.readFileSync('dist/delivery-assets/client.js')).length<4096);
+});
+test('HomePage component untouched relative to logical backup',()=>{
+  const after=fs.readFileSync('src/App.jsx','utf8');
+  const section=s=>s.slice(s.indexOf('export function HomePage()'),s.indexOf('export function PrivacyPage()')).replace(/\r\n/g,'\n');
+  // Snapshot verified against 3f8b432; works in shallow CI checkouts without the local backup branch.
+  assert.equal(createHash('sha256').update(section(after)).digest('hex'),'b5757b2415715c8ba6cec0fdbbbd170f6610bc922db7cb2ad666f2632233689e');
+});

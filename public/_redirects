@@ -1,6 +1,6 @@
-/ifood https://www.ifood.com.br/delivery/link-cardapio/sitemercado/2ba9a14c-3df9-4725-8b6b-1294c2c1b156 302
-/ifood/ https://www.ifood.com.br/delivery/link-cardapio/sitemercado/2ba9a14c-3df9-4725-8b6b-1294c2c1b156 302
-/99 https://oia.99app.com/dlp9/C94oJv?area=BR 302
-/99/ https://oia.99app.com/dlp9/C94oJv?area=BR 302
-/99food https://oia.99app.com/dlp9/C94oJv?area=BR 302
-/99food/ https://oia.99app.com/dlp9/C94oJv?area=BR 302
+/ifood {{delivery:ifood_restaurante}} 302
+/ifood/ {{delivery:ifood_restaurante}} 302
+/99 {{delivery:food99_restaurante}} 302
+/99/ {{delivery:food99_restaurante}} 302
+/99food {{delivery:food99_restaurante}} 302
+/99food/ {{delivery:food99_restaurante}} 302
