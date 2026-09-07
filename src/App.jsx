@@ -39,6 +39,7 @@ function Img({ src, alt, width, height, className, priority = false, smSrc }) {
 // Fixed, site-wide call-to-action. Renders once at the App root so it's on
 // every route, including a subtle entrance so it doesn't just "pop" over content.
 function FloatingWhatsapp() {
+  const operation = typeof window === "undefined" ? "home" : (window.location.pathname.split("/").filter(Boolean)[0] || "home");
   return (
     <a
       className="floating-whatsapp"
@@ -46,7 +47,7 @@ function FloatingWhatsapp() {
       target="_blank"
       rel="noreferrer"
       aria-label="Falar no WhatsApp"
-      onClick={() => trackEvent("whatsapp_click", { location: "floating_button" })}
+      onClick={() => trackEvent("whatsapp_click", { operation, partner: "whatsapp", destination_id: "whatsapp_float", cta_position: "floating", location: "floating_button" })}
     >
       <svg viewBox="0 0 32 32" width="28" height="28" aria-hidden="true" focusable="false">
         <path
@@ -152,7 +153,8 @@ const burgersUrl = "https://burgersnsmoke.com";
 const whatsappUrl = "https://wa.me/551931991971";
 const companyWhatsappUrl =
   "https://wa.me/551931991971?text=Ol%C3%A1%2C%20quero%20falar%20sobre%20pedido%20para%20empresa%20no%20Varanda%20Yp%C3%AA.";
-const whatsappFloatingUrl = whatsappUrl;
+const whatsappFloatingUrl =
+  "https://wa.me/551931991971?text=Ol%C3%A1%21%20Vim%20pelo%20site%20e%20gostaria%20de%20conhecer%20o%20card%C3%A1pio%20ou%20fazer%20um%20pedido.";
 const googleBusinessUrl = "https://share.google/pxyfGTy3KNNdToPxk";
 const companyFormUrl = "https://form.jotform.com/262195555788070";
 const qualityReviewUrl = "https://form.jotform.com/262324465405050";
@@ -2139,7 +2141,7 @@ export function PrivacyPage() {
     ],
     [
       "Direcionamento e medição de delivery",
-      "Nas páginas de delivery, registramos a origem da campanha, a página acessada e o canal escolhido. Quando a medição está permitida, usamos IDs aleatórios de visita, sessão e evento; a sessão expira após 30 minutos de inatividade e guarda a primeira e a última origem informada nessa sessão. IDs de anúncios, como GCLID e FBCLID, são tratados apenas com a autorização para anúncios. Os links de pedido continuam funcionando após rejeitar a medição. A medição própria não recebe dados do pedido ou pagamento e não considera o clique como uma compra. A preferência pode ser alterada no rodapé das páginas de delivery. O endpoint próprio só mantém registros persistentes quando o armazenamento do serviço estiver configurado.",
+      "Nas páginas de delivery, registramos a origem da campanha, a página acessada e o canal escolhido. Quando a medição está permitida, usamos IDs aleatórios de visita, sessão e evento; a sessão expira após 30 minutos de inatividade e guarda a primeira e a última origem informada nessa sessão. IDs de anúncios, como GCLID e FBCLID, são tratados apenas com a autorização para anúncios. Os links de pedido continuam funcionando após rejeitar a medição. A medição própria não recebe dados do pedido ou pagamento e não considera o clique como uma compra. A preferência pode ser alterada no rodapé das páginas de delivery. Se você optar por receber comunicações, o WhatsApp e/ou e-mail informado é armazenado com a sua autorização explícita, junto da origem da visita quando a medição estiver permitida; esse cadastro não é necessário para pedir. O endpoint próprio só mantém registros persistentes quando o armazenamento do serviço estiver configurado.",
     ],
     [
       "Cookies e como controlar",

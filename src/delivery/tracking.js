@@ -73,6 +73,20 @@ export function createDeliveryTracking(win, operation) {
   }
   return {
     emit, href, state,
+    leadContext() {
+      const permissions = consent();
+      const current = state();
+      const params = current ? { ...current.last, ...campaignParams(win.location.search, permissions.ads) } : {};
+      delete params.timestamp;
+      delete params.page_path;
+      delete params.referrer;
+      return {
+        event_id: uuid(), occurred_at: new Date().toISOString(), operation,
+        page_path: deliveryPath(operation), consent_analytics: permissions.analytics,
+        consent_ads: permissions.ads, ...(current ? { visit_id: visitId, session_id: current.id, ...params } : {}),
+        ...(referrer ? { referrer } : {}),
+      };
+    },
     setConsent(value) { consentOverride = value; state(); },
     internalHref(op) {
       const params = new URLSearchParams(campaignParams(win.location.search));

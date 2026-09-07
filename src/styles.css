@@ -2960,6 +2960,7 @@ input:focus-visible,
   background: #25d366;
   color: #fff;
   box-shadow: 0 14px 32px rgba(0, 0, 0, 0.28);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .satellite-hero { background: var(--green, #183f35); color: #fff; padding: 64px 0 84px; }
@@ -3274,6 +3275,7 @@ h2 {
 
 @media (hover: hover) and (pointer: fine) {
   .floating-whatsapp:hover {
+    transform: scale(1.08);
     box-shadow: 0 18px 38px rgba(0, 0, 0, 0.32);
   }
 }

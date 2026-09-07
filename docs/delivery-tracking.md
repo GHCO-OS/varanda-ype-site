@@ -23,6 +23,8 @@ Implementação de 6 de setembro de 2026. Código pronto para deploy; este traba
 | `/delivery/marmitas/` | Pedir sua marmita | 99Food, iFood |
 | `/delivery/hamburgueria/` | Pedir Burgers N’ Smoke | iFood, 99Food |
 
+Na rota Restaurante, o Pedido Direto fica ativo diariamente das 11h às 15h no fuso `America/Sao_Paulo`. Fora desse intervalo, o JavaScript o substitui por um controle desabilitado e orienta o cliente a usar os apps. O HTML original conserva o destino real como fallback sem JavaScript.
+
 Fonte única: `shared/delivery.js`. Restaurante e Hamburgueria nunca compartilham botões de canal em suas páginas específicas. Não há pedido direto inventado para Marmitaria ou Hamburgueria.
 
 | destination_id | Destino oficial |
@@ -127,6 +129,16 @@ Limite aplicativo: 120 eventos/sessão/minuto. É um limitador básico, não pro
 
 Não existe D1 remoto provisionado/verificado neste trabalho. SQL/migration, persistência, deduplicação e limite foram testados localmente com SQLite e interface compatível com D1; a Function foi compilada pelo Wrangler. Não equivale a validar binding real em produção.
 
+O instalador idempotente `scripts/setup-delivery-d1.ps1` verifica a autenticação, reaproveita `varanda-delivery-db` se já existir, cria somente se faltar, atualiza `wrangler.jsonc`, aplica as migrations remotas com backup do Wrangler e lista as tabelas. Execute no PowerShell: `./scripts/setup-delivery-d1.ps1`. Na tentativa de 7 de setembro de 2026, o token configurado neste computador foi recusado pela Cloudflare (`9109`/`10000`); nenhum banco foi criado ou alterado.
+
+## Captura voluntária de contato
+
+As páginas de delivery incluem um diálogo leve acionado após 12 segundos ou intenção de saída no desktop. Fechado ou exibido, não reaparece na mesma aba/sessão. Ele aceita WhatsApp, e-mail ou ambos, exige autorização explícita para comunicações e informa que o cadastro não é necessário para pedir. Nenhum cupom ou desconto foi prometido porque não foi fornecido um incentivo comercial confirmado; o campo `incentive` está preparado para uma campanha futura real.
+
+`POST /api/lead-capture` usa schema fechado, limite de 8KB, same-origin, valida UUID/timestamp/contexto, normaliza telefone/e-mail, exige consentimento do contato e limita cinco tentativas por sessão/minuto. A migration `0002_leads_capture.sql` cria `delivery_leads` e índices. Dados publicitários só são anexados com consentimento de anúncios; com medição rejeitada, o contato ainda pode ser enviado por decisão explícita do usuário, sem visit/session/atribuição. Após gravação confirmada, o dataLayer recebe `lead_capture` sem telefone ou e-mail.
+
+Validação desta evolução: build e lint passaram, **15/15 testes Node passaram**, auditoria npm sem vulnerabilidades conhecidas e QA Chromium passou nas larguras 360, 390, 430, 768 e 1440px. Também foram validados o formulário móvel completo, os sete destinos sem JavaScript e o botão flutuante de WhatsApp em 390px.
+
 ## Campanhas e configuração manual
 
 Usar URLs finais permanentes:
@@ -172,7 +184,7 @@ Lint cobre os novos módulos JS, função, build especializado e testes; não pr
 
 Testes Node: destinos separados, links HTML, allowlist, Meta/Google, primeiro/último toque, consentimento inclusive aceitação na mesma visita, Beacon falho, ausência de Purchase, schema/API, armazenamento/duplicatas/limite, SSG/canonical/single GTM/sem React e preservação literal da Home.
 
-Resultado final: build e lint passaram, **12/12 testes Node passaram**, auditoria npm com zero vulnerabilidades conhecidas e `git diff --check` sem erros. SQLite em Node emitiu apenas aviso de API experimental. Endpoint compilado respondeu 405 a GET, com no-store e noindex como esperado.
+Resultado da primeira entrega: build e lint passaram, 12/12 testes Node passaram, auditoria npm sem vulnerabilidades conhecidas e `git diff --check` sem erros. A evolução de leads e horários amplia essa cobertura; consulte o relatório do commit correspondente. SQLite em Node emitiu apenas aviso de API experimental.
 
 `tests/browser-qa.mjs` exporta `runBrowserChecks(browser, baseURL)`, para Playwright. QA executado em Chromium desktop com larguras 360, 390, 430, 768 e 1440px: quatro rotas, status 200, canonical limpo com UTM/gclid/fbclid, sem overflow, CTAs acessíveis, um hub_view, sete destinos, Beacon, preservação interna, rejeição e sete navegações sem JS. GTM e destinos externos são interceptados para não contaminar métricas nem fazer pedidos reais.
 

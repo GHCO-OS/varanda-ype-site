@@ -4,6 +4,7 @@ import { DatabaseSync } from 'node:sqlite';
 import fs from 'node:fs';
 import { randomUUID } from 'node:crypto';
 import { onRequest } from '../functions/api/delivery-click.js';
+import { onRequest as captureLead } from '../functions/api/lead-capture.js';
 test('real SQLite migration, persistence, UUID deduplication and session limit', async () => {
   const sqlite = new DatabaseSync(':memory:');
   sqlite.exec(fs.readFileSync('migrations/0001_delivery_tracking.sql','utf8'));
@@ -16,5 +17,16 @@ test('real SQLite migration, persistence, UUID deduplication and session limit',
   assert.equal(stored.length,1); assert.equal(JSON.parse(stored[0].payload).adset_id,'456');
   for(let i=1;i<120;i++) assert.equal((await send({...event,event_id:randomUUID()})).status,204);
   assert.equal((await send({...event,event_id:randomUUID()})).status,429);
+  sqlite.close();
+});
+test('lead migration persists and deduplicates an explicitly consented contact', async () => {
+  const sqlite = new DatabaseSync(':memory:');
+  sqlite.exec(fs.readFileSync('migrations/0002_leads_capture.sql','utf8'));
+  const env = { DELIVERY_DB: { prepare(sql) { const statement=sqlite.prepare(sql); return { bind(...args) { return { async first(){ return statement.get(...args); }, async run(){ return statement.run(...args); } }; } }; } } };
+  const lead={event_id:randomUUID(),occurred_at:new Date().toISOString(),visit_id:randomUUID(),session_id:randomUUID(),lead_type:'whatsapp',whatsapp:'19999999999',operation:'marmitas',page_path:'/delivery/marmitas/',source_component:'popup',lead_consent:true,consent_analytics:true,consent_ads:false,utm_source:'organic'};
+  const send=()=>captureLead({env,request:new Request('https://varandaype.com/api/lead-capture',{method:'POST',headers:{Origin:'https://varandaype.com','Content-Type':'application/json'},body:JSON.stringify(lead)})});
+  assert.equal((await send()).status,200); assert.equal((await send()).status,200);
+  const rows=sqlite.prepare('SELECT * FROM delivery_leads').all();
+  assert.equal(rows.length,1); assert.equal(rows[0].whatsapp,'19999999999'); assert.equal(JSON.parse(rows[0].payload).lead_consent,true);
   sqlite.close();
 });

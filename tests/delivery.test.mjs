@@ -6,6 +6,9 @@ import { createDeliveryTracking } from '../src/delivery/tracking.js';
 import { validateEvent } from '../shared/delivery-event.js';
 import { onRequest } from '../functions/api/delivery-click.js';
 import { deliveryMarkup } from '../src/delivery/page.js';
+import { isDirectOrderAvailable, getDirectOrderMessage, saoPauloMinutes } from '../shared/delivery-hours.js';
+import { validateLead } from '../shared/lead-event.js';
+import { onRequest as captureLead } from '../functions/api/lead-capture.js';
 
 const storage = () => { const map = new Map(); return { getItem: k => map.get(k) || null, setItem: (k,v) => map.set(k,v), removeItem: k => map.delete(k) }; };
 function browser(search = '', consent = 'granted') {
@@ -23,6 +26,15 @@ test('seven authoritative destinations separated by operation; plain HTML anchor
     for (const [id] of foreign) assert.ok(!html.includes(`data-destination="${id}"`));
     assert.ok(!html.includes('target="_blank"'));
   }
+});
+test('direct-order schedule uses São Paulo time and keeps an HTML fallback link', () => {
+  const at = hour => new Date(`2026-09-07T${String(hour).padStart(2,'0')}:00:00-03:00`);
+  assert.equal(saoPauloMinutes(at(11)), 660);
+  assert.equal(isDirectOrderAvailable(at(11)), true);
+  assert.equal(isDirectOrderAvailable(at(14)), true);
+  assert.equal(isDirectOrderAvailable(at(15)), false);
+  assert.match(getDirectOrderMessage(at(20)), /peça pelos apps/);
+  assert.ok(deliveryMarkup('restaurante').includes(`href="${destinations.expresso_varanda.url}"`));
 });
 test('campaign allowlist preserves raw values; click IDs require advertising consent', () => {
   const raw = '?utm_source=Meta&fbclid=test&gclid=test2&ad_id=123&email=private&url=https://evil.com';
@@ -88,4 +100,14 @@ test('endpoint persists validated event and responds only after storage success;
   assert.equal((await onRequest({request:request(event),env})).status,204);
   assert.equal((await onRequest({request:request(event),env})).status,204);
   assert.equal(events.size,1);
+});
+test('lead schema requires explicit contact consent and sanitizes submitted fields', async () => {
+  const win=browser('?utm_source=meta');
+  const context=createDeliveryTracking(win,'marmitas').leadContext();
+  const lead={...context,lead_type:'both',whatsapp:'(19) 99999-9999',email:' TEST@EXAMPLE.COM ',lead_consent:true,source_component:'popup'};
+  const clean=validateLead(lead);
+  assert.equal(clean.whatsapp,'19999999999'); assert.equal(clean.email,'test@example.com');
+  assert.throws(()=>validateLead({...lead,lead_consent:false}));
+  assert.equal((await captureLead({request:new Request('https://varandaype.com/api/lead-capture',{headers:{Origin:'https://varandaype.com'}}),env:{}})).status,503);
+  assert.equal((await captureLead({request:new Request('https://varandaype.com/api/lead-capture',{method:'POST',headers:{Origin:'https://varandaype.com','Content-Type':'application/json'},body:JSON.stringify(lead)}),env:{}})).status,503);
 });

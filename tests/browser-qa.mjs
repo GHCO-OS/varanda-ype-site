@@ -39,7 +39,14 @@ export async function runBrowserChecks(browser, base='http://127.0.0.1:8788') {
     const pattern=new URL(destination.url).origin+'/**';
     await context.route(pattern,async route=>{navigation=route.request().url();await route.fulfill({status:200,contentType:'text/html',body:'<h1>Destino de teste</h1>'});});
     payloads.length=0;
-    await page.locator(`[data-destination="${id}"]`).click();
+    const destinationLink=page.locator(`[data-destination="${id}"]`);
+    if (destination.partner==='direct' && await destinationLink.count()===0) {
+      assert.ok(await page.locator('.router-disabled').isDisabled());
+      await context.unroute(pattern);
+      checks.push(`${id}: correctly unavailable outside 11h–15h; no marketplace impact`);
+      continue;
+    }
+    await destinationLink.click();
     await page.getByRole('heading',{name:'Destino de teste'}).waitFor();
     assert.ok(navigation);
     const emitted=payloads.filter(e=>e.destination_id===id);
@@ -62,6 +69,21 @@ export async function runBrowserChecks(browser, base='http://127.0.0.1:8788') {
   assert.equal(payloads.length,0);
   assert.equal(await page.evaluate(()=>sessionStorage.getItem('vy_delivery_session')),null);
   checks.push('internal attribution preserved; reject disables transmission and clears session');
+  let leadPayload;
+  await context.route('**/api/lead-capture',async route=>{
+    if(route.request().method()==='GET') await route.fulfill({status:204});
+    else {leadPayload=route.request().postDataJSON();await route.fulfill({status:200,contentType:'application/json',body:'{"ok":true}'});}
+  });
+  await page.goto(base+'/delivery/marmitas/?utm_source=meta');
+  await page.evaluate(()=>document.dispatchEvent(new MouseEvent('mouseout',{clientY:0,relatedTarget:null})));
+  const leadDialog=page.locator('[data-lead-dialog]'); await leadDialog.waitFor({state:'visible'});
+  await leadDialog.locator('[name="whatsapp"]').fill('(19) 99999-9999');
+  await leadDialog.locator('[name="lead_consent"]').check();
+  await leadDialog.locator('.lead-submit').click();
+  await leadDialog.getByText('Cadastro recebido. Obrigado!').waitFor();
+  assert.equal(leadPayload.whatsapp,'(19) 99999-9999'); assert.equal(leadPayload.lead_consent,true);
+  assert.equal(await page.evaluate(()=>dataLayer.filter(e=>e.event==='lead_capture').length),1);
+  checks.push('lead dialog: exit intent, consent, API and dataLayer OK');
   await context.close();
   const nojs=await browser.newContext({javaScriptEnabled:false});
   const plain=await nojs.newPage();
