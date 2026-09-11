@@ -2359,6 +2359,43 @@ input:focus-visible,
   gap: 36px;
 }
 
+.footer-tripadvisor-row {
+  margin-top: 28px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(244, 238, 215, 0.18);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.footer-tripadvisor-row p {
+  margin: 0;
+}
+
+.footer-tripadvisor img,
+.header-tripadvisor img {
+  width: auto;
+  border-radius: 0;
+  margin-bottom: 0;
+}
+
+.TA_links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.header-tripadvisor {
+  display: flex;
+  align-items: center;
+  opacity: 0.75;
+}
+
+.header-tripadvisor:hover {
+  opacity: 1;
+}
+
 .footer img {
   width: 74px;
   margin-bottom: 18px;
@@ -2650,6 +2687,10 @@ input:focus-visible,
     min-height: 40px;
     padding: 0 12px;
     font-size: 0.72rem;
+  }
+
+  .header-tripadvisor {
+    display: none;
   }
 
   h1 {

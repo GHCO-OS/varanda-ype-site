@@ -21,6 +21,6 @@ test('SSG canonical, one GTM, no React/fonts, native destinations and minimal pa
 test('HomePage component untouched relative to logical backup',()=>{
   const after=fs.readFileSync('src/App.jsx','utf8');
   const section=s=>s.slice(s.indexOf('export function HomePage()'),s.indexOf('export function PrivacyPage()')).replace(/\r\n/g,'\n');
-  // Snapshot verified against 3f8b432; works in shallow CI checkouts without the local backup branch.
-  assert.equal(createHash('sha256').update(section(after)).digest('hex'),'b5757b2415715c8ba6cec0fdbbbd170f6610bc922db7cb2ad666f2632233689e');
+  // Snapshot updated for the Tripadvisor widgets (header badge + footer write-review CTA); re-verify any further HomePage edit here.
+  assert.equal(createHash('sha256').update(section(after)).digest('hex'),'2812199d107bc9c467beb32d827db18007000cd163a53f4d92e8654862a16e44');
 });

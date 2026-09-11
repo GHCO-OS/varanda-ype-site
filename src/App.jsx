@@ -38,6 +38,37 @@ function Img({ src, alt, width, height, className, priority = false, smSrc }) {
   );
 }
 
+// TripAdvisor's own embed markup: a static badge/link (shown until the script
+// loads, and kept as a working fallback if it doesn't) plus an async script
+// (jscache.com) that replaces it with the live widget. The script is injected
+// imperatively — a <script> written directly in JSX only ever runs once for
+// the page's whole lifetime — and keyed by id so remounts never inject it twice.
+function TripAdvisorWidget({ wtype, uniq, href, imgSrc, imgAlt, className }) {
+  const elementId = `TA_${wtype}${uniq}`;
+  useEffect(() => {
+    const scriptId = `${elementId}_script`;
+    if (document.getElementById(scriptId)) return;
+    const script = document.createElement("script");
+    script.id = scriptId;
+    script.async = true;
+    script.dataset.loadtrk = "";
+    script.src = `https://www.jscache.com/wejs?wtype=${wtype}&uniq=${uniq}&locationId=${tripadvisorLocationId}&lang=pt&display_version=2`;
+    script.onload = () => { script.loadtrk = true; };
+    document.body.appendChild(script);
+  }, [elementId, wtype, uniq]);
+  return (
+    <div id={elementId} className={`TA_${wtype} ${className || ""}`.trim()}>
+      <ul className="TA_links">
+        <li>
+          <a href={href} target="_blank" rel="noreferrer">
+            <img src={imgSrc} alt={imgAlt} height={20} />
+          </a>
+        </li>
+      </ul>
+    </div>
+  );
+}
+
 // Fixed, site-wide call-to-action. Renders once at the App root so it's on
 // every route, including a subtle entrance so it doesn't just "pop" over content.
 function FloatingWhatsapp() {
@@ -144,6 +175,8 @@ const companyWhatsappUrl =
 const whatsappFloatingUrl =
   "https://wa.me/551931991971?text=Ol%C3%A1%21%20Vim%20pelo%20site%20e%20gostaria%20de%20conhecer%20o%20card%C3%A1pio%20ou%20fazer%20um%20pedido.";
 const googleBusinessUrl = "https://share.google/pxyfGTy3KNNdToPxk";
+const tripadvisorUrl = "https://www.tripadvisor.com.br/Restaurant_Review-g303605-d34648174-Reviews-Varanda_Ype_Jd_Aurelia-Campinas_State_of_Sao_Paulo.html";
+const tripadvisorLocationId = "34648174";
 const companyFormUrl = "https://form.jotform.com/262195555788070";
 const qualityReviewUrl = "https://form.jotform.com/262324465405050";
 
@@ -1528,7 +1561,7 @@ export function SatellitePage({ page }) {
       alternateName: ["Varanda Ype", "Varanda Ypê - Jd. Aurélia"],
       telephone: "+551931991971",
       hasMenu: "https://varandaype.com/menu/",
-      sameAs: [googleBusinessUrl, ifoodUrl, ninetyNineFoodPrimaryUrl, expressoUrl],
+      sameAs: [googleBusinessUrl, tripadvisorUrl, ifoodUrl, ninetyNineFoodPrimaryUrl, expressoUrl],
       address: {
         "@type": "PostalAddress",
         streetAddress: "Av. Brigadeiro Rafael Tobias de Aguiar, 1121 - Jardim Aurélia",
@@ -1779,6 +1812,12 @@ export function HomePage() {
             <span />
             <span />
           </button>
+          <TripAdvisorWidget
+            wtype="restaurantWidgetWhite" uniq="6" className="header-tripadvisor"
+            href="https://www.tripadvisor.com.br/"
+            imgSrc="https://www.tripadvisor.com.br/img/cdsi/img2/branding/v2/Tripadvisor_lockup_horizontal_registered-24177-2.svg"
+            imgAlt="Tripadvisor"
+          />
           <a
             className="header-cta"
             href={whatsappUrl}
@@ -2099,6 +2138,15 @@ export function HomePage() {
             <p>Presencial: almoço, sábado e domingo, 11h às 15h.</p>
             <p>Marmitaria / rotisseria: todos os dias, 11h às 14h30.</p>
           </div>
+        </div>
+        <div className="footer-tripadvisor-row">
+          <p>Já veio comer com a gente? Deixe sua avaliação no Tripadvisor.</p>
+          <TripAdvisorWidget
+            wtype="cdswritereviewlg" uniq="798" className="footer-tripadvisor"
+            href={tripadvisorUrl}
+            imgSrc="https://static.tacdn.com/img2/brand_refresh/Tripadvisor_lockup_horizontal_secondary_registered.svg"
+            imgAlt="TripAdvisor"
+          />
         </div>
       </footer>
     </main>
