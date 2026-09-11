@@ -1,0 +1,12 @@
+[
+  {
+    "name": "Exemplo Restaurante Ltda",
+    "menuUrl": "https://exemplo-concorrente.com.br/cardapio/",
+    "metaPageId": null
+  },
+  {
+    "name": "Outro Concorrente",
+    "menuUrl": null,
+    "metaPageId": "123456789012345"
+  }
+]

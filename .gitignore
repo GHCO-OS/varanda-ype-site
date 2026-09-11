@@ -12,6 +12,9 @@ dist/
 .env
 .env.*
 !.env.example
+
+# Real competitor list — keep only the example checked in.
+/config/competitors.json
 *.log
 worker-configuration.d.ts
 
