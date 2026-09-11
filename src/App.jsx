@@ -99,12 +99,7 @@ function CookieConsent() {
   }
 
   return (
-    <div className="cookie-consent" role="dialog" aria-live="polite" aria-label="Aviso de cookies">
-      <p>
-        Usamos cookies para medir a audiência do site e, com a sua autorização,
-        para anúncios. Saiba mais na{" "}
-        <a href="/privacidade/">Política de Privacidade</a>.
-      </p>
+    <div className="cookie-consent" role="dialog" aria-live="polite" aria-label="Aceitar cookies">
       <div className="cookie-consent-actions">
         <button type="button" className="cookie-reject" onClick={() => decide(false)}>
           Rejeitar
