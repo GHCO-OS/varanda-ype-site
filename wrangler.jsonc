@@ -3,5 +3,13 @@
   "name": "varanda-ype-site",
   "pages_build_output_dir": "./dist",
   "compatibility_date": "2026-09-11",
-  "compatibility_flags": ["nodejs_compat"]
+  "compatibility_flags": ["nodejs_compat"],
+  "d1_databases": [
+    {
+      "binding": "DELIVERY_DB",
+      "database_name": "varanda-delivery-db",
+      "database_id": "a252d910-047b-4c52-8c63-463dd6c44114",
+      "migrations_dir": "./migrations"
+    }
+  ]
 }
