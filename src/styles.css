@@ -3373,10 +3373,8 @@ h2 {
   left: 16px;
   bottom: 16px;
   z-index: 70;
-  max-width: 420px;
   display: grid;
-  gap: 12px;
-  padding: 18px 20px;
+  padding: 10px;
   border-radius: 16px;
   background: var(--cream-soft, #fff9e9);
   color: var(--green-deep, #082713);
@@ -3384,21 +3382,9 @@ h2 {
   border: 1px solid rgba(8, 39, 19, 0.14);
 }
 
-.cookie-consent p {
-  margin: 0;
-  font-size: 0.9rem;
-  line-height: 1.5;
-}
-
-.cookie-consent a {
-  color: inherit;
-  text-decoration: underline;
-}
-
 .cookie-consent-actions {
   display: flex;
   gap: 10px;
-  justify-content: flex-end;
 }
 
 .cookie-consent-actions button {
@@ -3424,35 +3410,13 @@ h2 {
 }
 
 @media (max-width: 640px) {
-  /* Flush bottom bar instead of a card floating over content. */
   .cookie-consent {
-    left: 0;
-    right: 0;
-    bottom: 0;
-    max-width: none;
-    gap: 10px;
-    padding: 14px 16px calc(14px + env(safe-area-inset-bottom));
-    border-radius: 14px 14px 0 0;
-    border-width: 1px 0 0;
-  }
-
-  .cookie-consent p {
-    font-size: 0.82rem;
-    line-height: 1.4;
-  }
-
-  .cookie-consent-actions {
-    justify-content: stretch;
+    left: 12px;
+    bottom: 12px;
+    padding: 10px 8px calc(10px + env(safe-area-inset-bottom));
   }
 
   .cookie-consent-actions button {
-    flex: 1;
     min-height: 44px;
-  }
-
-  /* While the consent bar occupies the bottom edge, get the floating
-     WhatsApp out of the way (it returns once the choice is made). */
-  .cookie-consent ~ .floating-whatsapp {
-    display: none;
   }
 }
