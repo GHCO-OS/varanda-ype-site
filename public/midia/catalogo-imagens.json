@@ -260,6 +260,38 @@
       "height": 564,
       "alt": "Marmita individual Vilalva média do Varanda Ypê em Campinas",
       "seoKeywords": ["Vilalva média Campinas", "marmita Vilalva", "prato individual Varanda Ypê"]
+    },
+    {
+      "id": "peixe-frito-2026",
+      "name": "Peixe frito",
+      "category": "pratos-individuais",
+      "service": ["delivery", "marmitaria", "almoço"],
+      "availability": "fixo",
+      "availabilityNote": "Opção fixa, disponível todos os dias.",
+      "description": "Peixe frito servido em marmita individual com arroz e batata frita.",
+      "ingredients": ["peixe frito", "arroz", "batata frita", "cheiro-verde"],
+      "original": "/midia/originais/pratos-individuais/peixe-frito-varanda-ype-campinas-2026.jpg",
+      "webp": "/midia/otimizadas/pratos-individuais/peixe-frito-varanda-ype-campinas-2026.webp",
+      "width": 300,
+      "height": 300,
+      "alt": "Marmita individual com peixe frito do Varanda Ypê em Campinas",
+      "seoKeywords": ["peixe frito Campinas", "marmita de peixe frito", "prato individual de peixe"]
+    },
+    {
+      "id": "frango-grelhado-2026",
+      "name": "Frango grelhado",
+      "category": "pratos-individuais",
+      "service": ["delivery", "marmitaria", "almoço"],
+      "availability": "fixo",
+      "availabilityNote": "Opção fixa, disponível todos os dias.",
+      "description": "Frango grelhado servido em marmita individual com batata frita.",
+      "ingredients": ["frango grelhado", "batata frita"],
+      "original": "/midia/originais/pratos-individuais/frango-grelhado-varanda-ype-campinas-2026.jpg",
+      "webp": "/midia/otimizadas/pratos-individuais/frango-grelhado-varanda-ype-campinas-2026.webp",
+      "width": 300,
+      "height": 300,
+      "alt": "Marmita individual com frango grelhado do Varanda Ypê em Campinas",
+      "seoKeywords": ["frango grelhado Campinas", "marmita de frango grelhado", "prato fixo Varanda Ypê"]
     }
   ]
 }
