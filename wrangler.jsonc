@@ -3,11 +3,5 @@
   "name": "varanda-ype-site",
   "pages_build_output_dir": "./dist",
   "compatibility_date": "2026-09-11",
-  "compatibility_flags": ["nodejs_compat"],
-  "observability": {
-    "enabled": true,
-    "redact_query_string": true,
-    "logs": { "head_sampling_rate": 1 },
-    "traces": { "enabled": true, "head_sampling_rate": 0.01 }
-  }
+  "compatibility_flags": ["nodejs_compat"]
 }
