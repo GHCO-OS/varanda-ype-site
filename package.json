@@ -5,10 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "vite --host 127.0.0.1",
-    "build": "vite build && node scripts/prerender.mjs && node scripts/delivery-pages.mjs",
+    "build": "vite build && node scripts/prerender.mjs && node scripts/delivery-pages.mjs && node scripts/marketing-pages.mjs",
     "test": "node --test tests/*.test.mjs",
     "preview": "vite preview --host 127.0.0.1",
-    "lint": "eslint shared src/delivery functions scripts/delivery-pages.mjs tests"
+    "campaign:url": "node scripts/build-campaign-url.mjs",
+    "lint": "eslint shared src/delivery src/marketing functions scripts/*.mjs tests"
   },
   "dependencies": {
     "@vitejs/plugin-react": "^5.1.1",
@@ -18,8 +19,9 @@
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
+    "@types/node": "^22.20.2",
     "eslint": "^10.10.0",
     "playwright": "^1.63.0",
-    "wrangler": "^4.129.0"
+    "wrangler": "^4.131.0"
   }
 }

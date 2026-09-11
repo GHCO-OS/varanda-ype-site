@@ -9,7 +9,15 @@ export function createDeliveryTracking(win, operation) {
   let session;
   let consentOverride;
   const read = (key) => { try { return win.localStorage.getItem(key); } catch { return null; } };
-  const consent = () => { const value = consentOverride ?? read('vy_consent'); return { analytics: value !== 'denied', ads: value === 'granted' }; };
+  const consent = () => {
+    if (consentOverride) return consentOverride;
+    try {
+      const value = JSON.parse(read('vy_consent_v2'));
+      if (value?.version === 2) return { analytics: value.analytics === true, ads: value.advertising === true };
+    } catch { /* Legacy preference below. */ }
+    const legacy = read('vy_consent');
+    return { analytics: legacy === 'granted', ads: legacy === 'granted' };
+  };
   const referrer = (() => { try { return new URL(win.document.referrer).origin; } catch { return undefined; } })();
   const touch = () => ({ ...campaignParams(win.location.search, consent().ads), page_path: deliveryPath(operation), ...(referrer ? { referrer } : {}), timestamp: new Date().toISOString() });
   function state() {
@@ -87,7 +95,7 @@ export function createDeliveryTracking(win, operation) {
         ...(referrer ? { referrer } : {}),
       };
     },
-    setConsent(value) { consentOverride = value; state(); },
+    setConsent(value) { consentOverride = typeof value === 'string' ? { analytics: value === 'granted', ads: value === 'granted' } : value; state(); },
     internalHref(op) {
       const params = new URLSearchParams(campaignParams(win.location.search));
       return deliveryPath(op) + (params.size ? `?${params}` : '');

@@ -168,19 +168,22 @@
       }
     </script>
     <title>Varanda Ypê | Restaurante no Jardim Aurélia, Campinas</title>
-    <!-- Consent Mode v2 defaults (must run before GTM). Analytics is on by
-         default (first-party audience measurement); advertising storage stays
-         denied until the visitor accepts in the cookie banner. -->
+    <!-- Consent Mode v2 defaults run before GTM. Optional storage remains denied
+         until the visitor makes a granular choice. -->
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag() { dataLayer.push(arguments); }
-      var vyConsent = null;
-      try { vyConsent = localStorage.getItem("vy_consent"); } catch (e) {}
+      var vyConsent = { analytics: false, advertising: false, personalization: false };
+      try {
+        var storedConsent = JSON.parse(localStorage.getItem("vy_consent_v2"));
+        if (storedConsent && storedConsent.version === 2) vyConsent = storedConsent;
+        else if (localStorage.getItem("vy_consent") === "granted") vyConsent = { analytics: true, advertising: true, personalization: true };
+      } catch (e) {}
       gtag("consent", "default", {
-        ad_storage: vyConsent === "granted" ? "granted" : "denied",
-        ad_user_data: vyConsent === "granted" ? "granted" : "denied",
-        ad_personalization: vyConsent === "granted" ? "granted" : "denied",
-        analytics_storage: vyConsent === "denied" ? "denied" : "granted",
+        ad_storage: vyConsent.advertising ? "granted" : "denied",
+        ad_user_data: vyConsent.advertising ? "granted" : "denied",
+        ad_personalization: vyConsent.personalization ? "granted" : "denied",
+        analytics_storage: vyConsent.analytics ? "granted" : "denied",
         functionality_storage: "granted",
         security_storage: "granted",
         wait_for_update: 500

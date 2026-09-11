@@ -11,7 +11,9 @@ dist/
 
 .env
 .env.*
+!.env.example
 *.log
+worker-configuration.d.ts
 
 .DS_Store
 Thumbs.db

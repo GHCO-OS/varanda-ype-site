@@ -8,7 +8,7 @@ Implementação de 6 de setembro de 2026. Código pronto para deploy; este traba
 - React 19 / Vite 7; seleção de rotas por pathname em `src/App.jsx`; pré-renderização SSG com `scripts/prerender.mjs`. Cloudflare Pages, assets estáticos/CDN, redirects e CSP em `public/`.
 - Não havia Pages Functions, banco, binding D1, API de analytics ou configuração de backend neste repositório. Nenhuma credencial foi adicionada.
 - GTM existente: `GTM-56F5TM96`. Consentimento inicializado antes dele no HTML. Não havia implementação independente de GA4, Pixel ou CAPI no código. O conteúdo remoto do container GTM não foi auditado; a ausência no código não prova ausência de tags no container.
-- `vy_consent` existente: analytics permitido até rejeição; armazenamento de publicidade, dados de usuário para anúncios e personalização negados até aceitação. Esse comportamento foi preservado, não apresentado como nova avaliação jurídica.
+- Consentimento evoluído para `vy_consent_v2`: armazenamento opcional de análise, publicidade e personalização começa negado e depende de escolha explícita. `vy_consent` permanece somente como compatibilidade com visitas anteriores.
 - Já existiam dataLayer, page_view, delivery_click, partner_click e os demais eventos das páginas atuais. Nenhuma segunda tag foi instalada.
 - Já existia `/delivery/`, agora substituído por um hub utilitário. O componente Home foi preservado literalmente; teste compara com o backup. O botão atual continua no mesmo lugar. A política de privacidade recebeu uma seção explícita sobre a nova medição.
 - Canonical existente usa **https://varandaype.com**, sem www. Mantido para evitar mudança arbitrária da identidade canônica. Canonical, OG e sitemap das novas páginas seguem esse padrão.
@@ -68,8 +68,9 @@ placement site_source keyword matchtype device network
 Valores são preservados em sua capitalização, com trim, limite de 256 caracteres e remoção de caracteres de controle; não são normalizados arbitrariamente. Campos vazios/desconhecidos são descartados. Nunca colocar email, telefone, CPF ou conteúdo pessoal em UTMs. Referrer registra somente a origem, sem caminho/query.
 
 - Estado inicial herdado: permite sessão e medição analítica, mas **não captura/envia click IDs publicitários** até aceitação.
-- `vy_consent=granted`: aceita analytics e publicidade; inclui click IDs quando presentes.
-- `vy_consent=denied`: não transmite à API nem armazena IDs/atribuição. Eventos operacionais anônimos continuam no dataLayer com consentimento negado, sem visit_id/session_id/UTMs. As tags GTM devem respeitar Consent Mode e suas verificações adicionais.
+- `vy_consent_v2.analytics=true`: permite IDs anônimos e persistência de atribuição.
+- `vy_consent_v2.advertising=true`: permite click IDs publicitários quando presentes.
+- Sem consentimento de análise: não transmite à API nem armazena IDs/atribuição. Links continuam funcionais; as tags GTM devem respeitar Consent Mode e verificações adicionais.
 - Preferências de medição são inline, no rodapé; não interrompem o pedido. Reutilizam `consent_accept`, `consent_reject` e os quatro estados Google existentes. Aceitação/rejeição funcionam mesmo se storage falhar durante a página.
 - Links internos preservam os parâmetros permitidos na URL; isso não significa consentimento para armazená-los/transmiti-los.
 - iFood/99Food recebem exclusivamente a URL oficial. Expresso recebe os parâmetros permitidos pelo consentimento, preservando origem de campanha. Sem JS recebe o link oficial simples.

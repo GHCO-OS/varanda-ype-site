@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Reveal } from "./Reveal.jsx";
 const DeliveryRouter = React.lazy(() => import('./delivery/DeliveryRouter.jsx'));
+const MarketingRouter = React.lazy(() => import('./marketing/MarketingRouter.jsx'));
 import { destinations } from '../shared/delivery.js';
+import { hasConsentChoice, readConsent, saveConsent } from './marketing/consent.js';
 
 // Serves WebP with an image fallback via <picture>, ships explicit width/height so
 // the browser reserves space before the image loads (no layout shift), and
@@ -59,60 +61,46 @@ function FloatingWhatsapp() {
   );
 }
 
-// Consent Mode: the index.html inline script sets defaults (ads denied,
-// analytics granted). This updates Google's consent state and remembers the
-// choice so the banner stays dismissed on the next visit.
-function updateConsent(granted) {
-  if (typeof window === "undefined") return;
-  const value = granted ? "granted" : "denied";
-  try {
-    localStorage.setItem("vy_consent", value);
-  } catch (e) {}
-  const gtag =
-    window.gtag ||
-    function () {
-      window.dataLayer = window.dataLayer || [];
-      window.dataLayer.push(arguments);
-    };
-  gtag("consent", "update", {
-    ad_storage: value,
-    ad_user_data: value,
-    ad_personalization: value,
-    analytics_storage: granted ? "granted" : "denied",
-  });
-  trackEvent(granted ? "consent_accept" : "consent_reject");
-}
-
+// Consent Mode: the index.html inline script denies optional storage by default.
+// This panel records a granular choice and keeps commercial links functional.
 function CookieConsent() {
   const [visible, setVisible] = useState(false);
+  const [customize, setCustomize] = useState(false);
+  const [choice, setChoice] = useState({ analytics: false, advertising: false, personalization: false });
 
   useEffect(() => {
-    let stored = null;
-    try {
-      stored = localStorage.getItem("vy_consent");
-    } catch (e) {}
-    if (!stored) setVisible(true);
+    setChoice(readConsent(window));
+    if (!hasConsentChoice(window)) setVisible(true);
   }, []);
 
   if (!visible) return null;
 
-  function decide(granted) {
-    updateConsent(granted);
+  function decide(value) {
+    const saved = saveConsent(value, window);
+    trackEvent(saved.analytics || saved.advertising ? "consent_accept" : "consent_reject", {
+      consent_analytics: saved.analytics,
+      consent_advertising: saved.advertising,
+      consent_personalization: saved.personalization,
+    });
     setVisible(false);
   }
 
   return (
     <div className="cookie-consent" role="dialog" aria-live="polite" aria-label="Aviso de cookies">
       <p>
-        Usamos cookies para medir a audiência do site e, com a sua autorização,
-        para anúncios. Saiba mais na{" "}
-        <a href="/privacidade/">Política de Privacidade</a>.
+        Você escolhe se podemos medir o uso e personalizar publicidade. O site e os pedidos funcionam somente com cookies necessários. Veja a <a href="/cookies/">Política de Cookies</a>.
       </p>
+      {customize && <fieldset className="cookie-options"><legend>Preferências</legend>{[
+        ["analytics", "Análise"], ["advertising", "Publicidade"], ["personalization", "Personalização"],
+      ].map(([key, label]) => <label key={key}><input type="checkbox" checked={choice[key]} onChange={(event) => setChoice({ ...choice, [key]: event.target.checked })} /> {label}</label>)}</fieldset>}
       <div className="cookie-consent-actions">
-        <button type="button" className="cookie-reject" onClick={() => decide(false)}>
+        <button type="button" className="cookie-reject" onClick={() => decide({ analytics: false, advertising: false, personalization: false })}>
           Rejeitar
         </button>
-        <button type="button" className="cookie-accept" onClick={() => decide(true)}>
+        <button type="button" className="cookie-reject" onClick={() => customize ? decide(choice) : setCustomize(true)}>
+          {customize ? "Salvar" : "Personalizar"}
+        </button>
+        <button type="button" className="cookie-accept" onClick={() => decide({ analytics: true, advertising: true, personalization: true })}>
           Aceitar
         </button>
       </div>
@@ -2133,7 +2121,7 @@ export function PrivacyPage() {
     ],
     [
       "Medição de audiência e anúncios",
-      "O site usa o Google Tag Manager para carregar o Google Analytics 4 (medição de audiência), tags do Google Ads e o Meta Pixel (Facebook/Instagram). Essas ferramentas coletam dados de uso de forma pseudonimizada, como páginas vistas, origem da visita, dispositivo e interações, e podem gravar cookies. Usamos o Modo de Consentimento do Google: a medição de audiência é ativada por padrão e as tags de anúncios, incluindo o Meta Pixel, só são ativadas se você aceitar no aviso de cookies. Os dados são tratados pelo Google e pela Meta conforme as políticas de cada empresa.",
+      "O site usa um único Google Tag Manager para organizar Google Analytics 4, tags do Google Ads e Meta Pixel quando configurados. Essas ferramentas podem tratar dados de uso pseudonimizados, como páginas vistas, origem, dispositivo e interações. A análise, a publicidade e a personalização dependem da escolha feita no aviso de cookies e do Google Consent Mode v2. Os dados também são tratados por Google e Meta conforme suas políticas.",
     ],
     [
       "Outras ferramentas de terceiros",
@@ -2141,11 +2129,11 @@ export function PrivacyPage() {
     ],
     [
       "Direcionamento e medição de delivery",
-      "Nas páginas de delivery, registramos a origem da campanha, a página acessada e o canal escolhido. Quando a medição está permitida, usamos IDs aleatórios de visita, sessão e evento; a sessão expira após 30 minutos de inatividade e guarda a primeira e a última origem informada nessa sessão. IDs de anúncios, como GCLID e FBCLID, são tratados apenas com a autorização para anúncios. Os links de pedido continuam funcionando após rejeitar a medição. A medição própria não recebe dados do pedido ou pagamento e não considera o clique como uma compra. A preferência pode ser alterada no rodapé das páginas de delivery. Se você optar por receber comunicações, o WhatsApp e/ou e-mail informado é armazenado com a sua autorização explícita, junto da origem da visita quando a medição estiver permitida; esse cadastro não é necessário para pedir. O endpoint próprio só mantém registros persistentes quando o armazenamento do serviço estiver configurado.",
+      "Nas páginas de pedido, registramos origem, página, intenção e canal escolhido somente quando a análise está permitida. Usamos IDs aleatórios de visitante, sessão e evento, além de first touch, last touch e touchpoints intermediários. A sessão é renovada após 30 minutos. IDs publicitários, como GCLID e FBCLID, exigem autorização de publicidade. Os links de pedido funcionam mesmo com rejeição ou falha do tracking. Clique é intenção, nunca compra. Purchase só poderá existir com confirmação real de pedido.",
     ],
     [
       "Cookies e como controlar",
-      "Ao entrar no site, um aviso permite aceitar ou rejeitar os cookies de anúncios. Você pode mudar de ideia a qualquer momento limpando os cookies e os dados do site no seu navegador, o que faz o aviso aparecer de novo. Cookies estritamente necessários para a exibição das páginas não podem ser desativados.",
+      "Ao entrar no site, você pode aceitar tudo, rejeitar ou escolher separadamente análise, publicidade e personalização. Cookies necessários mantêm o site funcional. As preferências podem ser revistas nas páginas de pedido ou removendo os dados do site no navegador. Consulte também a Política de Cookies.",
     ],
     [
       "Seus direitos (LGPD)",
@@ -2205,6 +2193,17 @@ export function PrivacyPage() {
   );
 }
 
+export function CookiesPage() {
+  const items = [
+    ["Necessários", "Mantêm segurança, funcionamento e a preferência de consentimento. Não podem ser desativados pelo painel."],
+    ["Análise", "Quando autorizada, registra páginas, intenção, origem de campanha e cliques para entender o desempenho. Usa identificadores aleatórios vy_vid e vy_sid."],
+    ["Publicidade", "Quando autorizada, permite tratar click IDs e acionar tags publicitárias configuradas no GTM para mensuração e remarketing."],
+    ["Personalização", "Quando autorizada, permite adaptar experiências e públicos de marketing conforme a configuração das plataformas."],
+    ["Prazo", "A sessão usa uma janela de 30 minutos. O identificador anônimo de visitante pode persistir por até 12 meses; eventos obedecem à retenção operacional e legal aplicável."],
+  ];
+  return <main className="satellite-page"><header className="menu-page-header"><a className="brand" href="/"><Img src="/logo-icon-96.png" alt="" width={52} height={52} priority /><span>Varanda Ypê</span></a><a className="header-cta" href="/privacidade/">Privacidade</a></header><section className="satellite-hero"><div className="section-inner"><nav className="breadcrumbs" aria-label="Navegação estrutural"><a href="/">Início</a><span>›</span><span>Cookies</span></nav><p className="section-label">Transparência</p><h1>Política de Cookies</h1><p>Controle claro sobre medição, publicidade e personalização. Atualizada em setembro de 2026.</p></div></section><section className="satellite-content section-cream"><div className="section-inner satellite-section-grid">{items.map(([title, copy]) => <article key={title}><h2>{title}</h2><p>{copy}</p></article>)}</div></section></main>;
+}
+
 function App({ initialPath } = {}) {
   const currentPath =
     initialPath || (typeof window === "undefined" ? "/" : window.location.pathname);
@@ -2212,6 +2211,9 @@ function App({ initialPath } = {}) {
   if (route === '/delivery') return <React.Suspense><DeliveryRouter /></React.Suspense>;
   const deliveryOperation = route.match(/^\/delivery\/(restaurante|marmitas|hamburgueria)$/)?.[1];
   if (deliveryOperation) return <React.Suspense><DeliveryRouter operation={deliveryOperation} /></React.Suspense>;
+  if (route === '/pedir') return <React.Suspense><MarketingRouter /></React.Suspense>;
+  const marketingPlatform = route.match(/^\/pedir\/(ifood|99food|direto)$/)?.[1];
+  if (marketingPlatform) return <React.Suspense><MarketingRouter platform={marketingPlatform} /></React.Suspense>;
 
   // /ifood, /99, /99food are handled at the edge by public/_redirects
   // (and public/ifood/index.html as a static fallback), so they never reach
@@ -2224,6 +2226,8 @@ function App({ initialPath } = {}) {
     page = <CompanyPage />;
   } else if (route === "/privacidade") {
     page = <PrivacyPage />;
+  } else if (route === "/cookies") {
+    page = <CookiesPage />;
   } else {
     const productPage = productPages.find((item) => route === `/${item.slug}`);
     const discoveryPage = discoveryPages.find((item) => route === `/${item.slug}`);

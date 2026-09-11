@@ -27,7 +27,7 @@ if (-not $database) {
   $config | ConvertTo-Json -Depth 12 | Set-Content -LiteralPath "wrangler.jsonc" -Encoding utf8
 }
 
-Write-Host "Aplicando migrations remotas com backup automático..."
+Write-Host "Aplicando migrations remotas (delivery, leads e attribution ledger)..."
 npx wrangler d1 migrations apply DELIVERY_DB --remote
 if ($LASTEXITCODE -ne 0) { throw "Falha ao aplicar migrations." }
 

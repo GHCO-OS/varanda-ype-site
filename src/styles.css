@@ -3402,6 +3402,7 @@ h2 {
   gap: 10px;
   justify-content: flex-end;
 }
+.cookie-options{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;border:1px solid rgba(8,39,19,.18);border-radius:12px;padding:10px}.cookie-options legend{font-size:.8rem;font-weight:800}.cookie-options label{font-size:.78rem;display:flex;gap:5px;align-items:center}
 
 .cookie-consent-actions button {
   min-height: 38px;
@@ -3446,6 +3447,7 @@ h2 {
   .cookie-consent-actions {
     justify-content: stretch;
   }
+  .cookie-options{grid-template-columns:1fr}
 
   .cookie-consent-actions button {
     flex: 1;

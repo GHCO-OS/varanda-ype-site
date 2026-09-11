@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Varanda Ypê Market Intelligence Observation",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["competitor", "channel", "creative_theme", "date_seen", "collection_method"],
+  "properties": {
+    "competitor": { "type": "string", "maxLength": 120 },
+    "channel": { "type": "string", "maxLength": 80 },
+    "creative_theme": { "type": "string", "maxLength": 160 },
+    "offer": { "type": ["string", "null"], "maxLength": 200 },
+    "headline": { "type": ["string", "null"], "maxLength": 240 },
+    "landing_page": { "type": ["string", "null"], "format": "uri" },
+    "keyword_theme": { "type": ["string", "null"], "maxLength": 160 },
+    "date_seen": { "type": "string", "format": "date" },
+    "notes": { "type": ["string", "null"], "maxLength": 1000 },
+    "source_url": { "type": ["string", "null"], "format": "uri" },
+    "collection_method": { "enum": ["manual", "official_api", "licensed_provider"] }
+  }
+}

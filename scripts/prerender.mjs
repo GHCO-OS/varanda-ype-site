@@ -98,6 +98,13 @@ const pages = [
       "Como o Varanda Ypê trata os dados de quem visita o site e fala com a casa: navegação, formulários, ferramentas de terceiros, cookies e direitos previstos na LGPD.",
     canonical: "https://varandaype.com/privacidade/",
   },
+  {
+    route: "/cookies",
+    file: path.join("cookies", "index.html"),
+    title: "Política de Cookies | Varanda Ypê",
+    description: "Como o Varanda Ypê usa cookies necessários, de análise, publicidade e personalização, com escolhas claras de consentimento.",
+    canonical: "https://varandaype.com/cookies/",
+  },
 ];
 
 const SITE = "https://varandaype.com";

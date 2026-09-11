@@ -17,3 +17,12 @@
 
 /delivery-assets/*
   Cache-Control: public, max-age=0, must-revalidate
+
+/marketing-assets/*
+  Cache-Control: public, max-age=0, must-revalidate
+
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/pedir/*
+  X-Robots-Tag: noindex, follow

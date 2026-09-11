@@ -89,9 +89,19 @@ export function initDelivery(win = window) {
   const status = root.querySelector('[data-consent-status]');
   root.querySelectorAll('[data-consent]').forEach(button => button.addEventListener('click', () => {
     const value = button.dataset.consent;
-    tracker.setConsent(value);
-    try { win.localStorage.setItem('vy_consent', value); } catch { /* Links remain functional. */ }
+    const allowed = value === 'granted';
+    const saved = { version: 2, analytics: allowed, advertising: allowed, personalization: allowed };
+    try {
+      win.localStorage.setItem('vy_consent_v2', JSON.stringify(saved));
+      win.localStorage.setItem('vy_consent', value);
+      if (!allowed) {
+        ['vy_vid', 'vy_attribution_ledger'].forEach(key => win.localStorage.removeItem(key));
+        ['vy_sid', 'vy_delivery_session'].forEach(key => win.sessionStorage.removeItem(key));
+      }
+      win.document.cookie = `vy_consent_state=a${Number(allowed)}d${Number(allowed)}p${Number(allowed)}; Max-Age=31536000; Path=/; SameSite=Lax; Secure`;
+    } catch { /* Links remain functional. */ }
     win.gtag?.('consent', 'update', { analytics_storage: value, ad_storage: value, ad_user_data: value, ad_personalization: value });
+    tracker.setConsent({ analytics: allowed, ads: allowed });
     tracker.emit(value === 'granted' ? 'consent_accept' : 'consent_reject');
     tracker.state();
     refreshLinks();

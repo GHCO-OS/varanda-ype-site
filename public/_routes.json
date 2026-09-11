@@ -1,1 +1,1 @@
-{"version":1,"include":["/api/delivery-click","/api/lead-capture"],"exclude":[]}
+{"version":1,"include":["/api/delivery-click","/api/lead-capture","/api/marketing-event","/api/health/tracking","/go/*","/r/*"],"exclude":[]}
