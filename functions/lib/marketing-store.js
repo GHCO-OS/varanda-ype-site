@@ -12,6 +12,24 @@ export function parseCookies(request) {
 
 export function isObviousBot(request) { return botPattern.test(request.headers.get('User-Agent') || ''); }
 
+export async function readCapped(request, limit) {
+  const reader = request.body?.getReader();
+  if (!reader) return new Uint8Array(0);
+  let size = 0;
+  const chunks = [];
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    size += value.length;
+    if (size > limit) { await reader.cancel(); return null; }
+    chunks.push(value);
+  }
+  const bytes = new Uint8Array(size);
+  let offset = 0;
+  for (const chunk of chunks) { bytes.set(chunk, offset); offset += chunk.length; }
+  return bytes;
+}
+
 export function redirectDestination(target, url) {
   const entry = redirectTargets[target];
   if (!entry) return null;

@@ -1,5 +1,5 @@
 import { validateMarketingEvent } from '../../shared/marketing-event.js';
-import { isObviousBot, persistMarketingEvent, structuredError } from '../lib/marketing-store.js';
+import { isObviousBot, persistMarketingEvent, readCapped, structuredError } from '../lib/marketing-store.js';
 
 const headers = { 'Cache-Control': 'no-store', 'X-Robots-Tag': 'noindex, nofollow', 'X-Content-Type-Options': 'nosniff' };
 const reply = (status, error) => Response.json({ error }, { status, headers });
@@ -13,9 +13,10 @@ export async function onRequest(context) {
   if (isObviousBot(request)) return new Response(null, { status: 204, headers });
   let event;
   try {
-    const body = await request.text();
-    if (!body || new TextEncoder().encode(body).length > 12288) return reply(413, 'payload_too_large');
-    event = validateMarketingEvent(JSON.parse(body));
+    const bytes = await readCapped(request, 12288);
+    if (bytes === null) return reply(413, 'payload_too_large');
+    if (!bytes.length) return reply(400, 'invalid_event');
+    event = validateMarketingEvent(JSON.parse(new TextDecoder().decode(bytes)));
   } catch { return reply(400, 'invalid_event'); }
   if (!event.consent_analytics) return new Response(null, { status: 204, headers });
   if (!env.DELIVERY_DB) return reply(503, 'storage_unavailable');

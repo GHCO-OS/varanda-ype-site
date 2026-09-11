@@ -44,7 +44,7 @@ function setupLeadDialog(win, root, tracker) {
     const payload = {
       ...tracker.leadContext(), lead_type: type.value,
       whatsapp: form.elements.whatsapp.value || undefined, email: form.elements.email.value || undefined,
-      lead_consent: true, source_component: 'popup',
+      lead_consent: form.elements.lead_consent.checked, source_component: 'popup',
     };
     try {
       const response = await win.fetch('/api/lead-capture', {

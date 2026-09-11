@@ -36,7 +36,7 @@ export function marketingMarkup(platformInput = null, intentInput = 'default') {
   }
   const platformInfo = platforms[platform];
   const destination = platformInfo.destination(intentKey);
-  const products = intent.products.map((product, index) => `<a class="food-card" href="#order" data-item-id="${escapeHtml(product.id)}" data-item-name="${escapeHtml(product.name)}">
+  const products = intent.products.map(product => `<a class="food-card" href="#order" data-item-id="${escapeHtml(product.id)}" data-item-name="${escapeHtml(product.name)}">
     <img src="${escapeHtml(product.image)}" alt="${escapeHtml(product.name)} do Varanda Ypê" width="${product.width}" height="${product.height}" loading="lazy" decoding="async">
     <span><strong>${escapeHtml(product.name)}</strong><small>${escapeHtml(product.detail)}</small></span>
   </a>`).join('');

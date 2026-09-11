@@ -1,4 +1,5 @@
 import { validateLead } from '../../shared/lead-event.js';
+import { readCapped } from '../lib/marketing-store.js';
 
 const headers = { 'Cache-Control': 'no-store', 'X-Robots-Tag': 'noindex, nofollow', 'X-Content-Type-Options': 'nosniff' };
 const reply = (status, body) => Response.json(body, { status, headers });
@@ -11,9 +12,10 @@ export async function onRequest({ request, env }) {
   if (Number(request.headers.get('Content-Length')) > 8192) return reply(413, { error: 'payload_too_large' });
   let lead;
   try {
-    const body = await request.text();
-    if (!body || new TextEncoder().encode(body).length > 8192) return reply(413, { error: 'payload_too_large' });
-    lead = validateLead(JSON.parse(body));
+    const bytes = await readCapped(request, 8192);
+    if (bytes === null) return reply(413, { error: 'payload_too_large' });
+    if (!bytes.length) return reply(400, { error: 'invalid_lead' });
+    lead = validateLead(JSON.parse(new TextDecoder().decode(bytes)));
   } catch { return reply(400, { error: 'invalid_lead' }); }
   if (!env.DELIVERY_DB) return reply(503, { error: 'storage_unavailable' });
   try {

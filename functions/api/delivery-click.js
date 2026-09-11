@@ -26,8 +26,6 @@ export async function onRequest({ request, env }) {
   // Never report successful persistence when no database is bound.
   if (!env.DELIVERY_DB) return reply(503, 'storage_unavailable');
   try {
-    const duplicate = await env.DELIVERY_DB.prepare('SELECT event_id FROM delivery_tracking_events WHERE event_id = ?').bind(event.event_id).first();
-    if (duplicate) return new Response(null, { status: 204, headers });
     const count = await env.DELIVERY_DB.prepare('SELECT COUNT(*) AS total FROM delivery_tracking_events WHERE session_id = ? AND created_at > ?').bind(event.session_id, new Date(Date.now() - 60000).toISOString()).first();
     if (count.total >= 120) return reply(429, 'rate_limited');
     await env.DELIVERY_DB.prepare(`INSERT OR IGNORE INTO delivery_tracking_events

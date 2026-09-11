@@ -24,6 +24,6 @@ CREATE INDEX IF NOT EXISTS idx_leads_occurred_at ON delivery_leads(occurred_at);
 CREATE INDEX IF NOT EXISTS idx_leads_whatsapp ON delivery_leads(whatsapp);
 CREATE INDEX IF NOT EXISTS idx_leads_email ON delivery_leads(email);
 CREATE INDEX IF NOT EXISTS idx_leads_visit_id ON delivery_leads(visit_id);
-CREATE INDEX IF NOT EXISTS idx_leads_session_id ON delivery_leads(session_id, created_at);
+CREATE INDEX IF NOT EXISTS idx_leads_rate_key ON delivery_leads(COALESCE(session_id, visit_id, event_id), created_at);
 CREATE INDEX IF NOT EXISTS idx_leads_operation ON delivery_leads(operation, occurred_at);
 CREATE INDEX IF NOT EXISTS idx_leads_campaign_id ON delivery_leads(campaign_id);
