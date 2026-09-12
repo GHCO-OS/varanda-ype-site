@@ -105,6 +105,14 @@ const pages = [
     description: "Como o Varanda Ypê usa cookies necessários, de análise, publicidade e personalização, com escolhas claras de consentimento.",
     canonical: "https://varandaype.com/cookies/",
   },
+  {
+    route: "/trabalhe-conosco",
+    file: path.join("trabalhe-conosco", "index.html"),
+    title: "Trabalhe Conosco | Varanda Ypê",
+    description:
+      "Cadastre seu interesse para oportunidades no Varanda Ypê em Campinas: salão, cozinha, atendimento, delivery e operação do restaurante.",
+    canonical: "https://varandaype.com/trabalhe-conosco/",
+  },
 ];
 
 const SITE = "https://varandaype.com";

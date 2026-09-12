@@ -179,6 +179,7 @@ const tripadvisorUrl = "https://www.tripadvisor.com.br/Restaurant_Review-g303605
 const tripadvisorLocationId = "34648174";
 const companyFormUrl = "https://form.jotform.com/262195555788070";
 const qualityReviewUrl = "https://form.jotform.com/262324465405050";
+const careersFormUrl = "https://tally.so/embed/A7E8Ql?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1";
 
 export const productPages = [
   {
@@ -586,6 +587,106 @@ function QualityReviewBanner() {
         ×
       </button>
     </aside>
+  );
+}
+
+function TallyEmbed({ src, title }) {
+  useEffect(() => {
+    const loadEmbeds = () => {
+      if (typeof window.Tally !== "undefined") {
+        window.Tally.loadEmbeds();
+        return;
+      }
+      document.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((frame) => {
+        frame.src = frame.dataset.tallySrc;
+      });
+    };
+
+    const scriptUrl = "https://tally.so/widgets/embed.js";
+    const existing = document.querySelector(`script[src="${scriptUrl}"]`);
+    if (existing) {
+      loadEmbeds();
+      return;
+    }
+
+    const script = document.createElement("script");
+    script.src = scriptUrl;
+    script.async = true;
+    script.onload = loadEmbeds;
+    script.onerror = loadEmbeds;
+    document.body.appendChild(script);
+  }, []);
+
+  return (
+    <iframe
+      data-tally-src={src}
+      title={title}
+      width="100%"
+      height="600"
+      loading="lazy"
+    />
+  );
+}
+
+function CareersPage() {
+  return (
+    <main className="satellite-page careers-page">
+      <header className="menu-page-header">
+        <a className="brand" href="/" aria-label="Voltar para a home do Varanda Ypê">
+          <Img src="/logo-icon-96.png" alt="" width={52} height={52} priority />
+          <span>Varanda Ypê</span>
+        </a>
+        <a className="header-cta" href="/menu/">Cardápio</a>
+        <a className="delivery-header-button" href={whatsappUrl} target="_blank" rel="noreferrer">
+          WhatsApp
+        </a>
+      </header>
+      <section className="satellite-hero">
+        <div className="section-inner">
+          <nav className="breadcrumbs" aria-label="Navegação estrutural">
+            <a href="/">Início</a>
+            <span>›</span>
+            <span>Trabalhe Conosco</span>
+          </nav>
+          <p className="section-label">Trabalhe Conosco</p>
+          <h1>Venha fazer parte do Varanda Ypê</h1>
+          <p>
+            Cadastre seu interesse para oportunidades no restaurante, atendimento,
+            cozinha, salão, delivery e operação da casa.
+          </p>
+        </div>
+      </section>
+      <section className="careers-section section-cream">
+        <Reveal className="section-inner careers-layout">
+          <div className="careers-copy">
+            <p className="section-label">Cadastro de interesse</p>
+            <h2>Preencha seus dados com atenção</h2>
+            <p>
+              Usamos este cadastro para conhecer candidatos e organizar contatos
+              quando houver vagas compatíveis com o perfil informado.
+            </p>
+            <div className="careers-points" aria-label="Áreas de interesse">
+              <span>Salão</span>
+              <span>Cozinha</span>
+              <span>Atendimento</span>
+              <span>Delivery</span>
+            </div>
+          </div>
+          <div className="careers-embed">
+            <TallyEmbed src={careersFormUrl} title="Trabalhe Conosco — Varanda Ypê" />
+            <a
+              className="careers-fallback"
+              href="https://tally.so/r/A7E8Ql"
+              target="_blank"
+              rel="noreferrer"
+              onClick={() => trackEvent("careers_form_click", { location: "fallback" })}
+            >
+              Abrir formulário em outra aba
+            </a>
+          </div>
+        </Reveal>
+      </section>
+    </main>
   );
 }
 
@@ -2173,7 +2274,7 @@ export function PrivacyPage() {
     ],
     [
       "Outras ferramentas de terceiros",
-      "Os formulários são hospedados pelo JotForm e as conversas de atendimento acontecem pelo WhatsApp (Meta); os dados enviados por esses canais são tratados também por essas plataformas, conforme as políticas delas. Os botões de delivery levam a iFood, 99Food e ao pedido direto (Expresso), que são serviços independentes, com políticas próprias. As fontes de texto são carregadas do Google Fonts.",
+      "Os formulários são hospedados pelo JotForm e pelo Tally, e as conversas de atendimento acontecem pelo WhatsApp (Meta); os dados enviados por esses canais são tratados também por essas plataformas, conforme as políticas delas. Os botões de delivery levam a iFood, 99Food e ao pedido direto (Expresso), que são serviços independentes, com políticas próprias. As fontes de texto são carregadas do Google Fonts.",
     ],
     [
       "Direcionamento e medição de delivery",
@@ -2272,6 +2373,8 @@ function App({ initialPath } = {}) {
     page = <MenuPage />;
   } else if (route === "/empresa") {
     page = <CompanyPage />;
+  } else if (route === "/trabalhe-conosco") {
+    page = <CareersPage />;
   } else if (route === "/privacidade") {
     page = <PrivacyPage />;
   } else if (route === "/cookies") {
@@ -2289,7 +2392,7 @@ function App({ initialPath } = {}) {
   return (
     <>
       <MarketingTracker route={route || "/"} />
-      <QualityReviewBanner />
+      {route !== "/trabalhe-conosco" && <QualityReviewBanner />}
       {page}
       <CookieConsent />
       <FloatingWhatsapp />

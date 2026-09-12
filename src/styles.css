@@ -2347,6 +2347,87 @@ input:focus-visible,
   color: rgba(14, 53, 27, 0.74);
 }
 
+.careers-section {
+  padding: 78px 0 88px;
+  border-top: 1px solid rgba(14, 53, 27, 0.12);
+}
+
+.careers-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.82fr) minmax(320px, 1.18fr);
+  gap: clamp(28px, 5vw, 64px);
+  align-items: center;
+  padding: clamp(22px, 4vw, 42px);
+  border: 1px solid rgba(14, 53, 27, 0.14);
+  border-radius: 12px;
+  background:
+    linear-gradient(135deg, rgba(255, 249, 233, 0.95), rgba(244, 238, 215, 0.82)),
+    radial-gradient(circle at 8% 12%, rgba(201, 168, 76, 0.22), transparent 24%);
+  box-shadow: 0 24px 70px rgba(14, 53, 27, 0.12);
+}
+
+.careers-copy h2 {
+  max-width: 540px;
+}
+
+.careers-copy p:not(.section-label) {
+  max-width: 520px;
+  color: rgba(14, 53, 27, 0.74);
+  font-size: 1.1rem;
+  line-height: 1.58;
+}
+
+.careers-points {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.careers-points span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  padding: 0 14px;
+  border: 1px solid rgba(14, 53, 27, 0.16);
+  border-radius: 999px;
+  color: var(--green);
+  background: rgba(255, 249, 233, 0.68);
+  font-family: "Montserrat", Arial, sans-serif;
+  font-size: 0.74rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.careers-embed {
+  overflow: hidden;
+  border: 1px solid rgba(14, 53, 27, 0.14);
+  border-radius: 10px;
+  background: #fffdf3;
+  box-shadow: 0 18px 42px rgba(14, 53, 27, 0.1);
+}
+
+.careers-embed iframe {
+  display: block;
+  width: 100%;
+  min-height: 560px;
+  border: 0;
+  background: #fffdf3;
+}
+
+.careers-fallback {
+  display: block;
+  padding: 14px 18px 16px;
+  border-top: 1px solid rgba(14, 53, 27, 0.1);
+  color: var(--green);
+  background: rgba(244, 238, 215, 0.58);
+  font-family: "Montserrat", Arial, sans-serif;
+  font-size: 0.78rem;
+  font-weight: 900;
+  text-align: center;
+  text-transform: uppercase;
+}
+
 .footer {
   padding: 64px 0;
   color: var(--cream);
@@ -2546,6 +2627,7 @@ input:focus-visible,
   .company-detail-grid,
   .company-cta-box,
   .experience-grid,
+  .careers-layout,
   .footer-grid {
     grid-template-columns: 1fr;
   }
@@ -2617,6 +2699,10 @@ input:focus-visible,
   .company-detail-list {
     grid-template-columns: 1fr;
   }
+
+  .careers-layout {
+    align-items: start;
+  }
 }
 
 @media (max-width: 640px) {
@@ -2652,6 +2738,35 @@ input:focus-visible,
     width: 30px;
     height: 30px;
     font-size: 1.15rem;
+  }
+
+  .careers-section {
+    padding: 42px 0 56px;
+  }
+
+  .careers-layout {
+    width: min(100% - 24px, 1180px);
+    padding: 18px 14px 14px;
+    border-radius: 10px;
+  }
+
+  .careers-copy p:not(.section-label) {
+    font-size: 0.98rem;
+  }
+
+  .careers-points {
+    gap: 8px;
+    margin-top: 18px;
+  }
+
+  .careers-points span {
+    min-height: 32px;
+    padding: 0 10px;
+    font-size: 0.66rem;
+  }
+
+  .careers-embed iframe {
+    min-height: 620px;
   }
 
   .hero {
