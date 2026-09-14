@@ -622,11 +622,10 @@ function CoveragePrompt() {
   return <div className="coverage-overlay" role="dialog" aria-modal="true" aria-labelledby="coverage-title">
     <div className="coverage-modal">
       {!result || result.error ? <form onSubmit={submit}>
-        <p className="section-label">Entrega por região</p><h2 id="coverage-title">Quer saber a melhor forma de pedir?</h2>
-        <p>Informe seu CEP. Usaremos essa informação somente para verificar a área de atendimento e orientar seu pedido.</p>
-        <label htmlFor="coverage-cep">CEP</label><input id="coverage-cep" value={cep} onChange={e => setCep(e.target.value)} inputMode="numeric" autoComplete="postal-code" placeholder="00000-000" maxLength={9} autoFocus />
-        <label className="coverage-consent"><input type="checkbox" required /> Autorizo a consulta do CEP para verificar a cobertura de entrega.</label>
-        <div className="coverage-actions"><button type="button" className="coverage-secondary" onClick={() => close()}>Agora não</button><button type="submit" className="coverage-primary" disabled={busy}>{busy ? 'Consultando…' : 'Verificar cobertura'}</button></div>
+        <h2 id="coverage-title">Queremos saber de onde vem a sua fome</h2>
+        <label htmlFor="coverage-cep">Coloque seu CEP</label><input id="coverage-cep" value={cep} onChange={e => setCep(e.target.value)} inputMode="numeric" autoComplete="postal-code" placeholder="00000-000" maxLength={9} autoFocus />
+        <label className="coverage-consent"><input type="checkbox" required /> Autorizo consultar meu CEP</label>
+        <div className="coverage-actions"><button type="button" className="coverage-secondary" onClick={() => close()}>Pular</button><button type="submit" className="coverage-primary" disabled={busy}>{busy ? 'Consultando…' : 'Verificar'}</button></div>
       </form> : <>
         <p className="section-label">Pronto</p><h2>{result.coverage_status === 'within_5km' ? 'Atendemos sua região.' : result.coverage_status === 'outside_5km' ? 'Veja as opções para pedir.' : 'Confira nossos canais de pedido.'}</h2>
         <p>{result.coverage_status === 'within_5km' ? 'No almoço (11h–15h), você pode pedir com entrega direta da loja ou retirar no restaurante.' : 'Você pode pedir pelo iFood ou 99Food, ou visitar a loja em Campinas.'}</p>
