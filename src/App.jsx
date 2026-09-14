@@ -624,7 +624,6 @@ function CoveragePrompt() {
       {!result || result.error ? <form onSubmit={submit}>
         <h2 id="coverage-title">Queremos saber de onde vem a sua fome</h2>
         <label htmlFor="coverage-cep">Coloque seu CEP</label><input id="coverage-cep" value={cep} onChange={e => setCep(e.target.value)} inputMode="numeric" autoComplete="postal-code" placeholder="00000-000" maxLength={9} autoFocus />
-        <label className="coverage-consent"><input type="checkbox" required /> Autorizo consultar meu CEP</label>
         <div className="coverage-actions"><button type="button" className="coverage-secondary" onClick={() => close()}>Pular</button><button type="submit" className="coverage-primary" disabled={busy}>{busy ? 'Consultando…' : 'Verificar'}</button></div>
       </form> : <>
         <p className="section-label">Pronto</p><h2>{result.coverage_status === 'within_5km' ? 'Atendemos sua região.' : result.coverage_status === 'outside_5km' ? 'Veja as opções para pedir.' : 'Confira nossos canais de pedido.'}</h2>
