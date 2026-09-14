@@ -1,0 +1,38 @@
+name: Deploy Tracking Stack
+
+on:
+  push:
+    branches: [marketing/tracking-v1]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Install FingerprintJS
+        run: npm install @fingerprintjs/fingerprintjs
+        
+      - name: Install Wrangler
+        run: npm install -g wrangler
+        
+      - name: Deploy to Cloudflare
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          wrangler deploy
+        
+      - name: Output Worker URL
+        run: |
+          echo "Worker deployed!"
+          echo "URL: https://varanda-ype-site.<subdomain>.workers.dev/collect"
