@@ -4,6 +4,12 @@
   "pages_build_output_dir": "./dist",
   "compatibility_date": "2026-09-11",
   "compatibility_flags": ["nodejs_compat"],
+  "kv_namespaces": [
+    {
+      "binding": "TRACKING_KV",
+      "id": "1c965d6b0c4e4892809f83538aaff618"
+    }
+  ],
   "d1_databases": [
     {
       "binding": "DELIVERY_DB",
