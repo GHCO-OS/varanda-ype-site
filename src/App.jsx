@@ -39,35 +39,31 @@ function Img({ src, alt, width, height, className, priority = false, smSrc }) {
   );
 }
 
-// TripAdvisor's own embed markup: a static badge/link (shown until the script
-// loads, and kept as a working fallback if it doesn't) plus an async script
-// (jscache.com) that replaces it with the live widget. The script is injected
-// imperatively — a <script> written directly in JSX only ever runs once for
-// the page's whole lifetime — and keyed by id so remounts never inject it twice.
+// Compact, stable TripAdvisor link. The external widget was causing oversized
+// markup and inconsistent spacing in the header/footer; the official page link
+// is faster, accessible and keeps the same review destination.
 function TripAdvisorWidget({ wtype, uniq, href, imgSrc, imgAlt, className }) {
-  const elementId = `TA_${wtype}${uniq}`;
-  useEffect(() => {
-    const scriptId = `${elementId}_script`;
-    if (document.getElementById(scriptId)) return;
-    const script = document.createElement("script");
-    script.id = scriptId;
-    script.async = true;
-    script.dataset.loadtrk = "";
-    script.src = `https://www.jscache.com/wejs?wtype=${wtype}&uniq=${uniq}&locationId=${tripadvisorLocationId}&lang=pt&display_version=2`;
-    script.onload = () => { script.loadtrk = true; };
-    document.body.appendChild(script);
-  }, [elementId, wtype, uniq]);
   return (
-    <div id={elementId} className={`TA_${wtype} ${className || ""}`.trim()}>
-      <ul className="TA_links">
-        <li>
-          <a href={href} target="_blank" rel="noreferrer">
-            <img src={imgSrc} alt={imgAlt} height={20} />
-          </a>
-        </li>
-      </ul>
-    </div>
+    <a className={`tripadvisor-badge ${className || ""}`.trim()} href={href} target="_blank" rel="noreferrer" aria-label="Avaliações do Varanda Ypê no TripAdvisor">
+      <img src={imgSrc} alt={imgAlt} width="180" height="28" />
+      <span>Ver avaliações</span>
+    </a>
   );
+}
+
+function PaymentMethods() {
+  return <section className="payments-section" aria-labelledby="payments-title">
+    <div className="section-inner">
+      <p className="section-label">Pagamento</p>
+      <h2 id="payments-title">Pague do jeito que for melhor para você</h2>
+      <p className="payments-intro">Na loja, aceitamos cartões de débito e crédito, Pix, Google Pay e Apple Pay quando disponíveis no terminal.</p>
+      <div className="payments-grid">
+        <div><h3>Cartões e Pix</h3><p>Débito, crédito e Pix.</p></div>
+        <div><h3>Vale-alimentação e refeição</h3><p>Pluxee (Sodexo), Ticket, VR, Verocard, Alelo, Ben Visa Vale, Caju, Flash, Swile e outros, conforme credenciamento e disponibilidade.</p></div>
+        <div><h3>Pedidos por aplicativo</h3><p>iFood e 99Food têm políticas próprias de voucher. Confira no aplicativo se o seu benefício é aceito; o pagamento é processado pela plataforma, não pela loja.</p></div>
+      </div>
+    </div>
+  </section>;
 }
 
 // Fixed, site-wide call-to-action. Renders once at the App root so it's on
@@ -2261,6 +2257,7 @@ export function HomePage() {
       </section>
 
       <div className="section-inner"><DiscoveryLinks /></div>
+      <PaymentMethods />
 
       <footer className="footer" id="contato">
         <div className="section-inner footer-grid">
