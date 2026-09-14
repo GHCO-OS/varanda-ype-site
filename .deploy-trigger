@@ -1,0 +1,4 @@
+Deploy Trigger
+Timestamp: 2026-09-14T16:41:00Z
+Purpose: Trigger auto-deploy workflow
+Secrets: CLOUDFLARE_API_TOKEN ✅, CLOUDFLARE_ACCOUNT_ID ✅
