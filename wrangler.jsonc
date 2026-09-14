@@ -1,6 +1,6 @@
 {
   "name": "varanda-ype-site",
-  "main": "src/index.tsx",
+  "main": "src/main.jsx",
   "compatibility_date": "2026-09-14",
   "kv_namespaces": [
     {
