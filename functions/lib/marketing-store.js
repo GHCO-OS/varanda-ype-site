@@ -84,7 +84,18 @@ export async function persistMarketingEvent(env, event, request) {
   const medium = event.utm_medium || null;
   const campaign = event.utm_campaign || null;
   const campaignId = event.campaign_id || event.utm_id || null;
-  const geo = request.cf ? JSON.stringify({ country: request.cf.country || null, region: request.cf.region || null, city: request.cf.city || null }) : null;
+  const postalPrefix = typeof request.cf?.postalCode === 'string'
+    ? request.cf.postalCode.replace(/\D/g, '').slice(0, 3) || null
+    : null;
+  const geo = request.cf ? JSON.stringify({
+    country: request.cf.country || null,
+    region: request.cf.region || null,
+    region_code: request.cf.regionCode || null,
+    city: request.cf.city || null,
+    timezone: request.cf.timezone || null,
+    metro_code: request.cf.metroCode || null,
+    postal_prefix: postalPrefix,
+  }) : null;
   const statements = [
     env.DELIVERY_DB.prepare(`INSERT INTO marketing_visitors (visitor_id, first_seen_at, last_seen_at, lifecycle_stage) VALUES (?, ?, ?, 'VISITOR') ON CONFLICT(visitor_id) DO UPDATE SET last_seen_at=excluded.last_seen_at`).bind(event.visitor_id, event.occurred_at, now),
     env.DELIVERY_DB.prepare(`INSERT INTO marketing_sessions (session_id, visitor_id, started_at, last_seen_at, landing_path, platform, intent) VALUES (?, ?, ?, ?, ?, ?, ?) ON CONFLICT(session_id) DO UPDATE SET last_seen_at=excluded.last_seen_at`).bind(event.session_id, event.visitor_id, event.occurred_at, now, event.page_path, event.platform || null, event.intent || null),
