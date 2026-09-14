@@ -1,0 +1,56 @@
+# Inteligência competitiva automatizada — criada pelo agente GLM-5.3.
+# Scan semanal: JSON-LD público de concorrentes (respeitando robots.txt) +
+# Meta Ad Library oficial. Grava no D1 varanda-delivery-db (tabela
+# competitor_intelligence). Nunca acessa plataformas com login/CAPTCHA —
+# ver docs/marketing/COMPETITIVE_INTELLIGENCE.md.
+name: Inteligência competitiva
+
+on:
+  schedule:
+    # Segunda-feira 12:00 UTC = 09:00 BRT
+    - cron: "0 12 * * 1"
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  scan:
+    name: Scan e gravação no D1
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Instalar dependências
+        run: npm ci
+      - name: Restaurar lista de concorrentes (repo é público, config é secret)
+        env:
+          COMPETITORS_JSON: ${{ secrets.COMPETITORS_JSON }}
+        run: |
+          if [ -z "$COMPETITORS_JSON" ]; then
+            echo "::error::Configure o secret COMPETITORS_JSON (mesmo formato de config/competitors.example.json)."
+            exit 1
+          fi
+          printf '%s' "$COMPETITORS_JSON" > config/competitors.json
+      - name: Coletar dados (own_site + meta_ads)
+        env:
+          META_AD_LIBRARY_TOKEN: ${{ secrets.META_AD_LIBRARY_TOKEN }}
+        run: npm run competitive:scan -- --sql-out /tmp/competitive-intel.sql
+      - name: Aplicar ao D1 remoto
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          if grep -q '^INSERT' /tmp/competitive-intel.sql; then
+            npx wrangler d1 execute varanda-delivery-db --remote --file=/tmp/competitive-intel.sql
+          else
+            echo "Nenhuma linha coletada nesta execução — nada a aplicar no D1."
+          fi
+      - name: Guardar SQL coletado como artefato (auditoria)
+        uses: actions/upload-artifact@v4
+        with:
+          name: competitive-intel-${{ github.run_id }}
+          path: /tmp/competitive-intel.sql
+          retention-days: 90

@@ -1,0 +1,31 @@
+# CI do varanda-ype-site — criado pelo agente GLM-5.3.
+# Roda lint, testes e build em todo push/PR para a main, espelhando o build do Cloudflare Pages.
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  ci:
+    name: Lint + testes + build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Instalar dependências
+        run: npm ci
+      - name: Lint
+        run: npm run lint
+      - name: Testes
+        run: npm test
+      - name: Build (mesmo pipeline do Cloudflare Pages)
+        run: npm run build
