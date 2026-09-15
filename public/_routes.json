@@ -1,1 +1,1 @@
-{"version":1,"include":["/api/delivery-click","/api/lead-capture","/api/marketing-event","/api/health/tracking","/go/*","/r/*"],"exclude":[]}
+{"version":1,"include":["/api/delivery-click","/api/lead-capture","/api/marketing-event","/api/coverage-consent","/api/coverage-consent-event","/api/health/tracking","/go/*","/r/*"],"exclude":[]}
