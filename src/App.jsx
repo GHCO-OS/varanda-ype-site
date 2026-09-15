@@ -627,7 +627,7 @@ function CoveragePrompt() {
         <div className="coverage-actions"><button type="button" className="coverage-secondary" onClick={() => close()}>Pular</button><button type="submit" className="coverage-primary" disabled={busy}>{busy ? 'Consultando…' : 'Verificar'}</button></div>
       </form> : <>
         <p className="section-label">Pronto</p><h2>{result.coverage_status === 'within_5km' ? 'Atendemos sua região.' : result.coverage_status === 'outside_5km' ? 'Veja as opções para pedir.' : 'Confira nossos canais de pedido.'}</h2>
-        <p>{result.coverage_status === 'within_5km' ? 'No almoço (11h–15h), você pode pedir com entrega direta da loja ou retirar no restaurante.' : 'Você pode pedir pelo iFood ou 99Food, ou visitar a loja em Campinas.'}</p>
+        <p>{result.coverage_status === 'within_5km' ? 'No almoço (11h–15h), você pode pedir com entrega direta da loja ou retirar no restaurante. Também pode pedir pelo iFood e 99Food.' : 'Você pode pedir pelo iFood ou 99Food, ou visitar a loja em Campinas.'}</p>
         <div className="coverage-actions coverage-result-actions"><a className="coverage-primary" href={result.coverage_status === 'within_5km' ? 'https://expresso.varandaype.com' : '/pedir/ifood/'}>Pedir agora</a><button type="button" className="coverage-secondary" onClick={() => close('accepted')}>Continuar no site</button></div>
       </>}
       {result?.error && <p className="coverage-error" role="alert">{result.error}</p>}
