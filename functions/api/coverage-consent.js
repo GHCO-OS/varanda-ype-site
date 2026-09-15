@@ -4,7 +4,7 @@ const headers = { 'Cache-Control': 'no-store', 'X-Robots-Tag': 'noindex, nofollo
 const reply = (status, payload) => new Response(JSON.stringify(payload), { status, headers });
 const STORE = { lat: -22.9010251, lon: -47.09676 };
 
-export async function onRequest(context) {
+export async function onRequestPost(context) {
   const { request, env } = context;
   if (request.method !== 'POST') return reply(405, { error: 'method_not_allowed' });
   if (request.headers.get('Origin') !== new URL(request.url).origin) return reply(403, { error: 'origin_not_allowed' });
@@ -28,9 +28,11 @@ export async function onRequest(context) {
   } catch { /* unknown is safer than guessing */ }
   const status = distance == null ? 'unknown' : distance <= 5 ? 'within_5km' : 'outside_5km';
   if (env.DELIVERY_DB) {
-    await env.DELIVERY_DB.prepare(`INSERT INTO coverage_consents (consent_id,created_at,visitor_id,session_id,cep,cep_prefix,city,region,distance_km,coverage_status,consent_purpose,consent_version,campaign,landing_path) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)`).bind(
-      consentId, now, body.visitor_id || null, body.session_id || null, cep, cep.slice(0, 3), address.localidade || null, address.uf || null, distance, status, 'delivery_coverage', '2026-09-14', body.campaign || null, body.landing_path || null
-    ).run();
+    try {
+      await env.DELIVERY_DB.prepare(`INSERT INTO coverage_consents (consent_id,created_at,visitor_id,session_id,cep,cep_prefix,city,region,distance_km,coverage_status,consent_purpose,consent_version,campaign,landing_path) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)`).bind(
+        consentId, now, body.visitor_id || null, body.session_id || null, cep, cep.slice(0, 3), address.localidade || null, address.uf || null, distance, status, 'delivery_coverage', '2026-09-14', body.campaign || null, body.landing_path || null
+      ).run();
+    } catch (error) { console.error(JSON.stringify({ message: 'coverage_persistence_failed', error: error?.message || 'unknown' })); }
   }
   return reply(200, { ok: true, consent_id: consentId, coverage_status: status, distance_km: distance == null ? null : Math.round(distance * 10) / 10, city: address.localidade || null, region: address.uf || null });
 }
