@@ -3,7 +3,7 @@ import { Reveal } from "./Reveal.jsx";
 const DeliveryRouter = React.lazy(() => import('./delivery/DeliveryRouter.jsx'));
 const MarketingRouter = React.lazy(() => import('./marketing/MarketingRouter.jsx'));
 import { destinations } from '../shared/delivery.js';
-import { hasConsentChoice, readConsent, saveConsent } from './marketing/consent.js';
+import { hasConsentChoice, saveConsent } from './marketing/consent.js';
 import { normalizeCep } from '../shared/coverage.js';
 
 // Serves WebP with an image fallback via <picture>, ships explicit width/height so
@@ -90,20 +90,19 @@ function FloatingWhatsapp() {
 }
 
 // Consent Mode: the index.html inline script denies optional storage by default.
-// This panel records a granular choice and keeps commercial links functional.
+// Bare accept/reject — no explanatory copy or granular picker. The full
+// Política de Cookies (/cookies/) and Privacidade (/privacidade/) pages carry
+// the explanation; this banner just needs to not be in the way.
 function CookieConsent() {
   const [visible, setVisible] = useState(false);
-  const [customize, setCustomize] = useState(false);
-  const [choice, setChoice] = useState({ analytics: false, advertising: false, personalization: false });
 
   useEffect(() => {
-    setChoice(readConsent(window));
     if (!hasConsentChoice(window)) setVisible(true);
   }, []);
 
   if (!visible) return null;
 
-    function decide(value) {
+  function decide(value) {
     const saved = saveConsent(value, window);
     trackEvent(saved.analytics || saved.advertising ? "consent_accept" : "consent_reject", {
       consent_analytics: saved.analytics,
@@ -115,19 +114,10 @@ function CookieConsent() {
   }
 
   return (
-    <div className="cookie-consent" role="dialog" aria-live="polite" aria-label="Aviso de cookies">
-      <p>
-        Você escolhe se podemos medir o uso e personalizar publicidade. O site e os pedidos funcionam somente com cookies necessários. Veja a <a href="/cookies/">Política de Cookies</a>.
-      </p>
-      {customize && <fieldset className="cookie-options"><legend>Preferências</legend>{[
-        ["analytics", "Análise"], ["advertising", "Publicidade"], ["personalization", "Personalização"],
-      ].map(([key, label]) => <label key={key}><input type="checkbox" checked={choice[key]} onChange={(event) => setChoice({ ...choice, [key]: event.target.checked })} /> {label}</label>)}</fieldset>}
+    <div className="cookie-consent" role="dialog" aria-live="polite" aria-label="Cookies">
       <div className="cookie-consent-actions">
         <button type="button" className="cookie-reject" onClick={() => decide({ analytics: false, advertising: false, personalization: false })}>
           Rejeitar
-        </button>
-        <button type="button" className="cookie-reject" onClick={() => customize ? decide(choice) : setCustomize(true)}>
-          {customize ? "Salvar" : "Personalizar"}
         </button>
         <button type="button" className="cookie-accept" onClick={() => decide({ analytics: true, advertising: true, personalization: true })}>
           Aceitar

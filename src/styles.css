@@ -3561,16 +3561,14 @@ h2 {
   }
 }
 
-/* Cookie consent (Google Consent Mode banner) */
+/* Cookie consent (Google Consent Mode banner) — bare accept/reject pill */
 .cookie-consent {
   position: fixed;
   left: 16px;
   bottom: 16px;
   z-index: 70;
-  max-width: 420px;
   display: grid;
-  gap: 12px;
-  padding: 18px 20px;
+  padding: 10px;
   border-radius: 16px;
   background: var(--cream-soft, #fff9e9);
   color: var(--green-deep, #082713);
@@ -3578,23 +3576,10 @@ h2 {
   border: 1px solid rgba(8, 39, 19, 0.14);
 }
 
-.cookie-consent p {
-  margin: 0;
-  font-size: 0.9rem;
-  line-height: 1.5;
-}
-
-.cookie-consent a {
-  color: inherit;
-  text-decoration: underline;
-}
-
 .cookie-consent-actions {
   display: flex;
   gap: 10px;
-  justify-content: flex-end;
 }
-.cookie-options{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;border:1px solid rgba(8,39,19,.18);border-radius:12px;padding:10px}.cookie-options legend{font-size:.8rem;font-weight:800}.cookie-options label{font-size:.78rem;display:flex;gap:5px;align-items:center}
 
 .cookie-consent-actions button {
   min-height: 38px;
@@ -3619,36 +3604,15 @@ h2 {
 }
 
 @media (max-width: 640px) {
-  /* Flush bottom bar instead of a card floating over content. */
+  /* Compact pill, clear of the floating WhatsApp button — no longer needs
+     the room a full-width flush bar took for the old explanatory text. */
   .cookie-consent {
-    left: 0;
-    right: 0;
-    bottom: 0;
-    max-width: none;
-    gap: 10px;
-    padding: 14px 16px calc(14px + env(safe-area-inset-bottom));
-    border-radius: 14px 14px 0 0;
-    border-width: 1px 0 0;
+    left: 12px;
+    bottom: 12px;
+    padding: 10px 8px calc(10px + env(safe-area-inset-bottom));
   }
-
-  .cookie-consent p {
-    font-size: 0.82rem;
-    line-height: 1.4;
-  }
-
-  .cookie-consent-actions {
-    justify-content: stretch;
-  }
-  .cookie-options{grid-template-columns:1fr}
 
   .cookie-consent-actions button {
-    flex: 1;
     min-height: 44px;
-  }
-
-  /* While the consent bar occupies the bottom edge, get the floating
-     WhatsApp out of the way (it returns once the choice is made). */
-  .cookie-consent ~ .floating-whatsapp {
-    display: none;
   }
 }
