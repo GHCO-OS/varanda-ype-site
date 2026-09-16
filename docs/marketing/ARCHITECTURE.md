@@ -27,7 +27,7 @@ flowchart TD
 3. O ledger local preserva first touch, last touch e até 25 touchpoints intermediários distintos.
 4. Cada evento ganha UUID próprio. O mesmo `event_id` do dataLayer é enviado a `/api/marketing-event` para futura deduplicação browser/server.
 5. O endpoint responde `202` e usa `waitUntil`; falhas nunca bloqueiam pedido.
-6. D1 recebe visitantes, sessões, touchpoints, eventos, outbound conversions e exposições futuras. Não armazena IP bruto nem localização precisa.
+6. D1 recebe visitantes, sessões, touchpoints, eventos, outbound conversions e exposições futuras. A geolocalização gravada (`geo_coarse_json`) vem do edge da Cloudflare por IP — país, região, cidade, CEP e fuso — para dar visão de onde os clientes estão sem depender de um formulário pedindo o endereço. IP bruto nunca é armazenado, e não é solicitada nem guardada latitude/longitude por visitante (a estimativa de CEP por IP é aproximada, não GPS).
 
 ## Decisões conservadoras
 

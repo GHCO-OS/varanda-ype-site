@@ -84,17 +84,20 @@ export async function persistMarketingEvent(env, event, request) {
   const medium = event.utm_medium || null;
   const campaign = event.utm_campaign || null;
   const campaignId = event.campaign_id || event.utm_id || null;
-  const postalPrefix = typeof request.cf?.postalCode === 'string'
-    ? request.cf.postalCode.replace(/\D/g, '').slice(0, 3) || null
-    : null;
+  // IP-based geolocation from Cloudflare's edge (MaxMind-derived), not GPS —
+  // accuracy for Brazilian CEPs varies with the visitor's ISP block. Full
+  // postal_code (not a 3-digit prefix) so region/neighbourhood-level
+  // reporting doesn't collapse everyone into "city". Deliberately stops at
+  // that: no per-visitor lat/long is requested from or stored for the
+  // client, and raw IP is never persisted (see docs/marketing/ARCHITECTURE.md).
   const geo = request.cf ? JSON.stringify({
     country: request.cf.country || null,
     region: request.cf.region || null,
     region_code: request.cf.regionCode || null,
     city: request.cf.city || null,
+    postal_code: request.cf.postalCode || null,
     timezone: request.cf.timezone || null,
     metro_code: request.cf.metroCode || null,
-    postal_prefix: postalPrefix,
   }) : null;
   const statements = [
     env.DELIVERY_DB.prepare(`INSERT INTO marketing_visitors (visitor_id, first_seen_at, last_seen_at, lifecycle_stage) VALUES (?, ?, ?, 'VISITOR') ON CONFLICT(visitor_id) DO UPDATE SET last_seen_at=excluded.last_seen_at`).bind(event.visitor_id, event.occurred_at, now),
