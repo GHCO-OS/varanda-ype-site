@@ -6,15 +6,33 @@
 // platform, never bypasses a CAPTCHA, and stops on any robots.txt disallow.
 // Usage: node scripts/competitive-scan.mjs --config config/competitors.json [--db path.sqlite] [--sql-out out.sql]
 import fs from 'node:fs';
+import { pathToFileURL } from 'node:url';
 import { isPathAllowed, USER_AGENT } from '../shared/robots.js';
 import { extractMenuItems } from '../shared/menu-jsonld.js';
 import { searchAdsByPageId } from '../shared/ad-library-client.js';
 
+// Accepts both --key=value and --key value (the latter is how npm run
+// competitive:scan -- --sql-out out.sql and the workflow invoke it — argv
+// splits on the space, so there is no "=" to parse).
 function parseArgs(argv) {
-  const input = Object.fromEntries(argv.map(value => {
-    const [key, ...rest] = value.replace(/^--/, '').split('=');
-    return [key, rest.join('=') || true];
-  }));
+  const input = {};
+  for (let i = 0; i < argv.length; i += 1) {
+    const arg = argv[i];
+    if (!arg.startsWith('--')) continue;
+    const key = arg.slice(2);
+    if (key.includes('=')) {
+      const [name, ...rest] = key.split('=');
+      input[name] = rest.join('=');
+      continue;
+    }
+    const next = argv[i + 1];
+    if (next !== undefined && !next.startsWith('--')) {
+      input[key] = next;
+      i += 1;
+    } else {
+      input[key] = true;
+    }
+  }
   return { config: input.config || 'config/competitors.json', db: input.db || null, sqlOut: input['sql-out'] || null };
 }
 
@@ -84,6 +102,11 @@ async function main() {
   if (!db && !sqlOut) process.stdout.write(JSON.stringify(rows, null, 2) + '\n');
 }
 
-main().catch(error => { console.error(error); process.exitCode = 1; });
+// Only run when executed directly (`node competitive-scan.mjs`), not when a
+// test imports parseArgs/insertSql/etc. — importing must not trigger a scan.
+// pathToFileURL (not a plain `file://` template) so this also works on Windows.
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+  main().catch(error => { console.error(error); process.exitCode = 1; });
+}
 
-export { insertSql, scanMetaAds, scanOwnSite };
+export { insertSql, parseArgs, scanMetaAds, scanOwnSite };

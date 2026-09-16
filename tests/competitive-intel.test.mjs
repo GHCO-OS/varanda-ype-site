@@ -5,6 +5,7 @@ import { DatabaseSync } from 'node:sqlite';
 import { isPathAllowed } from '../shared/robots.js';
 import { extractMenuItems } from '../shared/menu-jsonld.js';
 import { searchAdsByPageId } from '../shared/ad-library-client.js';
+import { parseArgs } from '../scripts/competitive-scan.mjs';
 
 const PERSONAL_DATA_HINTS = ['name', 'email', 'phone', 'whatsapp', 'handle', 'user', 'author', 'reviewer', 'cpf'];
 
@@ -44,6 +45,18 @@ test('menu JSON-LD extraction ignores pages with no structured data', () => {
 
 test('Meta Ad Library client refuses to run without an access token', async () => {
   await assert.rejects(() => searchAdsByPageId('123', {}), /provider_not_configured/);
+});
+
+test('parseArgs reads --flag value the same as --flag=value (regression: npm/CI pass space-separated args)', () => {
+  assert.deepEqual(
+    parseArgs(['--sql-out', '/tmp/competitive-intel.sql']),
+    { config: 'config/competitors.json', db: null, sqlOut: '/tmp/competitive-intel.sql' },
+  );
+  assert.deepEqual(
+    parseArgs(['--sql-out=/tmp/competitive-intel.sql', '--config=custom.json']),
+    { config: 'custom.json', db: null, sqlOut: '/tmp/competitive-intel.sql' },
+  );
+  assert.deepEqual(parseArgs([]), { config: 'config/competitors.json', db: null, sqlOut: null });
 });
 
 test('Meta Ad Library client maps the official API response, never personal viewer data', async () => {
