@@ -4,7 +4,6 @@ const DeliveryRouter = React.lazy(() => import('./delivery/DeliveryRouter.jsx'))
 const MarketingRouter = React.lazy(() => import('./marketing/MarketingRouter.jsx'));
 import { destinations } from '../shared/delivery.js';
 import { hasConsentChoice, saveConsent } from './marketing/consent.js';
-import { normalizeCep } from '../shared/coverage.js';
 
 // Serves WebP with an image fallback via <picture>, ships explicit width/height so
 // the browser reserves space before the image loads (no layout shift), and
@@ -576,53 +575,6 @@ function QualityReviewBanner() {
       </button>
     </aside>
   );
-}
-
-function CoveragePrompt() {
-  const [visible, setVisible] = useState(false);
-  const [cep, setCep] = useState('');
-  const [busy, setBusy] = useState(false);
-  const [result, setResult] = useState(null);
-  useEffect(() => {
-    const canShow = () => hasConsentChoice(window) && !sessionStorage.getItem('vy_coverage_prompt_seen');
-    const show = () => { if (canShow()) setVisible(true); };
-    if (canShow()) show();
-    window.addEventListener('vy:consent-changed', show);
-    return () => window.removeEventListener('vy:consent-changed', show);
-  }, []);
-  if (!visible) return null;
-  const context = () => ({ visitor_id: localStorage.getItem('vy_vid') || null, session_id: sessionStorage.getItem('vy_sid') || null, landing_path: window.location.pathname, campaign: new URLSearchParams(window.location.search).get('utm_campaign') });
-  async function submit(event) {
-    event.preventDefault();
-    const normalized = normalizeCep(cep);
-    if (!normalized) return setResult({ error: 'Digite um CEP válido com 8 números.' });
-    setBusy(true); setResult(null);
-    try {
-      const response = await fetch('/api/coverage-consent', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...context(), cep: normalized, consent_coverage: true }) });
-      const data = await response.json();
-      if (!response.ok) throw new Error('Falha ao consultar CEP');
-      setResult(data); sessionStorage.setItem('vy_coverage_prompt_seen', '1');
-    } catch { setResult({ error: 'Não foi possível consultar agora. Você pode continuar pelos canais de pedido.' }); }
-    finally { setBusy(false); }
-  }
-  function close(status = 'rejected') {
-    sessionStorage.setItem('vy_coverage_prompt_seen', '1'); setVisible(false);
-    fetch('/api/coverage-consent-event', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...context(), status }) }).catch(() => {});
-  }
-  return <div className="coverage-overlay" role="dialog" aria-modal="true" aria-labelledby="coverage-title">
-    <div className="coverage-modal">
-      {!result || result.error ? <form onSubmit={submit}>
-        <h2 id="coverage-title">Queremos saber de onde vem a sua fome</h2>
-        <label htmlFor="coverage-cep">Coloque seu CEP</label><input id="coverage-cep" value={cep} onChange={e => setCep(e.target.value)} inputMode="numeric" autoComplete="postal-code" placeholder="00000-000" maxLength={9} autoFocus />
-        <div className="coverage-actions"><button type="button" className="coverage-secondary" onClick={() => close()}>Pular</button><button type="submit" className="coverage-primary" disabled={busy}>{busy ? 'Consultando…' : 'Verificar'}</button></div>
-      </form> : <>
-        <p className="section-label">Pronto</p><h2>{result.coverage_status === 'within_5km' ? 'Atendemos sua região.' : result.coverage_status === 'outside_5km' ? 'Veja as opções para pedir.' : 'Confira nossos canais de pedido.'}</h2>
-        <p>{result.coverage_status === 'within_5km' ? 'No almoço (11h–15h), você pode pedir com entrega direta da loja ou retirar no restaurante. Também pode pedir pelo iFood e 99Food.' : 'Você pode pedir pelo iFood ou 99Food, ou visitar a loja em Campinas.'}</p>
-        <div className="coverage-actions coverage-result-actions"><a className="coverage-primary" href={result.coverage_status === 'within_5km' ? 'https://expresso.varandaype.com' : '/pedir/ifood/'}>Pedir agora</a><button type="button" className="coverage-secondary" onClick={() => close('accepted')}>Continuar no site</button></div>
-      </>}
-      {result?.error && <p className="coverage-error" role="alert">{result.error}</p>}
-    </div>
-  </div>;
 }
 
 function TallyEmbed({ src, title }) {
@@ -2431,7 +2383,6 @@ function App({ initialPath } = {}) {
       {route !== "/trabalhe-conosco" && <QualityReviewBanner />}
       {page}
       <CookieConsent />
-      <CoveragePrompt />
       <FloatingWhatsapp />
     </>
   );
