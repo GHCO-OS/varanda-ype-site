@@ -2,3 +2,4 @@ User-agent: *
 Allow: /
 
 Sitemap: https://varandaype.com/sitemap.xml
+Sitemap: https://varandaype.com/news/sitemap-index.xml
