@@ -67,12 +67,12 @@ function PaymentMethods() {
 
 // Fixed, site-wide call-to-action. Renders once at the App root so it's on
 // every route, including a subtle entrance so it doesn't just "pop" over content.
-function FloatingWhatsapp() {
+function FloatingWhatsapp({ route }) {
   const operation = typeof window === "undefined" ? "home" : (window.location.pathname.split("/").filter(Boolean)[0] || "home");
   return (
     <a
       className="floating-whatsapp"
-      href={whatsappFloatingUrl}
+      href={route === "/rotisseria" ? rotisseriaWhatsappUrl : whatsappFloatingUrl}
       target="_blank"
       rel="noreferrer"
       aria-label="Falar no WhatsApp"
@@ -2343,9 +2343,9 @@ export function CookiesPage() {
 }
 
 const rotisseriaWhatsappUrl =
-  "https://wa.me/551931991971?text=Ol%C3%A1%21%20Quero%20fazer%20um%20pedido%20da%20Rotisseria%20%26%20Assados%20de%20domingo.";
-const rotisseriaImage = "/rotisseria/frango-assado-varanda-ype.png";
-const rotisseriaFlyer = "/rotisseria/cardapio-rotisseria-varanda-ype.jpg";
+  "https://wa.me/551933254906?text=Ol%C3%A1%21%20Quero%20fazer%20um%20pedido%20da%20Rotisseria%20%26%20Assados%20de%20domingo.";
+const rotisseriaImage = "/rotisseria/frango-assado-tabua.png";
+const rotisseriaShareImage = "/rotisseria/rotisseria-assados-varanda-ype.jpg";
 const rotisseriaAssados = [
   { name: "Cupim Grill", note: "Novidade", prices: ["120,00", "60,00", "30,00"] },
   { name: "Costela bovina", prices: ["95,00", "47,50", "24,00"] },
@@ -2369,12 +2369,13 @@ const rotisseriaFaqs = [
   ["Como são vendidos os assados?", "Por peso, em três porções: 1 kg, 500 g e 250 g. O preço de cada porção está na tabela acima."],
   ["O que acompanha o frango assado?", "O frango assado, R$ 48,90 a unidade, acompanha farofa artesanal e batatinhas assadas."],
   ["Onde fica a retirada?", "No Varanda Ypê, na Av. Brigadeiro Rafael Tobias de Aguiar, 1121, Jardim Aurélia, Campinas."],
+  ["Os preços e itens estão sempre disponíveis?", "Os preços seguem o cardápio da casa, mas os itens podem variar conforme o dia. Confira a disponibilidade direto na loja ou no site varandaype.com."],
   ["Como faço o pedido?", "Pelo WhatsApp ou pelos canais de delivery. Os itens podem variar conforme a disponibilidade do dia."],
 ];
 
 export function RotisseriaPage() {
   const pageUrl = "https://varandaype.com/rotisseria/";
-  const flyerUrl = `https://varandaype.com${rotisseriaFlyer}`;
+  const shareImageUrl = `https://varandaype.com${rotisseriaShareImage}`;
   const priceToNumber = (value) => value.replace(",", ".");
   const menuSchema = {
     "@context": "https://schema.org",
@@ -2411,7 +2412,7 @@ export function RotisseriaPage() {
     name: "Rotisseria & Assados | Varanda Ypê",
     description: "Assados no celofane, preparados no carvão, aos domingos com delivery e retirada em Campinas.",
     url: pageUrl,
-    image: flyerUrl,
+    image: shareImageUrl,
     isPartOf: { "@type": "WebSite", name: "Varanda Ypê", url: "https://varandaype.com/" },
     about: {
       "@type": "FoodEstablishment",
@@ -2470,6 +2471,14 @@ export function RotisseriaPage() {
           <Img src={rotisseriaImage} alt="Frango assado dourado sobre tábua de madeira, da Rotisseria & Assados do Varanda Ypê" width={300} height={300} priority />
         </div>
       </section>
+      <nav className="rotisseria-jump" aria-label="Nesta página">
+        <div className="section-inner">
+          <a href="#assados-title">Assados</a>
+          <a href="#frango-assado">Frango assado</a>
+          <a href="#acompanhamentos">Acompanhamentos</a>
+          <a href="#duvidas">Dúvidas</a>
+        </div>
+      </nav>
       <section className="satellite-content section-cream rotisseria-menu" aria-labelledby="assados-title">
         <div className="section-inner">
           <p className="section-label">Cardápio de domingo</p>
@@ -2494,15 +2503,17 @@ export function RotisseriaPage() {
               </tbody>
             </table>
           </div>
-          <article className="rotisseria-frango">
+          <article className="rotisseria-frango" id="frango-assado">
+            <Img src={rotisseriaImage} alt="Frango assado dourado sobre tábua de madeira" width={300} height={300} />
             <div>
               <p className="section-label">Destaque</p>
               <h3>Frango assado</h3>
               <p className="rotisseria-price">R$ 48,90 <span>/ unidade</span></p>
               <p>Acompanha farofa artesanal e batatinhas assadas.</p>
+              <a className="button button-primary" href={rotisseriaWhatsappUrl} target="_blank" rel="noreferrer" onClick={trackWhatsapp("frango")}>Pedir frango assado</a>
             </div>
           </article>
-          <h2 className="rotisseria-subtitle">Acompanhamentos</h2>
+          <h2 className="rotisseria-subtitle" id="acompanhamentos">Acompanhamentos</h2>
           <ul className="rotisseria-sides">
             {rotisseriaAcompanhamentos.map(([name, options]) => (
               <li key={name}>
@@ -2511,14 +2522,14 @@ export function RotisseriaPage() {
               </li>
             ))}
           </ul>
-          <p className="rotisseria-note">Valores e itens sujeitos à disponibilidade do dia. Confirme no WhatsApp antes de fazer o pedido.</p>
+          <p className="rotisseria-note"><strong>Preços conforme o cardápio.</strong> Confira a disponibilidade direto na loja ou no site varandaype.com antes de fazer o pedido.</p>
           <div className="hero-actions">
             <a className="button button-primary" href={rotisseriaWhatsappUrl} target="_blank" rel="noreferrer" onClick={trackWhatsapp("menu")}>Pedir pelo WhatsApp</a>
             <a className="button button-secondary" href="/delivery/marmitas/">Ver canais de delivery</a>
           </div>
         </div>
       </section>
-      <section className="satellite-faq section-green">
+      <section className="satellite-faq section-green" id="duvidas">
         <div className="section-inner">
           <p className="section-label">Dúvidas frequentes</p>
           <h2>Antes de pedir</h2>
@@ -2581,7 +2592,7 @@ function App({ initialPath } = {}) {
       {route !== "/trabalhe-conosco" && <QualityReviewBanner />}
       {page}
       <CookieConsent />
-      <FloatingWhatsapp />
+      <FloatingWhatsapp route={route} />
     </>
   );
 }

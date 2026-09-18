@@ -97,8 +97,8 @@ const pages = [
     description:
       "Rotisseria &amp; Assados do Varanda Ypê: cupim, costela, lombo recheado, frango assado e acompanhamentos por peso. Domingos, das 11h às 15h, delivery e retirada em Campinas.",
     canonical: "https://varandaype.com/rotisseria/",
-    preload: { href: "/rotisseria/frango-assado-varanda-ype.webp" },
-    image: "https://varandaype.com/rotisseria/cardapio-rotisseria-varanda-ype.jpg",
+    preload: { href: "/rotisseria/frango-assado-tabua.webp" },
+    image: "https://varandaype.com/rotisseria/rotisseria-assados-varanda-ype.jpg",
   },
   {
     route: "/privacidade",

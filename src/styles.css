@@ -3636,3 +3636,20 @@ h2 {
 }
 
 .rotisseria-page .satellite-hero-grid > picture img { height: min(340px, 70vw); object-fit: contain; border-radius: 0; filter: drop-shadow(0 22px 28px rgba(0, 0, 0, .35)); }
+
+.rotisseria-jump { position: sticky; top: 0; z-index: 20; background: var(--cream, #f4eed7); border-bottom: 1px solid rgba(24, 63, 53, .15); }
+.rotisseria-jump .section-inner { display: flex; gap: 8px; overflow-x: auto; padding-top: 10px; padding-bottom: 10px; scrollbar-width: none; }
+.rotisseria-jump a { flex: none; display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; border: 1px solid rgba(24, 63, 53, .25); border-radius: 999px; color: #183f35; font-weight: 700; white-space: nowrap; }
+.rotisseria-menu h2, .rotisseria-frango, .satellite-faq[id] { scroll-margin-top: 76px; }
+.rotisseria-frango { display: grid; grid-template-columns: minmax(0, 220px) 1fr; gap: 28px; align-items: center; }
+.rotisseria-frango picture img { width: 100%; height: auto; filter: drop-shadow(0 14px 18px rgba(0, 0, 0, .25)); }
+@media (max-width: 800px) {
+  .rotisseria-frango { grid-template-columns: 1fr; text-align: center; justify-items: center; }
+  .rotisseria-frango picture img { max-width: 220px; }
+  .rotisseria-page .hero-actions .button { width: 100%; justify-content: center; text-align: center; }
+}
+.rotisseria-page .breadcrumbs a { display: inline-flex; align-items: center; min-height: 44px; }
+@media (max-width: 800px) {
+  .rotisseria-page .hero-actions { display: flex; flex-direction: column; align-items: stretch; }
+  .rotisseria-page .hero-actions a.button { width: 100%; box-sizing: border-box; justify-content: center; text-align: center; }
+}
