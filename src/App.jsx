@@ -2344,7 +2344,7 @@ export function CookiesPage() {
 
 const rotisseriaWhatsappUrl =
   "https://wa.me/551933254906?text=Ol%C3%A1%21%20Quero%20fazer%20um%20pedido%20da%20Rotisseria%20%26%20Assados%20de%20domingo.";
-const rotisseriaImage = "/rotisseria/frango-assado-tabua.png";
+const rotisseriaImage = "/rotisseria/frango-assado-hd.png";
 const rotisseriaShareImage = "/rotisseria/rotisseria-assados-varanda-ype.jpg";
 const rotisseriaAssados = [
   { name: "Cupim Grill", note: "Novidade", prices: ["120,00", "60,00", "30,00"] },
@@ -2468,7 +2468,7 @@ export function RotisseriaPage() {
               <a className="button button-secondary" href="/delivery/marmitas/">Pedir delivery</a>
             </div>
           </div>
-          <Img src={rotisseriaImage} alt="Frango assado dourado sobre tábua de madeira, da Rotisseria & Assados do Varanda Ypê" width={300} height={300} priority />
+          <Img src={rotisseriaImage} alt="Frango assado dourado sobre tábua de madeira, da Rotisseria & Assados do Varanda Ypê" width={897} height={627} priority />
         </div>
       </section>
       <nav className="rotisseria-jump" aria-label="Nesta página">
@@ -2504,7 +2504,7 @@ export function RotisseriaPage() {
             </table>
           </div>
           <article className="rotisseria-frango" id="frango-assado">
-            <Img src={rotisseriaImage} alt="Frango assado dourado sobre tábua de madeira" width={300} height={300} />
+            <Img src={rotisseriaImage} alt="Frango assado dourado sobre tábua de madeira" width={897} height={627} />
             <div>
               <p className="section-label">Destaque</p>
               <h3>Frango assado</h3>
