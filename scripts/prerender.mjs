@@ -91,6 +91,16 @@ const pages = [
     image: "https://varandaype.com/porcoes/calabresa-com-fritas.webp",
   },
   {
+    route: "/rotisseria",
+    file: path.join("rotisseria", "index.html"),
+    title: "Rotisseria &amp; Assados aos domingos em Campinas | Varanda Ypê",
+    description:
+      "Rotisseria &amp; Assados do Varanda Ypê: cupim, costela, lombo recheado, frango assado e acompanhamentos por peso. Domingos, das 11h às 14h30, delivery e retirada em Campinas.",
+    canonical: "https://varandaype.com/rotisseria/",
+    preload: { href: "/rotisseria/frango-assado-varanda-ype.webp" },
+    image: "https://varandaype.com/rotisseria/cardapio-rotisseria-varanda-ype.jpg",
+  },
+  {
     route: "/privacidade",
     file: path.join("privacidade", "index.html"),
     title: "Política de Privacidade | Varanda Ypê",

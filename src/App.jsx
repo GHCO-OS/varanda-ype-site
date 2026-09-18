@@ -1880,6 +1880,7 @@ export function HomePage() {
           </a>
           <nav id="primary-nav" className={menuOpen ? "nav-open" : ""} onClick={() => setMenuOpen(false)}>
             <a href="/menu/">Cardápio</a>
+            <a href="/rotisseria/">Rotisseria</a>
             <a href="/empresa/">Empresas</a>
             <a href="#pedido">Pedido online</a>
             <a href="/delivery/">Delivery</a>
@@ -2341,6 +2342,201 @@ export function CookiesPage() {
   return <main className="satellite-page"><header className="menu-page-header"><a className="brand" href="/"><Img src="/logo-icon-96.png" alt="" width={52} height={52} priority /><span>Varanda Ypê</span></a><a className="header-cta" href="/privacidade/">Privacidade</a></header><section className="satellite-hero"><div className="section-inner"><nav className="breadcrumbs" aria-label="Navegação estrutural"><a href="/">Início</a><span>›</span><span>Cookies</span></nav><p className="section-label">Transparência</p><h1>Política de Cookies</h1><p>Controle claro sobre medição, publicidade e personalização. Atualizada em setembro de 2026.</p></div></section><section className="satellite-content section-cream"><div className="section-inner satellite-section-grid">{items.map(([title, copy]) => <article key={title}><h2>{title}</h2><p>{copy}</p></article>)}</div></section></main>;
 }
 
+const rotisseriaWhatsappUrl =
+  "https://wa.me/551931991971?text=Ol%C3%A1%21%20Quero%20fazer%20um%20pedido%20da%20Rotisseria%20%26%20Assados%20de%20domingo.";
+const rotisseriaImage = "/rotisseria/frango-assado-varanda-ype.png";
+const rotisseriaFlyer = "/rotisseria/cardapio-rotisseria-varanda-ype.jpg";
+const rotisseriaAssados = [
+  { name: "Cupim Grill", note: "Novidade", prices: ["120,00", "60,00", "30,00"] },
+  { name: "Costela bovina", prices: ["95,00", "47,50", "24,00"] },
+  { name: "Lombo recheado com calabresa", prices: ["70,00", "35,00", "18,00"] },
+  { name: "Medalhão de frango", prices: ["57,00", "28,50", "14,25"] },
+  { name: "Panceta recheada", note: "com calabresa e bacon", prices: ["75,00", "37,50", "18,50"] },
+  { name: "Linguiça cuiabana", note: "pernil com coalho", prices: ["85,00", "42,90", "21,25"] },
+];
+const rotisseriaAcompanhamentos = [
+  ["Maionese tradicional", ["R$ 15,00 / 300 g", "R$ 30,00 / 500 g"]],
+  ["Arroz carreteiro", ["R$ 28,00 / 2 pessoas"]],
+  ["Arroz à grega", ["R$ 25,00 / 2 pessoas"]],
+  ["Feijão tropeiro", ["R$ 27,00"]],
+  ["Farofa artesanal", ["R$ 7,90 / 150 g"]],
+  ["Torresmo à pururuca", ["R$ 25,00 / 200 g", "R$ 37,00 / 300 g"]],
+  ["Batata frita", ["R$ 27,00 / 200 g", "R$ 31,00 / 300 g"]],
+  ["Mandioca frita", ["R$ 24,90 / 500 g"]],
+];
+const rotisseriaFaqs = [
+  ["Quando funciona a Rotisseria & Assados?", "Aos domingos, das 11h às 14h30, com delivery e retirada."],
+  ["Como são vendidos os assados?", "Por peso, em três porções: 1 kg, 500 g e 250 g. O preço de cada porção está na tabela acima."],
+  ["O que acompanha o frango assado?", "O frango assado, R$ 48,90 a unidade, acompanha farofa artesanal e batatinhas assadas."],
+  ["Onde fica a retirada?", "No Varanda Ypê, na Av. Brigadeiro Rafael Tobias de Aguiar, 1121, Jardim Aurélia, Campinas."],
+  ["Como faço o pedido?", "Pelo WhatsApp ou pelos canais de delivery. Os itens podem variar conforme a disponibilidade do dia."],
+];
+
+export function RotisseriaPage() {
+  const pageUrl = "https://varandaype.com/rotisseria/";
+  const flyerUrl = `https://varandaype.com${rotisseriaFlyer}`;
+  const priceToNumber = (value) => value.replace(",", ".");
+  const menuSchema = {
+    "@context": "https://schema.org",
+    "@type": "Menu",
+    name: "Rotisseria & Assados Varanda Ypê",
+    url: pageUrl,
+    inLanguage: "pt-BR",
+    hasMenuSection: [
+      {
+        "@type": "MenuSection",
+        name: "Assados",
+        hasMenuItem: rotisseriaAssados.flatMap((item) =>
+          ["1 kg", "500 g", "250 g"].map((size, index) => ({
+            "@type": "MenuItem",
+            name: `${item.name} - ${size}`,
+            offers: { "@type": "Offer", price: priceToNumber(item.prices[index]), priceCurrency: "BRL" },
+          })),
+        ),
+      },
+      {
+        "@type": "MenuSection",
+        name: "Frango assado",
+        hasMenuItem: [{
+          "@type": "MenuItem",
+          name: "Frango assado com farofa artesanal e batatinhas assadas",
+          offers: { "@type": "Offer", price: "48.90", priceCurrency: "BRL" },
+        }],
+      },
+    ],
+  };
+  const pageSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: "Rotisseria & Assados | Varanda Ypê",
+    description: "Assados no celofane, preparados no carvão, aos domingos com delivery e retirada em Campinas.",
+    url: pageUrl,
+    image: flyerUrl,
+    isPartOf: { "@type": "WebSite", name: "Varanda Ypê", url: "https://varandaype.com/" },
+    about: {
+      "@type": "FoodEstablishment",
+      name: "Varanda Ypê",
+      address: "Av. Brigadeiro Rafael Tobias de Aguiar, 1121 - Jardim Aurélia, Campinas/SP",
+    },
+  };
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: rotisseriaFaqs.map(([question, answer]) => ({
+      "@type": "Question",
+      name: question,
+      acceptedAnswer: { "@type": "Answer", text: answer },
+    })),
+  };
+  const trackWhatsapp = (position) => () =>
+    trackEvent("whatsapp_click", {
+      operation: "rotisseria",
+      partner: "whatsapp",
+      destination_id: "whatsapp_rotisseria",
+      cta_position: position,
+      location: "rotisseria_page",
+    });
+
+  return (
+    <main className="satellite-page product-page rotisseria-page">
+      <header className="menu-page-header">
+        <a className="brand" href="/" aria-label="Voltar para a home do Varanda Ypê">
+          <Img src="/logo-icon-96.png" alt="" width={52} height={52} priority />
+          <span>Varanda Ypê</span>
+        </a>
+        <a className="header-cta" href="/menu/">Cardápio</a>
+        <a className="delivery-header-button" href="/delivery/">Delivery</a>
+      </header>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(pageSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(menuSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      <section className="satellite-hero product-hero">
+        <div className="section-inner satellite-hero-grid">
+          <div>
+            <nav className="breadcrumbs" aria-label="Navegação estrutural">
+              <a href="/">Início</a>
+              <span>›</span>
+              <span>Rotisseria &amp; Assados</span>
+            </nav>
+            <p className="section-label">Domingo na Varanda</p>
+            <h1>Rotisseria &amp; Assados</h1>
+            <p>Assados no celofane, preparados no carvão. Cupim, costela, lombo recheado, frango assado e acompanhamentos para o almoço de domingo, com delivery e retirada em Campinas.</p>
+            <p className="rotisseria-hours"><strong>Domingos, das 11h às 14h30</strong></p>
+            <div className="hero-actions">
+              <a className="button button-primary" href={rotisseriaWhatsappUrl} target="_blank" rel="noreferrer" onClick={trackWhatsapp("hero")}>Pedir pelo WhatsApp</a>
+              <a className="button button-secondary" href="/delivery/">Pedir delivery</a>
+            </div>
+          </div>
+          <Img src={rotisseriaImage} alt="Frango assado dourado com batatinhas assadas, da Rotisseria & Assados do Varanda Ypê" width={424} height={272} priority />
+        </div>
+      </section>
+      <section className="satellite-content section-cream rotisseria-menu" aria-labelledby="assados-title">
+        <div className="section-inner">
+          <p className="section-label">Cardápio de domingo</p>
+          <h2 id="assados-title">Assados por peso</h2>
+          <p className="rotisseria-lead">Escolha a porção que combina com a mesa: 1 kg, 500 g ou 250 g.</p>
+          <div className="rotisseria-table-wrap">
+            <table className="rotisseria-table">
+              <caption className="sr-only">Preços dos assados por porção</caption>
+              <thead>
+                <tr><th scope="col">Assado</th><th scope="col">1 kg</th><th scope="col">500 g</th><th scope="col">250 g</th></tr>
+              </thead>
+              <tbody>
+                {rotisseriaAssados.map((item) => (
+                  <tr key={item.name}>
+                    <th scope="row">
+                      {item.name}
+                      {item.note === "Novidade" ? <span className="rotisseria-badge">Novidade</span> : item.note ? <small>{item.note}</small> : null}
+                    </th>
+                    {item.prices.map((price, index) => <td key={index} data-label={["1 kg", "500 g", "250 g"][index]}>R$ {price}</td>)}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <article className="rotisseria-frango">
+            <div>
+              <p className="section-label">Destaque</p>
+              <h3>Frango assado</h3>
+              <p className="rotisseria-price">R$ 48,90 <span>/ unidade</span></p>
+              <p>Acompanha farofa artesanal e batatinhas assadas.</p>
+            </div>
+          </article>
+          <h2 className="rotisseria-subtitle">Acompanhamentos</h2>
+          <ul className="rotisseria-sides">
+            {rotisseriaAcompanhamentos.map(([name, options]) => (
+              <li key={name}>
+                <strong>{name}</strong>
+                <span>{options.join("  |  ")}</span>
+              </li>
+            ))}
+          </ul>
+          <p className="rotisseria-note">Valores e itens sujeitos à disponibilidade do dia. Confirme no WhatsApp antes de fazer o pedido.</p>
+          <div className="hero-actions">
+            <a className="button button-primary" href={rotisseriaWhatsappUrl} target="_blank" rel="noreferrer" onClick={trackWhatsapp("menu")}>Pedir pelo WhatsApp</a>
+            <a className="button button-secondary" href="/delivery/">Ver canais de delivery</a>
+          </div>
+        </div>
+      </section>
+      <section className="satellite-faq section-green">
+        <div className="section-inner">
+          <p className="section-label">Dúvidas frequentes</p>
+          <h2>Antes de pedir</h2>
+          <div className="faq-grid">
+            {rotisseriaFaqs.map(([question, answer]) => (
+              <article key={question}>
+                <h3>{question}</h3>
+                <p>{answer}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+      <div className="section-inner"><DiscoveryLinks currentSlug="rotisseria" /></div>
+    </main>
+  );
+}
+
 function App({ initialPath } = {}) {
   const currentPath =
     initialPath || (typeof window === "undefined" ? "/" : window.location.pathname);
@@ -2367,6 +2563,8 @@ function App({ initialPath } = {}) {
     page = <PrivacyPage />;
   } else if (route === "/cookies") {
     page = <CookiesPage />;
+  } else if (route === "/rotisseria") {
+    page = <RotisseriaPage />;
   } else {
     const productPage = productPages.find((item) => route === `/${item.slug}`);
     const discoveryPage = discoveryPages.find((item) => route === `/${item.slug}`);
