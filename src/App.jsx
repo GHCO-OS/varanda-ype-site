@@ -2365,7 +2365,7 @@ const rotisseriaAcompanhamentos = [
   ["Mandioca frita", ["R$ 24,90 / 500 g"]],
 ];
 const rotisseriaFaqs = [
-  ["Quando funciona a Rotisseria & Assados?", "Aos domingos, das 11h às 14h30, com delivery e retirada."],
+  ["Quando funciona a Rotisseria & Assados?", "Aos domingos, das 11h às 15h, com delivery e retirada."],
   ["Como são vendidos os assados?", "Por peso, em três porções: 1 kg, 500 g e 250 g. O preço de cada porção está na tabela acima."],
   ["O que acompanha o frango assado?", "O frango assado, R$ 48,90 a unidade, acompanha farofa artesanal e batatinhas assadas."],
   ["Onde fica a retirada?", "No Varanda Ypê, na Av. Brigadeiro Rafael Tobias de Aguiar, 1121, Jardim Aurélia, Campinas."],
@@ -2461,13 +2461,13 @@ export function RotisseriaPage() {
             <p className="section-label">Domingo na Varanda</p>
             <h1>Rotisseria &amp; Assados</h1>
             <p>Assados no celofane, preparados no carvão. Cupim, costela, lombo recheado, frango assado e acompanhamentos para o almoço de domingo, com delivery e retirada em Campinas.</p>
-            <p className="rotisseria-hours"><strong>Domingos, das 11h às 14h30</strong></p>
+            <p className="rotisseria-hours"><strong>Domingos, das 11h às 15h</strong></p>
             <div className="hero-actions">
               <a className="button button-primary" href={rotisseriaWhatsappUrl} target="_blank" rel="noreferrer" onClick={trackWhatsapp("hero")}>Pedir pelo WhatsApp</a>
-              <a className="button button-secondary" href="/delivery/">Pedir delivery</a>
+              <a className="button button-secondary" href="/delivery/marmitas/">Pedir delivery</a>
             </div>
           </div>
-          <Img src={rotisseriaImage} alt="Frango assado dourado com batatinhas assadas, da Rotisseria & Assados do Varanda Ypê" width={424} height={272} priority />
+          <Img src={rotisseriaImage} alt="Frango assado dourado sobre tábua de madeira, da Rotisseria & Assados do Varanda Ypê" width={300} height={300} priority />
         </div>
       </section>
       <section className="satellite-content section-cream rotisseria-menu" aria-labelledby="assados-title">
@@ -2514,7 +2514,7 @@ export function RotisseriaPage() {
           <p className="rotisseria-note">Valores e itens sujeitos à disponibilidade do dia. Confirme no WhatsApp antes de fazer o pedido.</p>
           <div className="hero-actions">
             <a className="button button-primary" href={rotisseriaWhatsappUrl} target="_blank" rel="noreferrer" onClick={trackWhatsapp("menu")}>Pedir pelo WhatsApp</a>
-            <a className="button button-secondary" href="/delivery/">Ver canais de delivery</a>
+            <a className="button button-secondary" href="/delivery/marmitas/">Ver canais de delivery</a>
           </div>
         </div>
       </section>
