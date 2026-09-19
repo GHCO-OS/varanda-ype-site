@@ -1612,6 +1612,7 @@ function DiscoveryLinks({ currentSlug }) {
         {discoveryPages.filter((page) => page.slug !== currentSlug).map((page) => (
           <a href={`/${page.slug}/`} key={page.slug}>{page.eyebrow}</a>
         ))}
+        {currentSlug !== "rotisseria" && <a href="/rotisseria/">Rotisseria &amp; Assados</a>}
         <a href="/menu/">Ver cardápio completo</a>
       </div>
     </nav>
