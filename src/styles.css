@@ -919,6 +919,15 @@ nav a,
   box-shadow: 0 12px 22px rgba(201, 168, 76, 0.3);
 }
 
+/* Rotisseria items live on their own page, so the "add" pill becomes a plain
+   cross-link instead of an Alloy order shortcut. */
+.menu-add-button-rotisseria {
+  background: var(--cream);
+  color: var(--green-deep);
+  border: 1.5px solid var(--green-deep);
+  box-shadow: none;
+}
+
 .order-preview-products a {
   margin-top: 14px;
 }

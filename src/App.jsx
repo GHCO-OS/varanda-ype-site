@@ -1,9 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Reveal } from "./Reveal.jsx";
 const DeliveryRouter = React.lazy(() => import('./delivery/DeliveryRouter.jsx'));
 const MarketingRouter = React.lazy(() => import('./marketing/MarketingRouter.jsx'));
 import { destinations } from '../shared/delivery.js';
 import { hasConsentChoice, saveConsent } from './marketing/consent.js';
+import { fullMenuSections, menuItemImages } from '../shared/menu-data.js';
+import { rotisseriaAcompanhamentos, rotisseriaAssados, rotisseriaFaqs, rotisseriaImage, rotisseriaShareImage, rotisseriaWhatsappUrl } from '../shared/rotisseria-data.js';
+import { buildSearchableSections, searchMenu } from '../shared/search.js';
 
 // Serves WebP with an image fallback via <picture>, ships explicit width/height so
 // the browser reserves space before the image loads (no layout shift), and
@@ -815,18 +818,6 @@ const portionGallery = [
   ["Tulipa frita", "/porcoes/tulipa-frita.png"],
 ];
 
-const menuItemImages = {
-  "Fraldinha Assada": "/pratos/fraldinha.png",
-  "Risoto Cuiabano": "/pratos/risoto-cuiabano.png",
-  "Talharim 4Q": "/pratos/talharim.png",
-  "Calabresa com fritas": "/porcoes/calabresa-com-fritas.png",
-  "Fritas clássica": "/porcoes/fritas-500g.png",
-  "Isca de mignon": "/porcoes/isca-cordao-mignon.png",
-  "Isca de tilápia": "/porcoes/isca-frango-milanesa.png",
-  "Linguiça Cuiabana": "/porcoes/calabresa-com-fritas.png",
-  "Jantinha Expressa": "/pratos/jantinha-2-espetos-varanda-ype-campinas.jpg",
-};
-
 const companyServices = [
   {
     title: "Almoço para equipes",
@@ -847,337 +838,6 @@ const companySteps = [
   ["Volume aproximado", "Passe a quantidade de pessoas ou refeições para montarmos a melhor sugestão."],
   ["Perfil do pedido", "Almoço executivo, porções, espetinhos, bebidas ou uma combinação para o grupo."],
   ["Confirmação", "Alinhamos cardápio, prazo, retirada ou entrega e fechamos tudo pelo WhatsApp."],
-];
-
-const fullMenuSections = [
-  {
-    id: "la-carte",
-    emoji: "🍽️",
-    title: "À la carte",
-    note: "Pratos individuais bem servidos. Acompanham arroz, feijão e farofa.",
-    items: [
-      {
-        name: "Bife Ancho",
-        price: "R$ 52 / R$ 99",
-        meta: "Serve 1: 180g | Serve 2: 390g",
-        desc: "Filé argentino macio, grelhado no azeite e servido com fritas. Acompanha arroz, feijão e farofa.",
-      },
-      {
-        name: "Filé Mignon",
-        price: "R$ 65",
-        meta: "Serve 1: 180g",
-        desc: "Grelhado no azeite, com brócolis e molho à escolha: madeira ou branco. Acompanha arroz, feijão e farofa.",
-      },
-      {
-        name: "Picanha Carreteira",
-        price: "R$ 76 / R$ 149",
-        meta: "Serve 1: 185g | Serve 2: 400g",
-        desc: "Corte nobre com arroz carreteiro no lugar do branco, queijo coalho dourado, feijão e farofa.",
-      },
-      {
-        name: "Fraldinha Assada",
-        price: "R$ 48",
-        meta: "Serve 1: 200g",
-        desc: "Assada lentamente com chimichurri e acompanhada de mandioca frita. Acompanha arroz, feijão e farofa.",
-      },
-      {
-        name: "Costela Cuiabar",
-        price: "R$ 41",
-        meta: "Serve 1: 200g",
-        desc: "Sem osso, assada no bafo e servida com mandioca frita. Acompanha arroz, feijão e farofa.",
-      },
-      {
-        name: "Tilápia Fresca",
-        price: "R$ 45",
-        meta: "Serve 1: 200g",
-        desc: "Filé grelhado no fio do azeite com legumes salteados. Acompanha arroz, feijão e farofa.",
-      },
-      {
-        name: "Lombo de Salmão",
-        price: "R$ 71",
-        meta: "Serve 1: 200g",
-        desc: "Grelhado no azeite com alho e cebola, arroz à grega no lugar do branco, legumes, feijão e farofa.",
-      },
-      {
-        name: "Filé à Vilalva",
-        price: "R$ 39,90",
-        meta: "Serve 1: 190g",
-        desc: "Frango empanado e gratinado com presunto, queijo, palmito, ervilha e requeijão, coberto com batata palha. Acompanha fritas, arroz, feijão e farofa.",
-      },
-    ],
-  },
-  {
-    id: "massas-risotos",
-    emoji: "🍝",
-    title: "Risotos e massas",
-    note: "Cremosos, intensos e com o toque da casa.",
-    items: [
-      {
-        name: "Risoto Milanês",
-        price: "R$ 53",
-        desc: "Açafrão-da-terra com salmão grelhado e alcaparras.",
-      },
-      {
-        name: "Risoto Funghi",
-        price: "R$ 48,90",
-        desc: "Cogumelos defumados, mignon em tiras e toque de molho madeira.",
-      },
-      {
-        name: "Risoto Cuiabano",
-        price: "R$ 45",
-        desc: "Linguiça artesanal da casa e mix de pimentas. Picante na medida.",
-      },
-      {
-        name: "Talharim 4Q",
-        price: "R$ 49",
-        desc: "Molho cremoso de mussarela, gorgonzola, parmesão e Catupiry, com mignon grelhado.",
-      },
-      {
-        name: "Nhoque Ripiene",
-        price: "R$ 47",
-        desc: "Recheado com orégano e mussarela, ao molho branco, com iscas de mignon.",
-      },
-    ],
-  },
-  {
-    id: "espetinhos",
-    emoji: "🔥",
-    title: "Espetinhos",
-    note: "Somente à noite.",
-    items: [
-      {
-        name: "Clássicos",
-        price: "R$ 10/un",
-        desc: "Coração de frango, cordão de mignon, mignon suíno, filé de frango, tulipa de frango, pancetinha, linguicinha, pão de alho, queijo coalho, kafta tradicional ou kafta com queijo.",
-      },
-      {
-        name: "Especiais",
-        price: "R$ 12/un",
-        desc: "Medalhão de frango, medalhão de carne, provolone grelhado ou linguiça cuiabana.",
-      },
-      {
-        name: "Premium",
-        price: "R$ 15 / R$ 18",
-        desc: "Cupim com queijo por R$ 15. Picanha Grill por R$ 18.",
-      },
-      {
-        name: "Jantinha Expressa",
-        price: "R$ 35,90",
-        desc: "2 espetos clássicos com arroz, feijão, farofa e vinagrete ou saladinha, à escolha.",
-      },
-    ],
-  },
-  {
-    id: "parmegiana-familia",
-    emoji: "🧀",
-    title: "Parmegiana e família",
-    note: "Para matar a fome sozinho ou dividir.",
-    items: [
-      {
-        name: "Parchicken",
-        price: "R$ 44,90 / R$ 82,90 / R$ 126",
-        meta: "Serve 1: 190g | Serve 2: 380g | Serve 3: 580g",
-        desc: "Parmegiana de frango com arroz e fritas.",
-      },
-      {
-        name: "Parmignon",
-        price: "R$ 59 / R$ 116 / R$ 168",
-        meta: "Serve 1: 190g | Serve 2: 380g | Serve 3: 600g",
-        desc: "Parmegiana de mignon com arroz e fritas.",
-      },
-      {
-        name: "Picanha Família",
-        price: "R$ 259,90",
-        meta: "Serve até 4 | 650g in natura",
-        desc: "Picanha grelhada e fatiada com arroz carreteiro, feijão tropeiro, farofa, vinagrete e fritas.",
-      },
-      {
-        name: "Costela Família",
-        price: "R$ 185",
-        meta: "Serve até 4 | 700g in natura",
-        desc: "Costela com arroz carreteiro, feijão tropeiro, farofa, vinagrete e mandioca frita.",
-      },
-    ],
-  },
-  {
-    id: "kids-saladas",
-    emoji: "🥗",
-    title: "Kids, saladas e complementos",
-    note: "Opções leves, infantis e extras para a mesa.",
-    items: [
-      {
-        name: "Picanha Kids",
-        price: "R$ 39,90",
-        desc: "Grelhado e fatiado. Acompanha arroz, feijão e batata frita.",
-      },
-      {
-        name: "Frango Kids",
-        price: "R$ 29,90",
-        desc: "Acompanha arroz, feijão e batata frita.",
-      },
-      {
-        name: "Mignon Kids",
-        price: "R$ 34,90",
-        desc: "Acompanha arroz, feijão e batata frita.",
-      },
-      {
-        name: "Salada Simples",
-        price: "R$ 22 / R$ 26",
-        meta: "Meia / Inteira",
-        desc: "Alface e tomate.",
-      },
-      {
-        name: "Salada Clássica",
-        price: "R$ 24 / R$ 29",
-        meta: "Meia / Inteira",
-        desc: "Rúcula e cebola.",
-      },
-      {
-        name: "Salada Domingo",
-        price: "R$ 35 / R$ 41",
-        meta: "Meia / Inteira",
-        desc: "Alface, tomate, cebola e rúcula.",
-      },
-      {
-        name: "Salada Mista",
-        price: "R$ 39 / R$ 45",
-        meta: "Meia / Inteira",
-        desc: "Alface, tomate, cebola, rúcula e palmito.",
-      },
-      {
-        name: "Arroz com feijão executivo",
-        price: "R$ 7,90",
-        meta: "150g",
-        desc: "Arroz com feijão para complementar o executivo.",
-      },
-      {
-        name: "Arroz branco",
-        price: "R$ 10 / R$ 15",
-        meta: "Meia 300g / Inteira 500g",
-        desc: "Porção de arroz branco.",
-      },
-      {
-        name: "Vinagrete",
-        price: "R$ 9,90",
-        meta: "200g",
-        desc: "Porção de vinagrete.",
-      },
-      {
-        name: "Feijão clássico",
-        price: "R$ 12",
-        meta: "400ml",
-        desc: "Porção de feijão clássico.",
-      },
-      {
-        name: "Feijão Cuiabar",
-        price: "R$ 15",
-        meta: "400ml",
-        desc: "Feijão com torresmo e cebolinha.",
-      },
-      {
-        name: "Arroz biro-biro",
-        price: "R$ 27",
-        meta: "500g",
-        desc: "Porção de arroz biro-biro.",
-      },
-      {
-        name: "Arroz carreteiro",
-        price: "R$ 29",
-        meta: "500g",
-        desc: "Porção de arroz carreteiro.",
-      },
-    ],
-  },
-  {
-    id: "porcoes",
-    emoji: "🍟",
-    title: "Pra beliscar e prosear",
-    note: "Porções bem servidas para dividir com a mesa.",
-    items: [
-      { name: "Calabresa com fritas", price: "R$ 47,90", meta: "400g" },
-      { name: "Contra acebolado", price: "R$ 57", meta: "400g" },
-      { name: "Provolone à milanesa", price: "R$ 48,90", meta: "300g" },
-      { name: "Torresmo pururuca", price: "R$ 29,90 / R$ 38", meta: "200g / 300g" },
-      { name: "Fritas clássica", price: "R$ 27 / R$ 31,90", meta: "300g / 500g" },
-      { name: "Fritas América", price: "R$ 35 / R$ 44", meta: "300g / 500g", desc: "Cheddar e bacon." },
-      { name: "Anel de cebola", price: "R$ 29,90 / R$ 36", meta: "300g / 500g" },
-      { name: "Mandioca frita", price: "R$ 26,90 / R$ 31,90", meta: "300g / 500g" },
-      { name: "Sobrecoxa crocante", price: "R$ 45,90", meta: "500g", desc: "Empanada com panko." },
-      { name: "Panceta do chefe", price: "R$ 46,90", meta: "500g", desc: "Barbecue e limão." },
-      { name: "Isca de tilápia", price: "R$ 64,90", meta: "500g", desc: "Empanada." },
-      { name: "Costela com mandioca", price: "R$ 63,90", meta: "500g", desc: "Mandioca frita e pão de alho." },
-      { name: "Isca de mignon", price: "R$ 72,90", meta: "450g", desc: "Catupiry à parte." },
-      { name: "Linguiça Cuiabana", price: "R$ 65,90", meta: "500g", desc: "Com fritas ou mandioca frita." },
-    ],
-  },
-  {
-    id: "fritinhos-pasteis",
-    emoji: "🥟",
-    title: "Fritinhos, pastéis e lanches",
-    note: "Para pedir rápido com bebida gelada.",
-    items: [
-      { name: "Bolinho de mandioca", price: "R$ 23,90 / R$ 38,90", meta: "3un / 6un", desc: "Carne louca e queijo." },
-      { name: "Bolinho Cuiabar", price: "R$ 27,90 / R$ 45,90", meta: "3un / 6un", desc: "Cabotiá e carne seca." },
-      { name: "Croquete especial", price: "R$ 29 / R$ 37,90", meta: "4un / 8un", desc: "Carne e bacon." },
-      { name: "Coxinha tradicional", price: "R$ 20 / R$ 30,90", meta: "4un / 8un", desc: "Frango desfiado." },
-      { name: "Bolinho de jiló", price: "R$ 23 / R$ 33,90", meta: "3un / 6un", desc: "Cream cheese e provolone." },
-      { name: "Pastel mini de queijo", price: "R$ 26", meta: "6 unidades", desc: "Pastéis mini de queijo." },
-      { name: "Pastel mini de carne", price: "R$ 29", meta: "6 unidades", desc: "Pastéis mini de carne." },
-      { name: "Pastel mini de carne com queijo", price: "R$ 32", meta: "6 unidades", desc: "Pastéis mini de carne com queijo." },
-      { name: "Pastel grande de queijo", price: "R$ 15", meta: "Unidade", desc: "Pastel grande de feira, recheio de queijo." },
-      { name: "Pastel grande de pernil com queijo", price: "R$ 17", meta: "Unidade", desc: "Pastel grande de feira, recheio de pernil com queijo." },
-      { name: "Pastel grande de presunto com queijo", price: "R$ 18", meta: "Unidade", desc: "Pastel grande de feira, recheio de presunto com queijo." },
-      { name: "Pastel grande de carne com queijo", price: "R$ 18", meta: "Unidade", desc: "Pastel grande de feira, recheio de carne com queijo." },
-      { name: "Pastel grande de frango com Catupiry", price: "R$ 19", meta: "Unidade", desc: "Pastel grande de feira, recheio de frango com Catupiry." },
-      { name: "Pastel grande de costela com queijo", price: "R$ 22", meta: "Unidade", desc: "Pastel grande de feira, recheio de costela com queijo." },
-      { name: "Contra Supremo", price: "R$ 79,90", meta: "400g in natura", desc: "Iscas de contrafilé com onion rings, fritas, Catupiry e pão de alho." },
-      { name: "Mignon Suprema", price: "R$ 90", meta: "400g in natura", desc: "Iscas de mignon com onion rings, fritas, Catupiry e pão de alho." },
-      { name: "Cuiabar Supremo", price: "R$ 95,90", meta: "400g in natura", desc: "Iscas de contrafilé e frango com onion rings, fritas, Catupiry e pão de alho." },
-      { name: "Lanche de Frango", price: "R$ 29,90", meta: "Unidade", desc: "Frango, queijo, tomate e alface." },
-      { name: "Lanche de Contrafilé", price: "R$ 38,90", meta: "Unidade", desc: "Contrafilé, queijo, alface e tomate." },
-      { name: "Lanche de Costela", price: "R$ 39,90", meta: "Unidade", desc: "Costela, queijo, vinagrete, azeitona e rúcula." },
-      { name: "Lanche Cuiabano", price: "R$ 39,90", meta: "Unidade", desc: "Queijo, vinagrete e rúcula." },
-      { name: "Lanche de Mignon", price: "R$ 44,90", meta: "Unidade", desc: "Mignon, queijo, alface e tomate." },
-      { name: "Lanche de Picanha", price: "R$ 52", meta: "Unidade", desc: "Picanha, queijo, tomate e rúcula." },
-    ],
-  },
-  {
-    id: "bebidas",
-    emoji: "🍻",
-    title: "Bebidas",
-    note: "Cervejas, chopp, refrescos e drinks.",
-    items: [
-      { name: "Cerveja Antarctica 600ml", price: "R$ 15", meta: "Garrafa 600ml" },
-      { name: "Cerveja Amstel 600ml", price: "R$ 15", meta: "Garrafa 600ml" },
-      { name: "Cerveja Original 600ml", price: "R$ 17", meta: "Garrafa 600ml" },
-      { name: "Cerveja Spaten 600ml", price: "R$ 18", meta: "Garrafa 600ml" },
-      { name: "Cerveja Heineken 600ml", price: "R$ 19", meta: "Garrafa 600ml" },
-      { name: "Cerveja Stella Artois 600ml", price: "R$ 19", meta: "Garrafa 600ml" },
-      { name: "Cerveja Corona 600ml", price: "R$ 21", meta: "Garrafa 600ml" },
-      { name: "Cerveja Baden Baden 600ml", price: "R$ 24", meta: "Garrafa 600ml" },
-      { name: "Long Neck Stella Artois", price: "R$ 11", meta: "Long neck" },
-      { name: "Long Neck Heineken", price: "R$ 12", meta: "Long neck" },
-      { name: "Long Neck Malzbier", price: "R$ 12", meta: "Long neck" },
-      { name: "Long Neck Corona", price: "R$ 13", meta: "Long neck" },
-      { name: "Chopp Itaipava", price: "R$ 10", meta: "Copo" },
-      { name: "Chopp Amstel/Brahma", price: "R$ 12", meta: "Copo" },
-      { name: "Chopp Heineken", price: "R$ 15", meta: "Copo" },
-      { name: "Refrigerante KS", price: "R$ 7", meta: "Garrafa KS" },
-      { name: "Refrigerante lata", price: "R$ 8", desc: "Coca-Cola, Guaraná, Pepsi, Fanta ou tônica." },
-      { name: "H2OH!", price: "R$ 9,90" },
-      { name: "Suco natural (copo)", price: "R$ 13", desc: "Laranja, limão, abacaxi, morango, acerola ou melancia." },
-      { name: "Soda italiana", price: "R$ 14", meta: "Copo", desc: "Maçã verde, morango ou frutas vermelhas." },
-      { name: "Energético", price: "R$ 15" },
-      { name: "Suco natural (jarra)", price: "R$ 23", desc: "Laranja, limão, abacaxi, morango, acerola ou melancia." },
-      { name: "Caipifruta", price: "R$ 22", desc: "Cachaça e uma fruta: morango, maracujá, limão, frutas vermelhas ou abacaxi." },
-      { name: "Mimosa", price: "R$ 24", desc: "Espumante e suco de laranja." },
-      { name: "Saquerinha", price: "R$ 24", desc: "Saquê e uma fruta: morango, maracujá, limão, frutas vermelhas ou abacaxi." },
-      { name: "Piña Colada", price: "R$ 25", desc: "Rum, leite de coco e abacaxi." },
-      { name: "Aperol Spritz", price: "R$ 26", desc: "Espumante, Aperol e água com gás." },
-      { name: "Espanhola", price: "R$ 27", desc: "Vinho, leite condensado e uma fruta: morango, maracujá, limão, frutas vermelhas ou abacaxi." },
-      { name: "Caipiroska", price: "R$ 29", desc: "Vodka e uma fruta: morango, maracujá, limão, frutas vermelhas ou abacaxi." },
-    ],
-  },
 ];
 
 function MenuItem({ item, sectionId }) {
@@ -1201,22 +861,39 @@ function MenuItem({ item, sectionId }) {
             <Img src="/logo-icon-96.png" alt="" width={58} height={58} />
           </div>
         )}
-        <a
-          className="menu-add-button"
-          href={alloyUrl}
-          target="_blank"
-          rel="noreferrer"
-          aria-label={`Pedir ${item.name} pela Alloy`}
-          onClick={() =>
-            trackEvent("menu_add_click", {
-              item: item.name,
-              section: sectionId,
-              destination: "alloy",
-            })
-          }
-        >
-          +
-        </a>
+        {item.sundayOnly ? (
+          <a
+            className="menu-add-button menu-add-button-rotisseria"
+            href={item.link}
+            aria-label={`Ver ${item.name} na Rotisseria & Assados`}
+            onClick={() =>
+              trackEvent("menu_cross_link_click", {
+                item: item.name,
+                section: sectionId,
+                destination: "rotisseria",
+              })
+            }
+          >
+            →
+          </a>
+        ) : (
+          <a
+            className="menu-add-button"
+            href={alloyUrl}
+            target="_blank"
+            rel="noreferrer"
+            aria-label={`Pedir ${item.name} pela Alloy`}
+            onClick={() =>
+              trackEvent("menu_add_click", {
+                item: item.name,
+                section: sectionId,
+                destination: "alloy",
+              })
+            }
+          >
+            +
+          </a>
+        )}
       </div>
     </li>
   );
@@ -1273,23 +950,12 @@ function OrderChannelsPanel() {
 function OnlineMenuContent() {
   const [query, setQuery] = useState("");
   const [activeSection, setActiveSection] = useState("todos");
-  const normalizedQuery = query.trim().toLocaleLowerCase("pt-BR");
-  const totalMenuItems = fullMenuSections.reduce((sum, section) => sum + section.items.length, 0);
-  const visibleSections = fullMenuSections
-    .filter((section) => activeSection === "todos" || section.id === activeSection)
-    .map((section) => ({
-      ...section,
-      items: normalizedQuery
-        ? section.items.filter((item) =>
-            [item.name, item.meta, item.desc]
-              .filter(Boolean)
-              .join(" ")
-              .toLocaleLowerCase("pt-BR")
-              .includes(normalizedQuery),
-          )
-        : section.items,
-    }))
-    .filter((section) => section.items.length > 0);
+  const searchableSections = useMemo(() => buildSearchableSections(), []);
+  const totalMenuItems = searchableSections.reduce((sum, section) => sum + section.items.length, 0);
+  const visibleSections = searchMenu(
+    searchableSections.filter((section) => activeSection === "todos" || section.id === activeSection),
+    query,
+  );
 
   function selectSection(sectionId, title) {
     setActiveSection(sectionId);
@@ -1363,7 +1029,7 @@ function OnlineMenuContent() {
                   Todos
                   <small>{totalMenuItems}</small>
                 </button>
-                {fullMenuSections.map((section) => (
+                {searchableSections.map((section) => (
                   <button
                     type="button"
                     className={activeSection === section.id ? "is-active" : ""}
@@ -1476,6 +1142,9 @@ export function MenuPage() {
         </a>
         <a className="delivery-header-button" href="/delivery/">
           Delivery
+        </a>
+        <a className="header-cta" href="/rotisseria/">
+          Rotisseria (domingo)
         </a>
         <a className="header-cta" href="/empresa/">
           Empresas
@@ -2342,37 +2011,6 @@ export function CookiesPage() {
   ];
   return <main className="satellite-page"><header className="menu-page-header"><a className="brand" href="/"><Img src="/logo-icon-96.png" alt="" width={52} height={52} priority /><span>Varanda Ypê</span></a><a className="header-cta" href="/privacidade/">Privacidade</a></header><section className="satellite-hero"><div className="section-inner"><nav className="breadcrumbs" aria-label="Navegação estrutural"><a href="/">Início</a><span>›</span><span>Cookies</span></nav><p className="section-label">Transparência</p><h1>Política de Cookies</h1><p>Controle claro sobre medição, publicidade e personalização. Atualizada em setembro de 2026.</p></div></section><section className="satellite-content section-cream"><div className="section-inner satellite-section-grid">{items.map(([title, copy]) => <article key={title}><h2>{title}</h2><p>{copy}</p></article>)}</div></section></main>;
 }
-
-const rotisseriaWhatsappUrl =
-  "https://wa.me/551933254906?text=Ol%C3%A1%21%20Quero%20fazer%20um%20pedido%20da%20Rotisseria%20%26%20Assados%20de%20domingo.";
-const rotisseriaImage = "/rotisseria/frango-assado-hd.png";
-const rotisseriaShareImage = "/rotisseria/rotisseria-assados-varanda-ype.jpg";
-const rotisseriaAssados = [
-  { name: "Cupim Grill", note: "Novidade", prices: ["120,00", "60,00", "30,00"] },
-  { name: "Costela bovina", prices: ["95,00", "47,50", "24,00"] },
-  { name: "Lombo recheado com calabresa", prices: ["70,00", "35,00", "18,00"] },
-  { name: "Medalhão de frango", prices: ["57,00", "28,50", "14,25"] },
-  { name: "Panceta recheada", note: "com calabresa e bacon", prices: ["75,00", "37,50", "18,50"] },
-  { name: "Linguiça cuiabana", note: "pernil com coalho", prices: ["85,00", "42,90", "21,25"] },
-];
-const rotisseriaAcompanhamentos = [
-  ["Maionese tradicional", ["R$ 15,00 / 300 g", "R$ 30,00 / 500 g"]],
-  ["Arroz carreteiro", ["R$ 28,00 / 2 pessoas"]],
-  ["Arroz à grega", ["R$ 25,00 / 2 pessoas"]],
-  ["Feijão tropeiro", ["R$ 27,00"]],
-  ["Farofa artesanal", ["R$ 7,90 / 150 g"]],
-  ["Torresmo à pururuca", ["R$ 25,00 / 200 g", "R$ 37,00 / 300 g"]],
-  ["Batata frita", ["R$ 27,00 / 200 g", "R$ 31,00 / 300 g"]],
-  ["Mandioca frita", ["R$ 24,90 / 500 g"]],
-];
-const rotisseriaFaqs = [
-  ["Quando funciona a Rotisseria & Assados?", "Aos domingos, das 11h às 15h, com delivery e retirada."],
-  ["Como são vendidos os assados?", "Por peso, em três porções: 1 kg, 500 g e 250 g. O preço de cada porção está na tabela acima."],
-  ["O que acompanha o frango assado?", "O frango assado, R$ 48,90 a unidade, acompanha farofa artesanal e batatinhas assadas."],
-  ["Onde fica a retirada?", "No Varanda Ypê, na Av. Brigadeiro Rafael Tobias de Aguiar, 1121, Jardim Aurélia, Campinas."],
-  ["Os preços e itens estão sempre disponíveis?", "Os preços seguem o cardápio da casa, mas os itens podem variar conforme o dia. Confira a disponibilidade direto na loja ou no site varandaype.com."],
-  ["Como faço o pedido?", "Pelo WhatsApp ou pelos canais de delivery. Os itens podem variar conforme a disponibilidade do dia."],
-];
 
 export function RotisseriaPage() {
   const pageUrl = "https://varandaype.com/rotisseria/";
