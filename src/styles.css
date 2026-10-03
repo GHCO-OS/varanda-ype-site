@@ -3674,3 +3674,4 @@ h2 {
 .button.button-delivery-hot { color: var(--green-deep, #0e351b); }
 .delivery-button-ifood { background: #d41a28; }
 .online-menu-head h1 { max-width: none; margin: 0; font-size: clamp(2.1rem, 4vw, 3.75rem); line-height: 1.02; }
+.footer-channel { display: inline-flex; align-items: center; gap: 8px; }

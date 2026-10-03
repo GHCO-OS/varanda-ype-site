@@ -23,5 +23,5 @@ test('HomePage component untouched relative to logical backup',()=>{
   const section=s=>s.slice(s.indexOf('export function HomePage()'),s.indexOf('export function PrivacyPage()')).replace(/\r\n/g,'\n');
   // Snapshot updated for <PaymentMethods /> (payment methods section added before the footer,
   // commit 0af11a3); re-verify any further HomePage edit here.
-  assert.equal(createHash('sha256').update(section(after)).digest('hex'),'4456d8df27a1bd45134b016eeac26675c5324b53727308d4f0513316791ebc39');
+  assert.equal(createHash('sha256').update(section(after)).digest('hex'),'2320d981e225f904aff59077b762383e27e1604ee507c7acc14376415430bec4');
 });

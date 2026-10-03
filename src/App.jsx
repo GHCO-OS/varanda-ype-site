@@ -1889,6 +1889,13 @@ export function HomePage() {
             <a href="https://instagram.com/varandaype" target="_blank" rel="noreferrer">
               @varandaype
             </a>
+            <a className="footer-channel" href="https://whatsapp.com/channel/0029VbAcHLXFSAsxCt6lly0a" target="_blank" rel="noreferrer" onClick={() => trackEvent("whatsapp_channel_click", { location: "footer" })}>
+              <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path fill="currentColor" d="M3 10v4a1 1 0 0 0 1 1h2l5 4V5L6 9H4a1 1 0 0 0-1 1Zm13.5 2a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4ZM14 3.2v2.1a7 7 0 0 1 0 13.4v2.1a9 9 0 0 0 0-17.6Z" /></svg>
+              Canal do WhatsApp
+            </a>
+            <a href="https://www.facebook.com/varandaype" target="_blank" rel="noreferrer">Facebook</a>
+            <a href="https://br.pinterest.com/varandaype/" target="_blank" rel="noreferrer">Pinterest</a>
+            <a href="https://open.spotify.com/user/31xybucv7sgbpfapyybyzu7s3ozu" target="_blank" rel="noreferrer">Spotify</a>
             <a href="/privacidade/">Privacidade</a>
             <p>Av. Brigadeiro Rafael Tobias de Aguiar, 1121 - Jardim Aurélia</p>
           </div>
