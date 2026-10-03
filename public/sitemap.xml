@@ -160,7 +160,7 @@
     <changefreq>monthly</changefreq>
     <priority>0.25</priority>
   </url>
-  <url><loc>https://varandaype.com/delivery/restaurante/</loc></url>
-  <url><loc>https://varandaype.com/delivery/marmitas/</loc></url>
-  <url><loc>https://varandaype.com/delivery/hamburgueria/</loc></url>
+  <url><loc>https://varandaype.com/delivery/restaurante/</loc><lastmod>2026-10-03</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://varandaype.com/delivery/marmitas/</loc><lastmod>2026-10-03</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://varandaype.com/delivery/hamburgueria/</loc><lastmod>2026-10-03</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
 </urlset>

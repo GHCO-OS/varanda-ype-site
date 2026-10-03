@@ -3669,3 +3669,8 @@ h2 {
   .rotisseria-frango { grid-template-columns: 1fr; }
   .rotisseria-frango picture img { max-width: 300px; }
 }
+
+/* Contrast fixes (WCAG AA) */
+.button.button-delivery-hot { color: var(--green-deep, #0e351b); }
+.delivery-button-ifood { background: #d41a28; }
+.online-menu-head h1 { max-width: none; margin: 0; font-size: clamp(2.1rem, 4vw, 3.75rem); line-height: 1.02; }

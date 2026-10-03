@@ -46,7 +46,7 @@ function Img({ src, alt, width, height, className, priority = false, smSrc }) {
 // is faster, accessible and keeps the same review destination.
 function TripAdvisorWidget({ wtype, uniq, href, imgSrc, imgAlt, className }) {
   return (
-    <a className={`tripadvisor-badge ${className || ""}`.trim()} href={href} target="_blank" rel="noreferrer" aria-label="Avaliações do Varanda Ypê no TripAdvisor">
+    <a className={`tripadvisor-badge ${className || ""}`.trim()} href={href} target="_blank" rel="noreferrer" aria-label="Ver avaliações do Varanda Ypê no TripAdvisor">
       <img src={imgSrc} alt={imgAlt} width="180" height="28" />
       <span>Ver avaliações</span>
     </a>
@@ -971,7 +971,7 @@ function OnlineMenuContent() {
         <div className="online-menu-head">
           <div>
             <p className="section-label">Cardápio completo online</p>
-            <h2>Cardápio online do Varanda Ypê</h2>
+            <h1>Cardápio online do Varanda Ypê</h1>
           </div>
           <p>
             Consulte pratos, porções, espetinhos, bebidas, descrições e preços.
