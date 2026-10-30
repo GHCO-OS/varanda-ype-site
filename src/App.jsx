@@ -580,6 +580,16 @@ function QualityReviewBanner() {
   );
 }
 
+function WhatsAppChannelBanner() {
+  return (
+    <aside className="whatsapp-channel-banner" aria-label="Canal Família Varanda no WhatsApp">
+      <span aria-hidden="true">🍽️</span>
+      <p>Siga o canal <strong>“Família Varanda | Restaurante”</strong> no WhatsApp e receba promoções e informações.</p>
+      <a href="https://whatsapp.com/channel/0029VbAcHLXFSAsxCt6lly0a" target="_blank" rel="noreferrer" onClick={() => trackEvent("channel_subscribe_click", { channel: "whatsapp", location: "top_banner" })}>Seguir canal</a>
+    </aside>
+  );
+}
+
 function TallyEmbed({ src, title }) {
   useEffect(() => {
     const loadEmbeds = () => {
@@ -618,7 +628,40 @@ function TallyEmbed({ src, title }) {
   );
 }
 
-function CareersPage() {
+function VacanciesEmbed() {
+  useEffect(() => {
+    const scriptUrl = "https://cdn.jotfor.ms/s/umd/latest/for-form-embed-handler.js";
+    const initialize = () => {
+      if (typeof window.jotformEmbedHandler === "function") {
+        window.jotformEmbedHandler("iframe[id='JotFormIFrame-262856749417068']", "https://form.jotform.com/");
+      }
+    };
+    let script = document.querySelector(`script[src="${scriptUrl}"]`);
+    if (!script) {
+      script = document.createElement("script");
+      script.src = scriptUrl;
+      script.async = true;
+      document.body.appendChild(script);
+    }
+    script.addEventListener("load", initialize);
+    initialize();
+    return () => script.removeEventListener("load", initialize);
+  }, []);
+
+  return (
+    <iframe
+      id="JotFormIFrame-262856749417068"
+      title="Contratações - VY"
+      src="https://form.jotform.com/262856749417068"
+      width="100%"
+      height="539"
+      loading="lazy"
+      allow="fullscreen"
+    />
+  );
+}
+
+function CareersPage({ vacancies = false }) {
   return (
     <main className="satellite-page careers-page">
       <header className="menu-page-header">
@@ -663,10 +706,12 @@ function CareersPage() {
             </div>
           </div>
           <div className="careers-embed">
-            <TallyEmbed src={careersFormUrl} title="Trabalhe Conosco — Varanda Ypê" />
+            {vacancies ? (
+              <VacanciesEmbed />
+            ) : <TallyEmbed src={careersFormUrl} title="Trabalhe Conosco — Varanda Ypê" />}
             <a
               className="careers-fallback"
-              href="https://tally.so/r/A7E8Ql"
+              href={vacancies ? "https://form.jotform.com/262856749417068" : "https://tally.so/r/A7E8Ql"}
               target="_blank"
               rel="noreferrer"
               onClick={() => trackEvent("careers_form_click", { location: "fallback" })}
@@ -1552,6 +1597,7 @@ export function HomePage() {
             <a href="/menu/">Cardápio</a>
             <a href="/rotisseria/">Rotisseria</a>
             <a href="/empresa/">Empresas</a>
+            <a href="/vagas/">Vagas</a>
             <a href="#pedido">Pedido online</a>
             <a href="/delivery/">Delivery</a>
             <a href={burgersUrl} target="_blank" rel="noreferrer">
@@ -2214,6 +2260,8 @@ function App({ initialPath } = {}) {
     page = <MenuPage />;
   } else if (route === "/empresa") {
     page = <CompanyPage />;
+  } else if (route === "/vagas") {
+    page = <CareersPage vacancies />;
   } else if (route === "/trabalhe-conosco") {
     page = <CareersPage />;
   } else if (route === "/privacidade") {
@@ -2235,7 +2283,8 @@ function App({ initialPath } = {}) {
   return (
     <>
       <MarketingTracker route={route || "/"} />
-      {route !== "/trabalhe-conosco" && <QualityReviewBanner />}
+      {route === "" && <WhatsAppChannelBanner />}
+      {!["/trabalhe-conosco", "/vagas"].includes(route) && <QualityReviewBanner />}
       {page}
       <CookieConsent />
       <FloatingWhatsapp route={route} />

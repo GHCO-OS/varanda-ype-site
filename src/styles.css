@@ -41,6 +41,11 @@ img {
   max-width: 100%;
 }
 
+.whatsapp-channel-banner { display: flex; align-items: center; justify-content: center; gap: 12px; padding: 9px 16px; color: var(--cream-soft); background: var(--burgundy); font-family: "Montserrat", Arial, sans-serif; }
+.whatsapp-channel-banner p { margin: 0; font-size: .86rem; font-weight: 600; text-align: center; }
+.whatsapp-channel-banner a { display: inline-flex; align-items: center; min-height: 32px; padding: 0 14px; border-radius: 999px; color: var(--green-deep); background: var(--gold); font-size: .74rem; font-weight: 900; text-transform: uppercase; white-space: nowrap; }
+.whatsapp-channel-banner a:hover { background: var(--cream-soft); }
+
 .quality-review-banner {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto auto;
@@ -2732,6 +2737,9 @@ input:focus-visible,
 }
 
 @media (max-width: 640px) {
+  .whatsapp-channel-banner { gap: 8px; padding: 8px 10px; }
+  .whatsapp-channel-banner p { font-size: .72rem; line-height: 1.25; text-align: left; }
+  .whatsapp-channel-banner a { padding: 0 10px; font-size: .62rem; }
   .payments-grid { grid-template-columns: 1fr; }
   .footer-tripadvisor-row { align-items: flex-start; }
   /* One compact line: title + "Avaliar" + dismiss. */
