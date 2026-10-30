@@ -168,7 +168,6 @@ const googleBusinessUrl = "https://share.google/pxyfGTy3KNNdToPxk";
 const tripadvisorUrl = "https://www.tripadvisor.com.br/Restaurant_Review-g303605-d34648174-Reviews-Varanda_Ype_Jd_Aurelia-Campinas_State_of_Sao_Paulo.html";
 const tripadvisorLocationId = "34648174";
 const companyFormUrl = "https://form.jotform.com/262195555788070";
-const qualityReviewUrl = "https://form.jotform.com/262324465405050";
 const careersFormUrl = "https://tally.so/embed/A7E8Ql?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1";
 
 export const productPages = [
@@ -538,48 +537,6 @@ const discoveryPages = [
   },
 ];
 
-function QualityReviewBanner() {
-  const [hidden, setHidden] = useState(false);
-
-  useEffect(() => {
-    try {
-      if (sessionStorage.getItem("vy_qr_dismissed")) setHidden(true);
-    } catch (e) {}
-  }, []);
-
-  if (hidden) return null;
-
-  return (
-    <aside className="quality-review-banner" aria-label="Avaliação anônima de qualidade">
-      <div>
-        <strong>Avalie sua experiência no Varanda Ypê</strong>
-        <span>Pesquisa anônima de qualidade. Sua opinião ajuda a casa a servir melhor.</span>
-      </div>
-      <a
-        href={qualityReviewUrl}
-        target="_blank"
-        rel="noreferrer"
-        onClick={() => trackEvent("quality_review_click", { location: "top_banner" })}
-      >
-        Avaliar agora
-      </a>
-      <button
-        type="button"
-        className="quality-review-dismiss"
-        aria-label="Fechar aviso de avaliação"
-        onClick={() => {
-          try {
-            sessionStorage.setItem("vy_qr_dismissed", "1");
-          } catch (e) {}
-          setHidden(true);
-        }}
-      >
-        ×
-      </button>
-    </aside>
-  );
-}
-
 function WhatsAppChannelBanner() {
   return (
     <aside className="whatsapp-channel-banner" aria-label="Canal Família Varanda no WhatsApp">
@@ -589,6 +546,8 @@ function WhatsAppChannelBanner() {
     </aside>
   );
 }
+
+function QualityReviewBanner() { return null; }
 
 function TallyEmbed({ src, title }) {
   useEffect(() => {
