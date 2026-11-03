@@ -116,6 +116,13 @@ const pages = [
     canonical: "https://varandaype.com/cookies/",
   },
   {
+    route: "/vagas",
+    file: path.join("vagas", "index.html"),
+    title: "Vagas e Trabalhe Conosco em Campinas | Varanda Ypê",
+    description: "Cadastre seu interesse nas oportunidades do Varanda Ypê em Campinas: cozinha, salão, atendimento e delivery. Envie seus dados pelo formulário de vagas.",
+    canonical: "https://varandaype.com/vagas/",
+  },
+  {
     route: "/trabalhe-conosco",
     file: path.join("trabalhe-conosco", "index.html"),
     title: "Trabalhe Conosco | Varanda Ypê",

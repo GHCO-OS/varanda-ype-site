@@ -18,10 +18,14 @@ test('SSG canonical, one GTM, no React/fonts, native destinations and minimal pa
   }
   assert.ok(gzipSync(fs.readFileSync('dist/delivery-assets/client.js')).length<4096);
 });
-test('HomePage component untouched relative to logical backup',()=>{
+test('HomePage preserves existing content and links to vacancies',()=>{
   const after=fs.readFileSync('src/App.jsx','utf8');
   const section=s=>s.slice(s.indexOf('export function HomePage()'),s.indexOf('export function PrivacyPage()')).replace(/\r\n/g,'\n');
-  // Snapshot updated for <PaymentMethods /> (payment methods section added before the footer,
-  // commit 0af11a3); re-verify any further HomePage edit here.
-  assert.equal(createHash('sha256').update(section(after)).digest('hex'),'2320d981e225f904aff59077b762383e27e1604ee507c7acc14376415430bec4');
+  // Reviewed Home changes: vacancies link, accessible restaurant photo gallery, and the
+  // 2026-11-03 home simplification (single hero CTA, "O que a casa tem" gallery, "Onde
+  // atende e quando" visit section, and a single-card "Marcas do grupo" section).
+  assert.ok(section(after).includes('<a href="/vagas/">Vagas</a>'));
+  const preserved = section(after).replace('            <a href="/vagas/">Vagas</a>\n', '');
+  assert.ok(section(after).includes('<AmbienceGallery />'));
+  assert.equal(createHash('sha256').update(preserved).digest('hex'),'e3cdf671d42a8ec0e7d039e8cb8d785b0935f802dcad8341ab4c51cc96fe6aa7');
 });
