@@ -155,11 +155,9 @@ function MarketingTracker({ route }) {
 
 const ifoodUrl = destinations.ifood_restaurante.url;
 const ninetyNineFoodPrimaryUrl = destinations.food99_restaurante.url;
-const ninetyNineFoodSecondaryUrl = destinations.food99_hamburgueria.url;
 const ninetyNineFoodMarmitariaUrl = destinations.food99_marmitas.url;
 const expressoUrl = destinations.expresso_varanda.url;
 const alloyUrl = expressoUrl;
-const burgersUrl = "https://burgersnsmoke.com";
 const whatsappUrl = "https://wa.me/551931991971";
 const companyWhatsappUrl =
   "https://wa.me/551931991971?text=Ol%C3%A1%2C%20quero%20falar%20sobre%20pedido%20para%20empresa%20no%20Varanda%20Yp%C3%AA.";
@@ -725,17 +723,6 @@ const deliveryOptions = [
     cta: "Pedir no 99Food",
   },
   {
-    key: "99food-burgers-smoke",
-    provider: "99Food",
-    store: "Burgers N' Smoke",
-    note: "Hambúrgueres, carnes e espetinhos",
-    description: "A operação Burgers N' Smoke no 99Food, com identidade e cardápio próprios.",
-    image: "/pratos/jantinha-2-espetos-varanda-ype-campinas.jpg",
-    url: ninetyNineFoodSecondaryUrl,
-    tone: "ninetynine",
-    cta: "Pedir Burgers N' Smoke",
-  },
-  {
     key: "alloy",
     provider: "Alloy",
     store: "Pedido direto",
@@ -744,13 +731,6 @@ const deliveryOptions = [
     tone: "alloy",
     cta: "Pedir pela Alloy",
   },
-];
-
-const quickGroups = [
-  ["Executivos", "Pratos do dia para almoço", "/menu/#la-carte"],
-  ["Jantinha", "Espetinhos com acompanhamentos", "/menu/#espetinhos"],
-  ["Cardápio completo", "Preços e descrições online", "/menu/"],
-  ["Burgers N Smoke", "Nossa hamburgueria", burgersUrl],
 ];
 
 const orderBenefits = [
@@ -1593,11 +1573,8 @@ export function HomePage() {
             <a href="/rotisseria/">Rotisseria</a>
             <a href="/empresa/">Empresas</a>
             <a href="/vagas/">Vagas</a>
-            <a href="#pedido">Pedido online</a>
+            <a href="#cardapio">Pedido online</a>
             <a href="/delivery/">Delivery</a>
-            <a href={burgersUrl} target="_blank" rel="noreferrer">
-              Burgers N Smoke
-            </a>
             <a href="#contato">Contato</a>
           </nav>
           <button
@@ -1756,33 +1733,6 @@ export function HomePage() {
           </Reveal>
 
           <AmbienceGallery />
-        </div>
-      </section>
-
-      <section className="brands section-cream seam-green" id="marcas">
-        <div className="section-inner">
-          <Reveal as="div" className="section-heading">
-            <p className="section-label">Marcas do grupo</p>
-            <h2>Conheça também a Burgers N' Smoke</h2>
-          </Reveal>
-          <div className="order-preview-shell order-preview-top">
-            <div className="store-logo-block">
-              <Img src="/logo-icon-96.png" alt="" width={58} height={58} />
-              <div>
-                <strong>Burgers N' Smoke</strong>
-                <span>Hamburgueria com identidade e cardápio próprios</span>
-              </div>
-            </div>
-            <a
-              className="store-order-button"
-              href={burgersUrl}
-              target="_blank"
-              rel="noreferrer"
-              onClick={() => trackEvent("partner_click", { brand: "Burgers N Smoke", location: "home_brands" })}
-            >
-              Conhecer
-            </a>
-          </div>
         </div>
       </section>
 
@@ -2114,7 +2064,7 @@ function App({ initialPath } = {}) {
     initialPath || (typeof window === "undefined" ? "/" : window.location.pathname);
   const route = currentPath.replace(/\/$/, "");
   if (route === '/delivery') return <React.Suspense><DeliveryRouter /></React.Suspense>;
-  const deliveryOperation = route.match(/^\/delivery\/(restaurante|marmitas|hamburgueria)$/)?.[1];
+  const deliveryOperation = route.match(/^\/delivery\/(restaurante|marmitas)$/)?.[1];
   if (deliveryOperation) return <React.Suspense><DeliveryRouter operation={deliveryOperation} /></React.Suspense>;
   if (route === '/pedir') return <React.Suspense><MarketingRouter /></React.Suspense>;
   const marketingPlatform = route.match(/^\/pedir\/(ifood|99food|direto)$/)?.[1];

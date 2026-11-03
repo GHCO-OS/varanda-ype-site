@@ -17,8 +17,8 @@ function browser(search = '', consent = 'granted') {
   if (consent) win.localStorage.setItem('vy_consent', consent);
   return win;
 }
-test('seven authoritative destinations separated by operation; plain HTML anchors', () => {
-  assert.equal(Object.keys(destinations).length, 7);
+test('five authoritative destinations separated by operation; plain HTML anchors', () => {
+  assert.equal(Object.keys(destinations).length, 5);
   for (const [operation, config] of Object.entries(operations)) {
     const html = deliveryMarkup(operation);
     for (const id of config.destinations) { assert.equal(destinations[id].operation, operation); assert.ok(html.includes(`data-destination="${id}"`)); }

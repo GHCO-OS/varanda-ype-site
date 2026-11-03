@@ -6,7 +6,7 @@ export function validateEvent(input, now = Date.now()) {
   if (!input || Array.isArray(input) || typeof input !== 'object') throw new Error('Object required');
   if (Object.keys(input).some(key => !fields.includes(key))) throw new Error('Unknown field');
   if (!names.includes(input.event) || input.site !== 'varanda_ype') throw new Error('Invalid event');
-  if (!['hub','restaurante','marmitas','hamburgueria'].includes(input.operation)) throw new Error('Invalid operation');
+  if (!['hub','restaurante','marmitas'].includes(input.operation)) throw new Error('Invalid operation');
   if (input.page_path !== deliveryPath(input.operation)) throw new Error('Invalid path');
   if (input.landing_variant !== (input.operation === 'hub' ? 'hub' : 'operation')) throw new Error('Invalid variant');
   if (![input.event_id,input.visit_id,input.session_id].every(value => uuid.test(value))) throw new Error('Invalid ID');

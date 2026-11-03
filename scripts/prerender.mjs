@@ -46,7 +46,7 @@ const pages = [
     file: path.join("delivery", "index.html"),
     title: "Delivery Varanda Ypê | iFood, 99Food e pedido direto",
     description:
-      "Escolha o canal oficial para pedir Varanda Ypê ou Burgers N' Smoke em Campinas: iFood, 99Food, pedido direto e WhatsApp.",
+      "Escolha o canal oficial para pedir Varanda Ypê em Campinas: iFood, 99Food, pedido direto e WhatsApp.",
     canonical: "https://varandaype.com/delivery/",
   },
   {

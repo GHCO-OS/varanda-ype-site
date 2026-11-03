@@ -216,11 +216,6 @@ img {
   line-height: 1.2;
 }
 
-.hero-utility-burger .hero-utility-icon {
-  color: #f4eed7;
-  background: #5c1a22;
-}
-
 .hero-utility-pending {
   cursor: default;
 }
@@ -1538,12 +1533,6 @@ h2 {
   color: var(--green-deep);
   background: var(--gold);
   box-shadow: 0 18px 34px rgba(201, 168, 76, 0.28);
-}
-
-.button-burger {
-  border-color: rgba(244, 238, 215, 0.52);
-  color: var(--cream);
-  background: rgba(92, 26, 34, 0.64);
 }
 
 .button-secondary {

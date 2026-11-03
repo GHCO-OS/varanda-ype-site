@@ -6,7 +6,7 @@ const allowedFields = new Set([
   'lead_consent', 'consent_analytics', 'consent_ads',
 ]);
 const uuid = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
-const operations = new Set(['restaurante', 'marmitas', 'hamburgueria', 'home', 'delivery', 'hub']);
+const operations = new Set(['restaurante', 'marmitas', 'home', 'delivery', 'hub']);
 const components = new Set(['popup', 'floating_button', 'form_footer']);
 
 const cleanString = (value, max = 256) => {

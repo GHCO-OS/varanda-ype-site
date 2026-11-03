@@ -18,10 +18,11 @@ Implementação de 6 de setembro de 2026. Código pronto para deploy; este traba
 
 | Rota | Função | Canais |
 | --- | --- | --- |
-| `/delivery/` | Escolher operação | Restaurante, Marmitaria, Hamburgueria |
+| `/delivery/` | Escolher operação | Restaurante, Marmitaria |
 | `/delivery/restaurante/` | Como você prefere pedir hoje? | Direto, iFood, 99Food |
 | `/delivery/marmitas/` | Pedir sua marmita | 99Food, iFood |
-| `/delivery/hamburgueria/` | Pedir Burgers N’ Smoke | iFood, 99Food |
+
+> Nota (2026-11-03): a operação `hamburgueria` (Burgers N' Smoke) foi removida — a marca não faz mais parte do site. Trechos abaixo que mencionam "quatro páginas"/hamburgueria refletem o estado histórico de 6 de setembro de 2026 e não o roteamento atual.
 
 Na rota Restaurante, o Pedido Direto fica ativo diariamente das 11h às 15h no fuso `America/Sao_Paulo`. Fora desse intervalo, o JavaScript o substitui por um controle desabilitado e orienta o cliente a usar os apps. O HTML original conserva o destino real como fallback sem JavaScript.
 
@@ -34,8 +35,6 @@ Fonte única: `shared/delivery.js`. Restaurante e Hamburgueria nunca compartilha
 | food99_restaurante | https://oia.99app.com/dlp9/C94oJv?area=BR |
 | ifood_marmitas | https://www.ifood.com.br/delivery/link-cardapio/sitemercado/cefe7c90-e207-4493-ae9b-6b676c22ecf0 |
 | food99_marmitas | https://oia.99app.com/dlp9/ceXoR0?area=BR |
-| ifood_hamburgueria | https://www.ifood.com.br/delivery/link-cardapio/sitemercado/14734c59-f45a-41e2-80b0-f1914971f6e1 |
-| food99_hamburgueria | https://oia.99app.com/dlp9/X2TmjJ?area=BR |
 
 Para trocar um link, editar somente a configuração, executar build/lint/test e testar o app em aparelho real. Tokens `{{delivery:...}}` nos templates de HTML/redirects são resolvidos durante o build; não publicar `public/` diretamente. Publicar `dist/` pelo fluxo Pages existente, incluindo Functions.
 
@@ -147,7 +146,6 @@ Usar URLs finais permanentes:
 ```text
 https://varandaype.com/delivery/restaurante/
 https://varandaype.com/delivery/marmitas/
-https://varandaype.com/delivery/hamburgueria/
 ```
 
 Google Ads: exemplo de Final URL Suffix, sem `?`, para campanhas de pesquisa compatíveis:

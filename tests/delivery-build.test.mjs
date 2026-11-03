@@ -21,11 +21,13 @@ test('SSG canonical, one GTM, no React/fonts, native destinations and minimal pa
 test('HomePage preserves existing content and links to vacancies',()=>{
   const after=fs.readFileSync('src/App.jsx','utf8');
   const section=s=>s.slice(s.indexOf('export function HomePage()'),s.indexOf('export function PrivacyPage()')).replace(/\r\n/g,'\n');
-  // Reviewed Home changes: vacancies link, accessible restaurant photo gallery, and the
+  // Reviewed Home changes: vacancies link, accessible restaurant photo gallery, the
   // 2026-11-03 home simplification (single hero CTA, "O que a casa tem" gallery, "Onde
-  // atende e quando" visit section, and a single-card "Marcas do grupo" section).
+  // atende e quando" visit section), and the 2026-11-03 removal of all Burgers N' Smoke
+  // mentions (brand discontinued).
   assert.ok(section(after).includes('<a href="/vagas/">Vagas</a>'));
   const preserved = section(after).replace('            <a href="/vagas/">Vagas</a>\n', '');
   assert.ok(section(after).includes('<AmbienceGallery />'));
-  assert.equal(createHash('sha256').update(preserved).digest('hex'),'e3cdf671d42a8ec0e7d039e8cb8d785b0935f802dcad8341ab4c51cc96fe6aa7');
+  assert.ok(!section(after).toLowerCase().includes('burger'));
+  assert.equal(createHash('sha256').update(preserved).digest('hex'),'ec123debb5d48bf0993eedeb0378e6608e7639768ae6a12dcd322abf46c70beb');
 });
