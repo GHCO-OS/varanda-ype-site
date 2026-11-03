@@ -758,79 +758,16 @@ const orderBenefits = [
   ["Atendimento direto", "WhatsApp para reserva, dúvidas e pedidos para empresas."],
 ];
 
-const menuHighlights = [
-  {
-    title: "Chorizo executivo",
-    text: "Chorizo grelhado com arroz, feijão, farofa e mandioca frita.",
-    image: "/pratos/chorizo.png",
-  },
-  {
-    title: "Fraldinha",
-    text: "Fraldinha grelhada com arroz, feijão, farofa e mandioca.",
-    image: "/pratos/fraldinha.png",
-  },
-  {
-    title: "Risoto cuiabano",
-    text: "Prato cremoso, bem servido e com sabor brasileiro.",
-    image: "/pratos/risoto-cuiabano.png",
-  },
-  {
-    title: "Talharim",
-    text: "Massa cremosa acompanhada de carne grelhada.",
-    image: "/pratos/talharim.png",
-  },
-];
-
-const ambienceGallery = [
-  {
-    title: "Espaço kids à vista da família",
-    text:
-      "Brinquedão reformado e revisado em 2026, em uma área que permite aos familiares acompanharem as crianças com tranquilidade.",
-    image: "/ambiente/espaco-kids-visivel-familia-varanda-ype-campinas.jpg",
-    alt:
-      "Espaço kids com brinquedão colorido visível para famílias no restaurante Varanda Ypê em Campinas",
-  },
-  {
-    title: "Salão amplo, aberto e confortável",
-    text:
-      "Ambiente espaçoso, com rampas de acesso, circulação livre entre mesas e estrutura pensada para receber famílias e grupos com comodidade.",
-    image: "/ambiente/salao-amplo-aberto-rampas-varanda-ype-campinas.jpg",
-    alt:
-      "Salão amplo aberto e confortável do restaurante Varanda Ypê com rampas de acesso em Campinas",
-  },
-  {
-    title: "Excelente circulação de ar",
-    text:
-      "Área aberta, arejada e acolhedora, com o espaço kids integrado à visão dos familiares para um almoço ou jantar mais tranquilo.",
-    image: "/ambiente/restaurante-familiar-circulacao-ar-varanda-ype-campinas.jpg",
-    alt:
-      "Restaurante familiar Varanda Ypê com salão arejado e espaço kids ao fundo no Jardim Aurélia",
-  },
-];
-
-const experienceItems = [
-  ["Pratos e espetinhos", "Comida brasileira para almoço, jantar e mesa cheia."],
-  ["Chopp e porções", "Clima de boteco brasileiro com petiscos para compartilhar."],
-  ["Espaço kids", "Ambiente para a família. Em breve, recreação para família."],
-];
-
-const portionGallery = [
-  ["Calabresa com fritas", "/porcoes/calabresa-com-fritas.png"],
-  ["Fritas 500g", "/porcoes/fritas-500g.png"],
-  ["Isca de cordão de mignon", "/porcoes/isca-cordao-mignon.png"],
-  ["Isca de frango à milanesa", "/porcoes/isca-frango-milanesa.png"],
-  ["Tulipa frita", "/porcoes/tulipa-frita.png"],
-];
-
-// Home "O que a casa tem" — photo + title only, no price/description.
-// Full menu, descriptions and prices live on /menu/.
+// Home "O que a casa tem" — real, in-context photography only (photo + title,
+// overlaid caption, no price/description — full menu lives on /menu/). Stock
+// product-shot photos (flat colored backdrop) are deliberately kept out so the
+// grid doesn't mix two incompatible photography styles; categories without a
+// real photo yet (chopp/porções, marmitaria) stay off until one exists.
 const whatHouseHasCards = [
   ["Costela Varandeira", "/pratos/prato-familia-costela-picanha-varanda-ype-campinas.jpg"],
   ["Grelhados e executivos", "/pratos/frango-risoto-varanda-ype-campinas.jpg"],
   ["Espaço kids", "/ambiente/espaco-kids-visivel-familia-varanda-ype-campinas.jpg"],
-  ["Chopp e porções", "/porcoes/calabresa-com-fritas.png"],
   ["Jantinha com espetinhos", "/pratos/jantinha-2-espetos-varanda-ype-campinas.jpg"],
-  ["Marmitaria", "/pratos/risoto-cuiabano.png"],
 ];
 
 const visitHours = [
@@ -1652,14 +1589,14 @@ export function HomePage() {
             </div>
           </div>
 
-          <div className="hero-media" aria-label="Mesa brasileira servida">
+          <div className="hero-media" aria-label="Costela Varandeira, o carro-chefe da casa">
             <div className="hero-photo">
               <Img
-                src="/pratos/chorizo.png"
-                smSrc="/pratos/chorizo-sm.png"
-                alt="Chorizo executivo servido no Varanda Ypê"
+                src="/pratos/prato-familia-costela-picanha-varanda-ype-campinas.jpg"
+                smSrc="/pratos/prato-familia-costela-picanha-varanda-ype-campinas-sm.jpg"
+                alt="Costela Varandeira, o prato carro-chefe do Varanda Ypê"
                 width={560}
-                height={560}
+                height={700}
                 priority
               />
             </div>
@@ -1671,13 +1608,20 @@ export function HomePage() {
         <div className="section-inner">
           <Reveal as="div" className="section-heading">
             <p className="section-label">O que a casa tem</p>
-            <h2>Grelhados, espaço kids, chopp e marmitaria</h2>
+            <h2>A casa por quem já experimentou</h2>
           </Reveal>
           <div className="gallery-grid">
             {whatHouseHasCards.map(([title, image], index) => (
-              <Reveal as="article" className="gallery-card" key={title} delay={Math.min(index, 4) * 60}>
-                <Img src={image} alt={title} width={300} height={300} />
-                <h3>{title}</h3>
+              <Reveal
+                as="article"
+                className={`gallery-card${index === 0 ? " gallery-card-featured" : ""}`}
+                key={title}
+                delay={Math.min(index, 4) * 60}
+              >
+                <Img src={image} alt={title} width={index === 0 ? 640 : 320} height={index === 0 ? 640 : 320} />
+                <div className="gallery-card-caption">
+                  <h3>{title}</h3>
+                </div>
               </Reveal>
             ))}
           </div>

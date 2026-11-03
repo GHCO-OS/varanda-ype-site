@@ -2251,7 +2251,8 @@ input:focus-visible,
 
 .gallery-grid {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-auto-rows: 220px;
   gap: 16px;
 }
 
@@ -3320,19 +3321,28 @@ h2 {
   position: relative;
   inset: auto;
   width: 100%;
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 4 / 5;
   border: 0;
-  border-radius: 8px;
+  border-radius: 24px;
   background: transparent;
-  box-shadow: none;
+  box-shadow: 0 32px 64px rgba(0, 0, 0, 0.32);
+  overflow: hidden;
+}
+
+.hero-photo picture {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
 .hero-photo img {
   width: 100%;
   height: 100%;
   padding: 0;
-  border-radius: 8px;
-  object-fit: contain;
+  border-radius: 0;
+  object-fit: cover;
   filter: none;
 }
 
@@ -3384,25 +3394,65 @@ h2 {
 }
 
 .gallery-card {
+  position: relative;
+  grid-column: span 1;
+  grid-row: span 1;
   padding: 0;
   border: 0;
-  background: transparent;
+  border-radius: 16px;
+  background: var(--green-deep);
+  overflow: hidden;
+}
+
+.gallery-card-featured {
+  grid-column: 1 / -1;
+  grid-row: span 2;
+}
+
+.gallery-card picture {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
 .gallery-card img {
   display: block;
   width: 100%;
   height: 100%;
-  border-radius: 8px;
-  object-fit: contain;
+  border-radius: 0;
+  object-fit: cover;
   padding: 0;
   background: transparent;
 }
 
-.gallery-card picture {
-  display: block;
-  width: 100%;
-  aspect-ratio: 1 / 1;
+.gallery-card-caption {
+  position: absolute;
+  inset: auto 0 0 0;
+  padding: 16px 18px;
+  background: linear-gradient(180deg, transparent, rgba(8, 39, 19, 0.82) 80%);
+}
+
+.gallery-card-caption h3 {
+  margin: 0;
+  color: var(--cream);
+  font-family: "Montserrat", Arial, sans-serif;
+  font-size: 0.86rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+}
+
+.gallery-card-featured .gallery-card-caption {
+  padding: 24px 26px;
+}
+
+.gallery-card-featured .gallery-card-caption h3 {
+  font-size: 1.3rem;
+  font-family: "Fraunces", Georgia, serif;
+  text-transform: none;
+  font-weight: 700;
 }
 
 .round-photo {
