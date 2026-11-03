@@ -8,8 +8,6 @@ export const siteConfig = Object.freeze({
   instagram: 'https://instagram.com/varandaype',
   maps: 'https://share.google/pxyfGTy3KNNdToPxk',
   menu: 'https://varandaype.com/menu/',
-  tripadvisor: 'https://www.tripadvisor.com.br/Restaurant_Review-g303605-d34648174-Reviews-Varanda_Ype_Jd_Aurelia-Campinas_State_of_Sao_Paulo.html',
-  tripadvisorLocationId: '34648174',
 });
 
 export const featureFlags = Object.freeze({
@@ -81,7 +79,6 @@ export const redirectTargets = Object.freeze({
   maps: { event: 'directions_click', destination: () => siteConfig.maps },
   instagram: { event: 'secondary_cta_click', destination: () => siteConfig.instagram },
   'google-review': { event: 'review_click', destination: () => siteConfig.maps },
-  tripadvisor: { event: 'review_click', destination: () => siteConfig.tripadvisor },
 });
 
 export const campaignKeys = Object.freeze([

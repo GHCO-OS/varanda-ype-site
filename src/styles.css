@@ -2460,25 +2460,6 @@ input:focus-visible,
   gap: 36px;
 }
 
-.footer-tripadvisor-row {
-  margin-top: 28px;
-  padding-top: 20px;
-  border-top: 1px solid rgba(244, 238, 215, 0.18);
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  flex-wrap: wrap;
-}
-
-.footer-tripadvisor-row p {
-  margin: 0;
-}
-
-.tripadvisor-badge { display: inline-flex; align-items: center; gap: 9px; min-height: 38px; padding: 5px 10px; border: 1px solid rgba(244,238,215,.28); border-radius: 10px; color: inherit; background: rgba(244,238,215,.08); white-space: nowrap; }
-.tripadvisor-badge img { width: 142px; height: 22px; object-fit: contain; }
-.tripadvisor-badge span { font-size: .76rem; font-weight: 700; }
-.tripadvisor-badge:hover { background: rgba(244,238,215,.16); }
-
 .payments-section { padding: 58px 0; color: var(--green-deep); background: var(--cream-soft); }
 .payments-section h2 { max-width: 620px; margin: 6px 0 12px; font-size: clamp(1.9rem, 4vw, 3rem); }
 .payments-intro { max-width: 720px; margin: 0 0 26px; font-size: 1.05rem; line-height: 1.55; }
@@ -2487,32 +2468,70 @@ input:focus-visible,
 .payments-grid h3 { margin: 0 0 8px; font-size: 1.08rem; }
 .payments-grid p { margin: 0; line-height: 1.5; }
 
-.footer-tripadvisor img,
-.header-tripadvisor img {
-  width: auto;
-  border-radius: 0;
-  margin-bottom: 0;
+.footer-social-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin: 14px 0 18px;
 }
 
-.TA_links {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.header-tripadvisor {
+.footer a.footer-social-link {
   display: flex;
   align-items: center;
-  opacity: 0.75;
+  gap: 10px;
+  margin: 0;
+  padding: 10px 12px;
+  border: 1px solid rgba(244, 238, 215, 0.18);
+  border-radius: 10px;
+  background: rgba(244, 238, 215, 0.05);
+  color: rgba(244, 238, 215, 0.88);
+  transition: background 0.15s ease, border-color 0.15s ease;
 }
 
-.header-tripadvisor:hover {
-  opacity: 1;
+.footer a.footer-social-link:hover {
+  background: rgba(244, 238, 215, 0.12);
+  border-color: rgba(244, 238, 215, 0.34);
 }
 
-.header-tripadvisor { padding: 0; border: 0; background: transparent; }
-.header-tripadvisor img { width: 132px; height: 22px; }
-.header-tripadvisor span { display: none; }
+.footer a.footer-social-link svg {
+  flex-shrink: 0;
+  color: var(--gold);
+}
+
+.footer a.footer-social-link span {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.25;
+}
+
+.footer a.footer-social-link strong {
+  font-family: "Montserrat", Arial, sans-serif;
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: var(--cream);
+}
+
+.footer a.footer-social-link small {
+  font-size: 0.72rem;
+  color: rgba(244, 238, 215, 0.6);
+}
+
+.footer a.footer-social-highlight {
+  grid-column: 1 / -1;
+  border-color: var(--gold);
+  background: rgba(201, 168, 76, 0.14);
+}
+
+.footer a.footer-social-highlight strong {
+  color: var(--gold);
+}
+
+.footer a.footer-privacy-link {
+  display: inline-block;
+  margin: 4px 0 14px;
+  font-size: 0.82rem;
+  text-decoration: underline;
+}
 
 .footer img {
   width: 74px;
@@ -2747,7 +2766,7 @@ input:focus-visible,
   .whatsapp-channel-banner p { font-size: .72rem; line-height: 1.25; text-align: left; }
   .whatsapp-channel-banner a { padding: 0 10px; font-size: .62rem; }
   .payments-grid { grid-template-columns: 1fr; }
-  .footer-tripadvisor-row { align-items: flex-start; }
+  .footer-social-grid { grid-template-columns: 1fr; }
   /* One compact line: title + "Avaliar" + dismiss. */
   .quality-review-banner {
     grid-template-columns: minmax(0, 1fr) auto auto;
@@ -2844,10 +2863,6 @@ input:focus-visible,
     min-height: 40px;
     padding: 0 12px;
     font-size: 0.72rem;
-  }
-
-  .header-tripadvisor {
-    display: none;
   }
 
   h1 {
@@ -3688,7 +3703,6 @@ h2 {
 .button.button-delivery-hot { color: var(--green-deep, #0e351b); }
 .delivery-button-ifood { background: #d41a28; }
 .online-menu-head h1 { max-width: none; margin: 0; font-size: clamp(2.1rem, 4vw, 3.75rem); line-height: 1.02; }
-.footer-channel { display: inline-flex; align-items: center; gap: 8px; }
 
 /* Menu browsing: persistent controls and readable product rows. */
 .menu-page > .menu-page-header { display: flex; flex-wrap: wrap; gap: 12px; }

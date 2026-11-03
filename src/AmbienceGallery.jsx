@@ -6,6 +6,7 @@ const photos = [
   { file: "salao-mesas-interior-varanda-ype", title: "Aconchego em cada mesa", caption: "Conheça o restaurante por dentro, com suas mesas e iluminação acolhedora.", width: 960, height: 1280 },
   { file: "rampa-salao-espaco-kids-varanda-ype", title: "Ambientes conectados", caption: "Rampa de acesso e espaço kids próximo ao salão.", width: 1280, height: 960 },
   { file: "brinquedao-espaco-kids-varanda-ype", title: "Um cantinho para brincar", caption: "O brinquedão fica ao lado das mesas, à vista dos familiares.", width: 1280, height: 960 },
+  { file: "drinks-bar-smirnoff-varanda-ype-campinas", title: "Chopp, drinks e boteco", caption: "Bar completo com drinks gelados para acompanhar a mesa.", width: 960, height: 1280 },
 ];
 
 export function AmbienceGallery() {

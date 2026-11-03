@@ -9,6 +9,7 @@ export const menuItemImages = {
   "Fritas clássica": "/porcoes/fritas-500g.png",
   "Isca de mignon": "/porcoes/isca-cordao-mignon.png",
   "Jantinha Expressa": "/pratos/jantinha-2-espetos-varanda-ype-campinas.jpg",
+  "Costela Cuiabar": "/pratos/costela-cuiabar-varanda-ype-campinas.jpg",
 };
 export const fullMenuSections = [
   {

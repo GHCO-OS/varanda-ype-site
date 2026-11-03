@@ -42,18 +42,6 @@ function Img({ src, alt, width, height, className, priority = false, smSrc }) {
   );
 }
 
-// Compact, stable TripAdvisor link. The external widget was causing oversized
-// markup and inconsistent spacing in the header/footer; the official page link
-// is faster, accessible and keeps the same review destination.
-function TripAdvisorWidget({ wtype, uniq, href, imgSrc, imgAlt, className }) {
-  return (
-    <a className={`tripadvisor-badge ${className || ""}`.trim()} href={href} target="_blank" rel="noreferrer" aria-label="Ver avaliações do Varanda Ypê no TripAdvisor">
-      <img src={imgSrc} alt={imgAlt} width="180" height="28" />
-      <span>Ver avaliações</span>
-    </a>
-  );
-}
-
 function PaymentMethods() {
   return <section className="payments-section" aria-labelledby="payments-title">
     <div className="section-inner">
@@ -164,8 +152,6 @@ const companyWhatsappUrl =
 const whatsappFloatingUrl =
   "https://wa.me/551931991971?text=Ol%C3%A1%21%20Vim%20pelo%20site%20e%20gostaria%20de%20conhecer%20o%20card%C3%A1pio%20ou%20fazer%20um%20pedido.";
 const googleBusinessUrl = "https://share.google/pxyfGTy3KNNdToPxk";
-const tripadvisorUrl = "https://www.tripadvisor.com.br/Restaurant_Review-g303605-d34648174-Reviews-Varanda_Ype_Jd_Aurelia-Campinas_State_of_Sao_Paulo.html";
-const tripadvisorLocationId = "34648174";
 const companyFormUrl = "https://form.jotform.com/262195555788070";
 const careersFormUrl = "https://tally.so/embed/A7E8Ql?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1";
 
@@ -546,6 +532,39 @@ function WhatsAppChannelBanner() {
   );
 }
 
+// Minimal, recognizable glyphs (currentColor, no external requests) so footer
+// channels read at a glance instead of as a wall of plain-text links.
+const footerSocialIconPaths = {
+  whatsapp:
+    "M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347ZM12.004 2c-5.514 0-9.996 4.483-9.996 9.997 0 1.763.46 3.483 1.335 4.998L2 22l5.117-1.342a9.961 9.961 0 0 0 4.885 1.242h.004c5.514 0 9.996-4.483 9.996-9.997A9.935 9.935 0 0 0 19.08 4.92 9.933 9.933 0 0 0 12.005 2Zm5.84 15.831a8.26 8.26 0 0 1-5.84 2.418h-.003a8.272 8.272 0 0 1-4.223-1.159l-.303-.18-3.037.796.812-2.961-.198-.306a8.262 8.262 0 0 1-1.267-4.44c0-4.567 3.716-8.283 8.287-8.283a8.23 8.23 0 0 1 5.858 2.43 8.232 8.232 0 0 1 2.427 5.856 8.264 8.264 0 0 1-2.513 5.829Z",
+  instagram:
+    "M12 2c2.717 0 3.056.01 4.122.06 1.065.05 1.79.217 2.428.465.66.254 1.216.598 1.772 1.153a4.908 4.908 0 0 1 1.153 1.772c.247.637.415 1.363.465 2.428.047 1.066.06 1.405.06 4.122 0 2.717-.01 3.056-.06 4.122-.05 1.065-.218 1.79-.465 2.428a4.883 4.883 0 0 1-1.153 1.772 4.915 4.915 0 0 1-1.772 1.153c-.637.247-1.363.415-2.428.465-1.066.047-1.405.06-4.122.06-2.717 0-3.056-.01-4.122-.06-1.065-.05-1.79-.218-2.428-.465a4.89 4.89 0 0 1-1.772-1.153 4.904 4.904 0 0 1-1.153-1.772c-.248-.637-.415-1.363-.465-2.428C2.013 15.056 2 14.717 2 12c0-2.717.01-3.056.06-4.122.05-1.065.217-1.79.465-2.428a4.88 4.88 0 0 1 1.153-1.772A4.897 4.897 0 0 1 5.45 2.525c.637-.248 1.363-.415 2.428-.465C8.944 2.013 9.283 2 12 2Zm0 1.802c-2.67 0-2.987.01-4.04.059-.976.045-1.505.207-1.858.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.858-.05 1.053-.059 1.37-.059 4.039 0 2.67.01 2.986.059 4.04.045.976.207 1.505.344 1.858.182.466.399.8.748 1.15.35.35.684.566 1.15.748.353.137.882.3 1.858.344 1.053.05 1.37.059 4.04.059 2.67 0 2.987-.01 4.04-.059.976-.045 1.505-.207 1.858-.344.467-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.858.05-1.053.059-1.37.059-4.04 0-2.669-.01-2.986-.059-4.04-.045-.975-.207-1.504-.344-1.857a3.09 3.09 0 0 0-.748-1.15 3.096 3.096 0 0 0-1.15-.748c-.353-.137-.882-.299-1.858-.344-1.053-.05-1.37-.059-4.04-.059Zm0 3.063a5.135 5.135 0 1 1 0 10.27 5.135 5.135 0 0 1 0-10.27Zm0 1.802a3.333 3.333 0 1 0 0 6.666 3.333 3.333 0 0 0 0-6.666Zm5.338-2.001a1.2 1.2 0 1 1-2.4 0 1.2 1.2 0 0 1 2.4 0Z",
+  facebook:
+    "M22 12.06C22 6.503 17.523 2 12 2S2 6.503 2 12.06c0 5.023 3.657 9.184 8.438 9.94v-7.03H7.898v-2.91h2.54V9.845c0-2.517 1.492-3.907 3.776-3.907 1.094 0 2.238.197 2.238.197v2.476h-1.26c-1.243 0-1.63.775-1.63 1.571v1.878h2.773l-.443 2.91h-2.33V22c4.78-.756 8.438-4.917 8.438-9.94Z",
+  pinterest:
+    "M12 2C6.477 2 2 6.477 2 12c0 4.237 2.636 7.855 6.356 9.312-.088-.791-.167-2.005.035-2.868.182-.78 1.172-4.97 1.172-4.97s-.299-.6-.299-1.486c0-1.39.806-2.429 1.809-2.429.852 0 1.264.64 1.264 1.408 0 .858-.546 2.14-.828 3.33-.236.996.5 1.807 1.48 1.807 1.778 0 3.144-1.874 3.144-4.58 0-2.393-1.72-4.068-4.177-4.068-2.846 0-4.516 2.135-4.516 4.34 0 .859.331 1.781.744 2.282a.3.3 0 0 1 .069.287c-.076.316-.245.995-.278 1.134-.043.183-.144.222-.332.134-1.24-.577-2.016-2.39-2.016-3.846 0-3.131 2.275-6.008 6.556-6.008 3.443 0 6.12 2.453 6.12 5.735 0 3.422-2.158 6.175-5.153 6.175-1.006 0-1.953-.523-2.277-1.14l-.619 2.36c-.224.863-.83 1.944-1.236 2.604.93.287 1.917.442 2.941.442 5.523 0 10-4.477 10-10S17.523 2 12 2Z",
+  spotify:
+    "M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2Zm4.586 14.424a.622.622 0 0 1-.857.207c-2.348-1.435-5.304-1.76-8.785-.964a.622.622 0 1 1-.277-1.213c3.809-.871 7.077-.496 9.712 1.113a.623.623 0 0 1 .207.857Zm1.223-2.722a.779.779 0 0 1-1.072.257c-2.688-1.652-6.786-2.132-9.965-1.166a.779.779 0 1 1-.452-1.49c3.63-1.102 8.147-.568 11.232 1.327a.779.779 0 0 1 .257 1.072Zm.105-2.835C14.692 9.01 9.375 8.84 6.252 9.801a.935.935 0 1 1-.545-1.789c3.584-1.089 9.448-.878 13.18 1.352a.935.935 0 0 1-.973 1.502Z",
+};
+
+function FooterSocialIcon({ name }) {
+  return (
+    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false">
+      <path fill="currentColor" d={footerSocialIconPaths[name]} />
+    </svg>
+  );
+}
+
+// Instagram first and highlighted per the house's current priority: it's where
+// most of the audience and engagement already is.
+const footerSocialLinks = [
+  { key: "instagram", label: "Instagram", handle: "@varandaype", href: "https://instagram.com/varandaype", highlight: true },
+  { key: "whatsapp", label: "WhatsApp", handle: "Reservas e pedidos", href: whatsappUrl },
+  { key: "facebook", label: "Facebook", handle: "@varandaype", href: "https://www.facebook.com/varandaype" },
+  { key: "pinterest", label: "Pinterest", handle: "@varandaype", href: "https://br.pinterest.com/varandaype/" },
+  { key: "spotify", label: "Spotify", handle: "Nossa trilha sonora", href: "https://open.spotify.com/user/31xybucv7sgbpfapyybyzu7s3ozu" },
+];
+
 function QualityReviewBanner() { return null; }
 
 function TallyEmbed({ src, title }) {
@@ -806,7 +825,8 @@ const portionGallery = [
 // Home "O que a casa tem" — photo + title only, no price/description.
 // Full menu, descriptions and prices live on /menu/.
 const whatHouseHasCards = [
-  ["Grelhados e executivos", "/pratos/chorizo.png"],
+  ["Costela Varandeira", "/pratos/prato-familia-costela-picanha-varanda-ype-campinas.jpg"],
+  ["Grelhados e executivos", "/pratos/frango-risoto-varanda-ype-campinas.jpg"],
   ["Espaço kids", "/ambiente/espaco-kids-visivel-familia-varanda-ype-campinas.jpg"],
   ["Chopp e porções", "/porcoes/calabresa-com-fritas.png"],
   ["Jantinha com espetinhos", "/pratos/jantinha-2-espetos-varanda-ype-campinas.jpg"],
@@ -1339,7 +1359,7 @@ export function SatellitePage({ page }) {
       alternateName: ["Varanda Ype", "Varanda Ypê - Jd. Aurélia"],
       telephone: "+551931991971",
       hasMenu: "https://varandaype.com/menu/",
-      sameAs: [googleBusinessUrl, tripadvisorUrl, ifoodUrl, ninetyNineFoodPrimaryUrl, expressoUrl],
+      sameAs: [googleBusinessUrl, ifoodUrl, ninetyNineFoodPrimaryUrl, expressoUrl],
       address: {
         "@type": "PostalAddress",
         streetAddress: "Av. Brigadeiro Rafael Tobias de Aguiar, 1121 - Jardim Aurélia",
@@ -1589,12 +1609,6 @@ export function HomePage() {
             <span />
             <span />
           </button>
-          <TripAdvisorWidget
-            wtype="restaurantWidgetWhite" uniq="6" className="header-tripadvisor"
-            href="https://www.tripadvisor.com.br/"
-            imgSrc="https://www.tripadvisor.com.br/img/cdsi/img2/branding/v2/Tripadvisor_lockup_horizontal_registered-24177-2.svg"
-            imgAlt="Tripadvisor"
-          />
           <a
             className="header-cta"
             href={whatsappUrl}
@@ -1747,21 +1761,39 @@ export function HomePage() {
             <p>Comida brasileira • Boteco • Família</p>
           </div>
           <div>
-            <h3>Contato</h3>
-            <a href={whatsappUrl} target="_blank" rel="noreferrer">
-              Reservas pelo WhatsApp
-            </a>
-            <a href="https://instagram.com/varandaype" target="_blank" rel="noreferrer">
-              @varandaype
-            </a>
-            <a className="footer-channel" href="https://whatsapp.com/channel/0029VbAcHLXFSAsxCt6lly0a" target="_blank" rel="noreferrer" onClick={() => trackEvent("whatsapp_channel_click", { location: "footer" })}>
-              <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path fill="currentColor" d="M3 10v4a1 1 0 0 0 1 1h2l5 4V5L6 9H4a1 1 0 0 0-1 1Zm13.5 2a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4ZM14 3.2v2.1a7 7 0 0 1 0 13.4v2.1a9 9 0 0 0 0-17.6Z" /></svg>
-              Canal do WhatsApp
-            </a>
-            <a href="https://www.facebook.com/varandaype" target="_blank" rel="noreferrer">Facebook</a>
-            <a href="https://br.pinterest.com/varandaype/" target="_blank" rel="noreferrer">Pinterest</a>
-            <a href="https://open.spotify.com/user/31xybucv7sgbpfapyybyzu7s3ozu" target="_blank" rel="noreferrer">Spotify</a>
-            <a href="/privacidade/">Privacidade</a>
+            <h3>Siga e fale com a gente</h3>
+            <div className="footer-social-grid">
+              {footerSocialLinks.map((link) => (
+                <a
+                  key={link.key}
+                  className={`footer-social-link${link.highlight ? " footer-social-highlight" : ""}`}
+                  href={link.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  onClick={() => trackEvent("social_link_click", { channel: link.key, location: "footer" })}
+                >
+                  <FooterSocialIcon name={link.key} />
+                  <span>
+                    <strong>{link.label}</strong>
+                    <small>{link.handle}</small>
+                  </span>
+                </a>
+              ))}
+              <a
+                className="footer-social-link"
+                href="https://whatsapp.com/channel/0029VbAcHLXFSAsxCt6lly0a"
+                target="_blank"
+                rel="noreferrer"
+                onClick={() => trackEvent("whatsapp_channel_click", { location: "footer" })}
+              >
+                <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path fill="currentColor" d="M3 10v4a1 1 0 0 0 1 1h2l5 4V5L6 9H4a1 1 0 0 0-1 1Zm13.5 2a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4ZM14 3.2v2.1a7 7 0 0 1 0 13.4v2.1a9 9 0 0 0 0-17.6Z" /></svg>
+                <span>
+                  <strong>Canal do WhatsApp</strong>
+                  <small>Promoções e novidades</small>
+                </span>
+              </a>
+            </div>
+            <a href="/privacidade/" className="footer-privacy-link">Privacidade</a>
             <p>Av. Brigadeiro Rafael Tobias de Aguiar, 1121 - Jardim Aurélia</p>
           </div>
           <div>
@@ -1770,15 +1802,6 @@ export function HomePage() {
             <p>Presencial: almoço, sábado e domingo, 11h às 15h.</p>
             <p>Marmitaria / rotisseria: todos os dias, 11h às 14h30.</p>
           </div>
-        </div>
-        <div className="footer-tripadvisor-row">
-          <p>Já veio comer com a gente? Deixe sua avaliação no Tripadvisor.</p>
-          <TripAdvisorWidget
-            wtype="cdswritereviewlg" uniq="798" className="footer-tripadvisor"
-            href={tripadvisorUrl}
-            imgSrc="https://static.tacdn.com/img2/brand_refresh/Tripadvisor_lockup_horizontal_secondary_registered.svg"
-            imgAlt="TripAdvisor"
-          />
         </div>
       </footer>
     </main>
