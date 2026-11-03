@@ -3409,6 +3409,10 @@ h2 {
   grid-row: span 2;
 }
 
+.gallery-card-wide {
+  grid-column: 1 / -1;
+}
+
 .gallery-card picture {
   position: absolute;
   inset: 0;
@@ -3444,11 +3448,13 @@ h2 {
   letter-spacing: 0.01em;
 }
 
-.gallery-card-featured .gallery-card-caption {
+.gallery-card-featured .gallery-card-caption,
+.gallery-card-wide .gallery-card-caption {
   padding: 24px 26px;
 }
 
-.gallery-card-featured .gallery-card-caption h3 {
+.gallery-card-featured .gallery-card-caption h3,
+.gallery-card-wide .gallery-card-caption h3 {
   font-size: 1.3rem;
   font-family: "Fraunces", Georgia, serif;
   text-transform: none;

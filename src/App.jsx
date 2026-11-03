@@ -762,12 +762,15 @@ const orderBenefits = [
 // overlaid caption, no price/description — full menu lives on /menu/). Stock
 // product-shot photos (flat colored backdrop) are deliberately kept out so the
 // grid doesn't mix two incompatible photography styles; categories without a
-// real photo yet (chopp/porções, marmitaria) stay off until one exists.
+// real photo yet (marmitaria) stay off until one exists. `size` drives the
+// bento layout: "featured" is the full-width opening banner, "wide" is a
+// full-width closing banner, plain entries are the 3-across row between them.
 const whatHouseHasCards = [
-  ["Costela Varandeira", "/pratos/prato-familia-costela-picanha-varanda-ype-campinas.jpg"],
-  ["Grelhados e executivos", "/pratos/frango-risoto-varanda-ype-campinas.jpg"],
-  ["Espaço kids", "/ambiente/espaco-kids-visivel-familia-varanda-ype-campinas.jpg"],
-  ["Jantinha com espetinhos", "/pratos/jantinha-2-espetos-varanda-ype-campinas.jpg"],
+  { title: "Costela Varandeira", image: "/pratos/prato-familia-costela-picanha-varanda-ype-campinas.jpg", size: "featured" },
+  { title: "Grelhados e executivos", image: "/pratos/frango-risoto-varanda-ype-campinas.jpg" },
+  { title: "Espaço kids", image: "/ambiente/espaco-kids-visivel-familia-varanda-ype-campinas.jpg" },
+  { title: "Jantinha com espetinhos", image: "/pratos/jantinha-2-espetos-varanda-ype-campinas.jpg" },
+  { title: "Chopp e porções", image: "/ambiente/drinks-bar-smirnoff-varanda-ype-campinas.jpg", size: "wide" },
 ];
 
 const visitHours = [
@@ -1611,14 +1614,14 @@ export function HomePage() {
             <h2>A casa por quem já experimentou</h2>
           </Reveal>
           <div className="gallery-grid">
-            {whatHouseHasCards.map(([title, image], index) => (
+            {whatHouseHasCards.map(({ title, image, size }, index) => (
               <Reveal
                 as="article"
-                className={`gallery-card${index === 0 ? " gallery-card-featured" : ""}`}
+                className={`gallery-card${size ? ` gallery-card-${size}` : ""}`}
                 key={title}
                 delay={Math.min(index, 4) * 60}
               >
-                <Img src={image} alt={title} width={index === 0 ? 640 : 320} height={index === 0 ? 640 : 320} />
+                <Img src={image} alt={title} width={size ? 640 : 320} height={size === "featured" ? 640 : 320} />
                 <div className="gallery-card-caption">
                   <h3>{title}</h3>
                 </div>

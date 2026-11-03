@@ -33,5 +33,5 @@ test('HomePage preserves existing content and links to vacancies',()=>{
   assert.ok(section(after).includes('<AmbienceGallery />'));
   assert.ok(!section(after).toLowerCase().includes('burger'));
   assert.ok(!section(after).toLowerCase().includes('tripadvisor'));
-  assert.equal(createHash('sha256').update(preserved).digest('hex'),'6eba0409f42f26fb733fb68fdb8e5e4e1baeb98a855eddaccc14b926ae58c01e');
+  assert.equal(createHash('sha256').update(preserved).digest('hex'),'b9ac6e0a54eac79e3447d52515bd954c5a159994fd960059e4d23f60fb37622c');
 });
