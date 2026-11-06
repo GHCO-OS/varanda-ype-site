@@ -105,9 +105,9 @@ const pages = [
     file: path.join("marmitaria", "index.html"),
     title: "Marmitaria | Opções do dia a dia | Varanda Ypê",
     description:
-      "Conheça as opções da marmitaria Varanda Ypê em Campinas: costela, frango, parmegiana, carnes de panela e muito mais. Cardápio do dia pelo WhatsApp.",
+      "Conheça as opções da marmitaria Varanda Ypê em Campinas: cupim, parmegiana, feijoada, carnes de panela e muito mais. Cardápio do dia pelo WhatsApp.",
     canonical: "https://varandaype.com/marmitaria/",
-    preload: { href: "/marmitaria/costela-assada.webp" },
+    preload: { href: "/marmitaria/cupim.webp" },
   },
   {
     route: "/privacidade",
