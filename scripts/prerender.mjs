@@ -101,6 +101,15 @@ const pages = [
     image: "https://varandaype.com/rotisseria/rotisseria-assados-varanda-ype.jpg",
   },
   {
+    route: "/marmitaria",
+    file: path.join("marmitaria", "index.html"),
+    title: "Marmitaria | Opções do dia a dia | Varanda Ypê",
+    description:
+      "Conheça as opções da marmitaria Varanda Ypê em Campinas: costela, frango, parmegiana, carnes de panela e muito mais. Cardápio do dia pelo WhatsApp.",
+    canonical: "https://varandaype.com/marmitaria/",
+    preload: { href: "/marmitaria/costela-assada.webp" },
+  },
+  {
     route: "/privacidade",
     file: path.join("privacidade", "index.html"),
     title: "Política de Privacidade | Varanda Ypê",

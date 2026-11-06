@@ -25,13 +25,15 @@ test('HomePage preserves existing content and links to vacancies',()=>{
   // 2026-11-03 home simplification (single hero CTA, "O que a casa tem" gallery, "Onde
   // atende e quando" visit section), the 2026-11-03 removal of all Burgers N' Smoke
   // mentions (brand discontinued), the 2026-11-03 removal of TripAdvisor plus the
-  // icon-led footer "Siga e fale com a gente" social grid (Instagram highlighted), and
-  // the 2026-11-03 photo/layout refresh (costela hero photo, bento-style "O que a casa
-  // tem" with real photography only, dead stock-photo arrays removed).
+  // icon-led footer "Siga e fale com a gente" social grid (Instagram highlighted), the
+  // 2026-11-03 photo/layout refresh (costela hero photo, bento-style "O que a casa
+  // tem" with real photography only, dead stock-photo arrays removed), and the
+  // 2026-11-06 nav cleanup (drop Empresas/Pedido online/Contato, add Marmitaria) plus
+  // the footer commercial email.
   assert.ok(section(after).includes('<a href="/vagas/">Vagas</a>'));
   const preserved = section(after).replace('            <a href="/vagas/">Vagas</a>\n', '');
   assert.ok(section(after).includes('<AmbienceGallery />'));
   assert.ok(!section(after).toLowerCase().includes('burger'));
   assert.ok(!section(after).toLowerCase().includes('tripadvisor'));
-  assert.equal(createHash('sha256').update(preserved).digest('hex'),'b9ac6e0a54eac79e3447d52515bd954c5a159994fd960059e4d23f60fb37622c');
+  assert.equal(createHash('sha256').update(preserved).digest('hex'),'299ac671371ca68e5ea48a19fec2c2f42080acfcc39a70ec02c8a6d3a82b3c7a');
 });

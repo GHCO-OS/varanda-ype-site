@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { Reveal } from "./Reveal.jsx";
 import { AmbienceGallery } from "./AmbienceGallery.jsx";
+import { MarmitariaPage } from "./Marmitaria.jsx";
 const DeliveryRouter = React.lazy(() => import('./delivery/DeliveryRouter.jsx'));
 const MarketingRouter = React.lazy(() => import('./marketing/MarketingRouter.jsx'));
 import { destinations } from '../shared/delivery.js';
@@ -1531,11 +1532,9 @@ export function HomePage() {
           <nav id="primary-nav" className={menuOpen ? "nav-open" : ""} onClick={() => setMenuOpen(false)}>
             <a href="/menu/">Cardápio</a>
             <a href="/rotisseria/">Rotisseria</a>
-            <a href="/empresa/">Empresas</a>
+            <a href="/marmitaria/">Marmitaria</a>
             <a href="/vagas/">Vagas</a>
-            <a href="#cardapio">Pedido online</a>
             <a href="/delivery/">Delivery</a>
-            <a href="#contato">Contato</a>
           </nav>
           <button
             type="button"
@@ -1742,6 +1741,7 @@ export function HomePage() {
             </div>
             <a href="/privacidade/" className="footer-privacy-link">Privacidade</a>
             <p>Av. Brigadeiro Rafael Tobias de Aguiar, 1121 - Jardim Aurélia</p>
+            <p><a className="footer-email-link" href="mailto:comercial@varandaype.com">comercial@varandaype.com</a></p>
           </div>
           <div>
             <h3>Horários</h3>
@@ -2059,6 +2059,8 @@ function App({ initialPath } = {}) {
     page = <CookiesPage />;
   } else if (route === "/rotisseria") {
     page = <RotisseriaPage />;
+  } else if (route === "/marmitaria") {
+    page = <MarmitariaPage />;
   } else {
     const productPage = productPages.find((item) => route === `/${item.slug}`);
     const discoveryPage = discoveryPages.find((item) => route === `/${item.slug}`);
