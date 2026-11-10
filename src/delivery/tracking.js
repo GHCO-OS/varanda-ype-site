@@ -104,7 +104,19 @@ export function createDeliveryTracking(win, operation) {
       const destination = destinations[id];
       if (!destination || destination.operation !== operation) return;
       const payload = { partner: destination.partner, destination_id: id, cta_position: position };
-      emit('delivery_click', payload);
+      const clickEvent = emit('delivery_click', payload);
+      // GA4's imported Ads observation must match the actual site event.
+      // GTM already sends delivery_click; send this distinct event only once.
+      // No customer identity, full URLs or purchase claims are transmitted.
+      if (clickEvent?.consent_analytics && typeof win.gtag === 'function') {
+        win.gtag('event', 'outbound_order_click', {
+          send_to: 'G-47K2TWM2NQ',
+          event_id: clickEvent.event_id,
+          operation, partner: destination.partner, destination_id: id,
+          cta_position: position, page_path: deliveryPath(operation),
+          transport_type: 'beacon',
+        });
+      }
       if (destination.partner !== 'direct') emit('partner_click', payload);
     },
   };
