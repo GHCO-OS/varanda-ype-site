@@ -29,11 +29,12 @@ test('HomePage preserves existing content and links to vacancies',()=>{
   // 2026-11-03 photo/layout refresh (costela hero photo, bento-style "O que a casa
   // tem" with real photography only, dead stock-photo arrays removed), and the
   // 2026-11-06 nav cleanup (drop Empresas/Pedido online/Contato, add Marmitaria) plus
-  // the footer commercial email.
+  // the footer commercial email, and the 2026-11-12 hero CTA rename ("Pedir delivery")
+  // plus the "ou reserve sua mesa pelo WhatsApp" secondary link.
   assert.ok(section(after).includes('<a href="/vagas/">Vagas</a>'));
   const preserved = section(after).replace('            <a href="/vagas/">Vagas</a>\n', '');
   assert.ok(section(after).includes('<AmbienceGallery />'));
   assert.ok(!section(after).toLowerCase().includes('burger'));
   assert.ok(!section(after).toLowerCase().includes('tripadvisor'));
-  assert.equal(createHash('sha256').update(preserved).digest('hex'),'299ac671371ca68e5ea48a19fec2c2f42080acfcc39a70ec02c8a6d3a82b3c7a');
+  assert.equal(createHash('sha256').update(preserved).digest('hex'),'3d71a82e8538c77e90aa6e9aff769e0088fe4472fc903e12aa14983739475755');
 });

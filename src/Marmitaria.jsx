@@ -42,6 +42,50 @@ const drinks = [
   { slug: "itubaina-zero", title: "Itubaina Zero", desc: "Sem açúcar, do jeito que você gosta." },
 ];
 
+const siteUrl = "https://varandaype.com";
+
+const menuSchema = {
+  "@context": "https://schema.org",
+  "@type": "Menu",
+  "@id": `${siteUrl}/marmitaria/#menu`,
+  name: "Marmitaria Varanda Ypê",
+  url: `${siteUrl}/marmitaria/`,
+  inLanguage: "pt-BR",
+  description: "Opções da marmitaria do Varanda Ypê no Jardim Aurélia, em Campinas. O cardápio do dia varia; consulte pelo WhatsApp ou pelos aplicativos de delivery.",
+  provider: { "@id": `${siteUrl}/#restaurant` },
+  hasMenuSection: [
+    {
+      "@type": "MenuSection",
+      name: "Marmitas",
+      hasMenuItem: dishes.map(({ slug, title, desc }) => ({
+        "@type": "MenuItem",
+        name: title,
+        description: desc,
+        image: `${siteUrl}/marmitaria/${slug}.webp`,
+      })),
+    },
+    {
+      "@type": "MenuSection",
+      name: "Bebidas",
+      hasMenuItem: drinks.map(({ slug, title, desc }) => ({
+        "@type": "MenuItem",
+        name: title,
+        description: desc,
+        image: `${siteUrl}/marmitaria/${slug}.webp`,
+      })),
+    },
+  ],
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Início", item: `${siteUrl}/` },
+    { "@type": "ListItem", position: 2, name: "Marmitaria", item: `${siteUrl}/marmitaria/` },
+  ],
+};
+
 function DishCard({ slug, title, desc }) {
   return (
     <article className="marmitaria-card" data-marmitaria-card>
@@ -102,6 +146,8 @@ export function MarmitariaPage() {
 
   return (
     <main className="satellite-page marmitaria-page" ref={scopeRef}>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(menuSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <header className="menu-page-header">
         <a className="brand" href="/" aria-label="Voltar para a home do Varanda Ypê">
           <img src="/logo-icon-96.png" alt="" width={52} height={52} />

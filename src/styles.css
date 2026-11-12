@@ -2939,10 +2939,6 @@ input:focus-visible,
     display: none;
   }
 
-  .hero-media {
-    display: none;
-  }
-
   .seal-card {
     display: none;
   }
@@ -3540,6 +3536,44 @@ h2 {
     border-top: 1px solid rgba(14, 53, 27, 0.14);
     border-left: 0;
   }
+
+  /* Costela photo stays in the opening screen on phones, peeking under the CTA. */
+  .hero {
+    padding-bottom: 32px;
+  }
+
+  .hero-media {
+    margin-top: 6px;
+  }
+
+  .hero-photo {
+    aspect-ratio: 4 / 3;
+    border-radius: 18px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  }
+
+  .hero-photo img {
+    object-position: 50% 90%;
+  }
+}
+
+.hero-reserve-link {
+  display: inline-block;
+  margin-top: 14px;
+  color: var(--cream);
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: rgba(201, 168, 76, 0.7);
+  text-underline-offset: 4px;
+}
+
+@media (max-width: 640px) {
+  .hero-reserve-link {
+    display: block;
+    margin-top: 12px;
+    text-align: center;
+    font-size: 0.98rem;
+  }
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -3549,18 +3583,62 @@ h2 {
   }
 }
 
+/* Phone-only quick-action bar; replaces the floating WhatsApp bubble there. */
+.mobile-action-bar {
+  display: none;
+}
+
 @media (max-width: 640px) {
   .floating-whatsapp {
-    right: 12px;
-    bottom: 12px;
-    width: 48px;
-    height: 48px;
+    display: none;
   }
 
-  .delivery-callout,
-  .company-cta-box,
-  .footer {
-    padding-bottom: calc(64px + env(safe-area-inset-bottom));
+  body {
+    padding-bottom: calc(68px + env(safe-area-inset-bottom));
+  }
+
+  .mobile-action-bar {
+    position: fixed;
+    inset: auto 0 0 0;
+    z-index: 65;
+    display: grid;
+    grid-template-columns: 1fr 1.25fr 1fr;
+    gap: 8px;
+    padding: 8px 10px calc(8px + env(safe-area-inset-bottom));
+    background: var(--green-deep);
+    border-top: 1px solid rgba(201, 168, 76, 0.35);
+    box-shadow: 0 -10px 28px rgba(0, 0, 0, 0.22);
+  }
+
+  .mobile-action-bar a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    min-height: 52px;
+    border-radius: 12px;
+    color: var(--cream);
+    font-family: "Montserrat", Arial, sans-serif;
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    -webkit-tap-highlight-color: transparent;
+    transition: transform 0.12s ease;
+  }
+
+  .mobile-action-bar a:active {
+    transform: scale(0.95);
+  }
+
+  .mobile-action-bar a:first-child svg {
+    color: #25d366;
+  }
+
+  .mobile-action-bar .mobile-action-primary {
+    background: var(--gold);
+    color: var(--green-deep);
   }
 }
 
@@ -3683,15 +3761,89 @@ h2 {
 @media (max-width: 640px) {
   /* Compact pill, clear of the floating WhatsApp button — no longer needs
      the room a full-width flush bar took for the old explanatory text. */
+  /* Sits just above the quick-action bar instead of covering it. */
   .cookie-consent {
-    left: 12px;
-    bottom: 12px;
-    padding: 10px 8px calc(10px + env(safe-area-inset-bottom));
+    left: 10px;
+    bottom: calc(76px + env(safe-area-inset-bottom));
+    padding: 6px;
+    border-radius: 999px;
+  }
+
+  .cookie-consent-actions {
+    gap: 6px;
   }
 
   .cookie-consent-actions button {
-    min-height: 44px;
+    min-height: 40px;
+    padding: 0 14px;
+    font-size: 0.76rem;
   }
+}
+
+/* Soft cross-page transition (same-origin navigations, supporting browsers only). */
+@view-transition {
+  navigation: auto;
+}
+
+::view-transition-old(root) {
+  animation: vt-fade-out 0.18s ease both;
+}
+
+::view-transition-new(root) {
+  animation: vt-fade-in 0.32s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes vt-fade-out {
+  to { opacity: 0; }
+}
+
+@keyframes vt-fade-in {
+  from { opacity: 0; transform: translateY(10px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  @view-transition {
+    navigation: none;
+  }
+}
+
+/* Capivara blinks now and then: a cream "eyelid" over the logo's eye. */
+.brand {
+  position: relative;
+}
+
+.brand > picture,
+.brand > img {
+  flex-shrink: 0;
+}
+
+.brand::after {
+  content: "";
+  position: absolute;
+  left: 22.6px;
+  top: 18.8px;
+  width: 4.4px;
+  height: 2.6px;
+  border-radius: 50%;
+  background: rgb(248, 235, 215);
+  transform: scaleY(0);
+  transform-origin: top;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .brand::after {
+    animation: capy-blink 7s infinite;
+  }
+
+  .brand:hover::after {
+    animation-duration: 1.2s;
+  }
+}
+
+@keyframes capy-blink {
+  0%, 94%, 100% { transform: scaleY(0); }
+  96%, 97% { transform: scaleY(1); }
 }
 
 /* Rotisseria & Assados */

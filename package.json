@@ -8,7 +8,7 @@
   },
   "scripts": {
     "dev": "vite --host 127.0.0.1",
-    "build": "vite build && node scripts/prerender.mjs && node scripts/delivery-pages.mjs && node scripts/marketing-pages.mjs",
+    "build": "vite build && node scripts/prerender.mjs && node scripts/delivery-pages.mjs && node scripts/marketing-pages.mjs && node scripts/sitemap-lastmod.mjs",
     "test": "node --test tests/*.test.mjs",
     "preview": "vite preview --host 127.0.0.1",
     "campaign:url": "node scripts/build-campaign-url.mjs",

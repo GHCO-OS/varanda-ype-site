@@ -60,6 +60,49 @@ function PaymentMethods() {
 
 // Fixed, site-wide call-to-action. Renders once at the App root so it's on
 // every route, including a subtle entrance so it doesn't just "pop" over content.
+// Phone-only bottom bar (CSS shows it ≤640px and hides the floating bubble there):
+// the three things a visitor on a phone usually wants, always one thumb away.
+function MobileActionBar({ route }) {
+  const whatsappHref = route === "/rotisseria" ? rotisseriaWhatsappUrl : whatsappFloatingUrl;
+  const deliveryHref = route === "/marmitaria" ? "/delivery/marmitas/" : "/delivery/";
+  return (
+    <nav className="mobile-action-bar" aria-label="Ações rápidas">
+      <a
+        href={whatsappHref}
+        target="_blank"
+        rel="noreferrer"
+        onClick={() => trackEvent("whatsapp_click", { location: "mobile_bar", cta_position: "mobile_bar" })}
+      >
+        <svg viewBox="0 0 32 32" width="20" height="20" aria-hidden="true" focusable="false">
+          <path fill="currentColor" d="M16.02 3C9.4 3 4 8.4 4 15.02c0 2.22.6 4.33 1.73 6.2L4 29l7.94-1.7a12.9 12.9 0 0 0 4.08.66C22.6 27.96 28 22.56 28 15.94 28 9.32 22.64 3 16.02 3Z" />
+        </svg>
+        WhatsApp
+      </a>
+      <a
+        className="mobile-action-primary"
+        href={deliveryHref}
+        onClick={() => trackEvent("delivery_hub_click", { location: "mobile_bar" })}
+      >
+        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false">
+          <path fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M3 7h11v9H3zM14 10h4l3 3v3h-7M6.5 19a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3ZM17.5 19a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z" />
+        </svg>
+        Delivery
+      </a>
+      <a
+        href={directionsUrl}
+        target="_blank"
+        rel="noreferrer"
+        onClick={() => trackEvent("directions_click", { location: "mobile_bar" })}
+      >
+        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false">
+          <path fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21Z M12 12a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z" />
+        </svg>
+        Como chegar
+      </a>
+    </nav>
+  );
+}
+
 function FloatingWhatsapp({ route }) {
   const operation = typeof window === "undefined" ? "home" : (window.location.pathname.split("/").filter(Boolean)[0] || "home");
   return (
@@ -152,6 +195,9 @@ const companyWhatsappUrl =
   "https://wa.me/551931991971?text=Ol%C3%A1%2C%20quero%20falar%20sobre%20pedido%20para%20empresa%20no%20Varanda%20Yp%C3%AA.";
 const whatsappFloatingUrl =
   "https://wa.me/551931991971?text=Ol%C3%A1%21%20Vim%20pelo%20site%20e%20gostaria%20de%20conhecer%20o%20card%C3%A1pio%20ou%20fazer%20um%20pedido.";
+const reserveWhatsappUrl =
+  "https://wa.me/551931991971?text=Ol%C3%A1%21%20Vim%20pelo%20site%20e%20gostaria%20de%20reservar%20uma%20mesa%20no%20Varanda%20Yp%C3%AA.";
+const directionsUrl = "https://www.google.com/maps?cid=16757122417899663189";
 const googleBusinessUrl = "https://share.google/pxyfGTy3KNNdToPxk";
 const companyFormUrl = "https://form.jotform.com/262195555788070";
 const careersFormUrl = "https://tally.so/embed/A7E8Ql?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1";
@@ -1575,9 +1621,18 @@ export function HomePage() {
                   trackEvent("delivery_hub_click", { location: "hero" })
                 }
               >
-                Peço agora
+                Pedir delivery
               </a>
             </div>
+            <a
+              className="hero-reserve-link"
+              href={reserveWhatsappUrl}
+              target="_blank"
+              rel="noreferrer"
+              onClick={() => trackEvent("whatsapp_click", { location: "hero_reserve" })}
+            >
+              ou reserve sua mesa pelo WhatsApp
+            </a>
             <div className="order-benefits" aria-label="Facilidades de pedido">
               {orderBenefits.map(([title, text]) => (
                 <article key={title}>
@@ -2079,6 +2134,7 @@ function App({ initialPath } = {}) {
       {page}
       <CookieConsent />
       <FloatingWhatsapp route={route} />
+      <MobileActionBar route={route} />
     </>
   );
 }
