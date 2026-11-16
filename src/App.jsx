@@ -189,7 +189,7 @@ const ifoodUrl = destinations.ifood_restaurante.url;
 const ninetyNineFoodPrimaryUrl = destinations.food99_restaurante.url;
 const ninetyNineFoodMarmitariaUrl = destinations.food99_marmitas.url;
 const expressoUrl = destinations.expresso_varanda.url;
-const alloyUrl = expressoUrl;
+const brendiUrl = expressoUrl;
 const whatsappUrl = "https://wa.me/551931991971";
 const companyWhatsappUrl =
   "https://wa.me/551931991971?text=Ol%C3%A1%2C%20quero%20falar%20sobre%20pedido%20para%20empresa%20no%20Varanda%20Yp%C3%AA.";
@@ -789,13 +789,13 @@ const deliveryOptions = [
     cta: "Pedir no 99Food",
   },
   {
-    key: "alloy",
-    provider: "Alloy",
+    key: "brendi",
+    provider: "Brendi",
     store: "Pedido direto",
-    note: "Pedido direto da loja · pontos e cashback",
-    url: alloyUrl,
-    tone: "alloy",
-    cta: "Pedir pela Alloy",
+    note: "Pedido direto da loja",
+    url: brendiUrl,
+    tone: "brendi",
+    cta: "Pedir pela Brendi",
   },
 ];
 
@@ -890,7 +890,7 @@ function MenuItem({ item, sectionId }) {
         ) : (
           <a
             className="menu-add-button"
-            href={alloyUrl}
+            href={brendiUrl}
             target="_blank"
             rel="noreferrer"
             aria-label={`Pedir ${item.name} no pedido online, abre em outra aba`}
@@ -898,7 +898,7 @@ function MenuItem({ item, sectionId }) {
               trackEvent("menu_add_click", {
                 item: item.name,
                 section: sectionId,
-                destination: "alloy",
+                destination: "brendi",
               })
             }
           >
@@ -1007,10 +1007,10 @@ function OnlineMenuContent() {
           </div>
           <a
             className="store-order-button"
-            href={alloyUrl}
+            href={brendiUrl}
             target="_blank"
             rel="noreferrer"
-            onClick={() => trackEvent("delivery_click", { provider: "Alloy", channel: "alloy", location: "store_order_panel" })}
+            onClick={() => trackEvent("delivery_click", { provider: "Brendi", channel: "brendi", location: "store_order_panel" })}
           >
             Fazer pedido online
           </a>

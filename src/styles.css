@@ -452,7 +452,7 @@ nav a,
 }
 
 .delivery-button-expresso,
-.delivery-button-alloy {
+.delivery-button-brendi {
   color: var(--green-deep);
   background: var(--gold);
   box-shadow: 0 14px 30px rgba(201, 168, 76, 0.3);
@@ -920,7 +920,7 @@ nav a,
 }
 
 /* Rotisseria items live on their own page, so the "add" pill becomes a plain
-   cross-link instead of an Alloy order shortcut. */
+   cross-link instead of a Brendi order shortcut. */
 .menu-add-button-rotisseria {
   background: var(--cream);
   color: var(--green-deep);

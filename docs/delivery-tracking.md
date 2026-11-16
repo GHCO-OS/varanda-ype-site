@@ -24,13 +24,15 @@ Implementação de 6 de setembro de 2026. Código pronto para deploy; este traba
 
 > Nota (2026-11-03): a operação `hamburgueria` (Burgers N' Smoke) foi removida — a marca não faz mais parte do site. Trechos abaixo que mencionam "quatro páginas"/hamburgueria refletem o estado histórico de 6 de setembro de 2026 e não o roteamento atual.
 
+> Nota (2026-11-16): o canal de pedido direto (`expresso_varanda`) trocou de provedor — era Alloy (`expresso.varandaype.com`), agora é Brendi (`pedido.brendi.com.br/varandaype`). O `destination_id` e o fluxo de atribuição (campanha, Pedido Direto por horário) continuam os mesmos; mudou só a URL e o nome da marca exibido na UI ("Pedir pela Brendi").
+
 Na rota Restaurante, o Pedido Direto fica ativo diariamente das 11h às 15h no fuso `America/Sao_Paulo`. Fora desse intervalo, o JavaScript o substitui por um controle desabilitado e orienta o cliente a usar os apps. O HTML original conserva o destino real como fallback sem JavaScript.
 
 Fonte única: `shared/delivery.js`. Restaurante e Hamburgueria nunca compartilham botões de canal em suas páginas específicas. Não há pedido direto inventado para Marmitaria ou Hamburgueria.
 
 | destination_id | Destino oficial |
 | --- | --- |
-| expresso_varanda | https://expresso.varandaype.com |
+| expresso_varanda | https://pedido.brendi.com.br/varandaype/?utm_source=website |
 | ifood_restaurante | https://www.ifood.com.br/delivery/link-cardapio/sitemercado/2ba9a14c-3df9-4725-8b6b-1294c2c1b156 |
 | food99_restaurante | https://oia.99app.com/dlp9/C94oJv?area=BR |
 | ifood_marmitas | https://www.ifood.com.br/delivery/link-cardapio/sitemercado/cefe7c90-e207-4493-ae9b-6b676c22ecf0 |

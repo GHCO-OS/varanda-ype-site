@@ -36,7 +36,7 @@ test('normalizer keeps known campaign fields and never accepts arbitrary redirec
 test('platform and intent select the correct central destination', () => {
   assert.match(destinationFor('ifood', 'marmita').url, /cefe7c90/);
   assert.match(destinationFor('99food', 'marmita').url, /ceXoR0/);
-  assert.equal(destinationFor('direto', 'grelhado').url, 'https://expresso.varandaype.com');
+  assert.equal(destinationFor('direto', 'grelhado').url, 'https://pedido.brendi.com.br/varandaype/?utm_source=website');
 });
 
 test('visitor, session, first touch and last touch persist with consent', () => {

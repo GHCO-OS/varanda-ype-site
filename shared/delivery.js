@@ -1,5 +1,5 @@
 export const destinations = Object.freeze({
-  expresso_varanda: { operation: 'restaurante', partner: 'direct', label: 'Pedir direto', url: 'https://expresso.varandaype.com' },
+  expresso_varanda: { operation: 'restaurante', partner: 'direct', label: 'Pedir direto', url: 'https://pedido.brendi.com.br/varandaype/?utm_source=website' },
   ifood_restaurante: { operation: 'restaurante', partner: 'ifood', label: 'Pedir no iFood', url: 'https://www.ifood.com.br/delivery/link-cardapio/sitemercado/2ba9a14c-3df9-4725-8b6b-1294c2c1b156' },
   food99_restaurante: { operation: 'restaurante', partner: '99food', label: 'Pedir no 99Food', url: 'https://oia.99app.com/dlp9/C94oJv?area=BR' },
   food99_marmitas: { operation: 'marmitas', partner: '99food', label: 'Pedir no 99Food', url: 'https://oia.99app.com/dlp9/ceXoR0?area=BR' },
