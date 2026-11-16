@@ -9,7 +9,7 @@ test('real SQLite migration, persistence, UUID deduplication and session limit',
   const sqlite = new DatabaseSync(':memory:');
   sqlite.exec(fs.readFileSync('migrations/0001_delivery_tracking.sql','utf8'));
   const env = { DELIVERY_DB: { prepare(sql) { const statement=sqlite.prepare(sql); return { bind(...args) { return { async first(){ return statement.get(...args); }, async run(){ return statement.run(...args); } }; } }; } } };
-  const event={event:'delivery_click',site:'varanda_ype',operation:'marmitas',landing_variant:'operation',page_path:'/delivery/marmitas/',event_id:randomUUID(),visit_id:randomUUID(),session_id:randomUUID(),occurred_at:new Date().toISOString(),partner:'ifood',destination_id:'ifood_marmitas',cta_position:'primary',consent_analytics:true,consent_ads:true,utm_source:'meta',adset_id:'456',campaign_id:'123',fbclid:'test'};
+  const event={event:'delivery_click',site:'varanda_ype',operation:'marmitas',landing_variant:'operation',page_path:'/delivery/marmitas/',event_id:randomUUID(),visit_id:randomUUID(),session_id:randomUUID(),occurred_at:new Date().toISOString(),partner:'99food',destination_id:'food99_marmitas',cta_position:'primary',consent_analytics:true,consent_ads:true,utm_source:'meta',adset_id:'456',campaign_id:'123',fbclid:'test'};
   const send=body=>onRequest({env,request:new Request('https://varandaype.com/api/delivery-click',{method:'POST',headers:{Origin:'https://varandaype.com','Content-Type':'application/json'},body:JSON.stringify(body)})});
   assert.equal((await send(event)).status,204);
   assert.equal((await send(event)).status,204);

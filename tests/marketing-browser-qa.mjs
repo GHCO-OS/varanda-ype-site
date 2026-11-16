@@ -12,7 +12,7 @@ try {
     await page.goto(`${base}/pedir/ifood/?intent=marmita&utm_source=meta&utm_medium=paid_social&fbclid=test`, { waitUntil: 'domcontentloaded' });
     assert.equal(await page.locator('h1').textContent(), 'Sua marmita de hoje tá aqui.');
     assert.match(await page.locator('[data-hero-image]').getAttribute('src'), /risoto-cuiabano/);
-    assert.match(await page.locator('[data-outbound="hero"]').getAttribute('href'), /cefe7c90/);
+    assert.match(await page.locator('[data-outbound="hero"]').getAttribute('href'), /2ba9a14c/);
     const fit = await page.evaluate(() => ({ x: document.documentElement.scrollWidth > document.documentElement.clientWidth, hero: document.querySelector('[data-outbound="hero"]').getBoundingClientRect(), viewport: innerHeight }));
     assert.equal(fit.x, false);
     assert.ok(fit.hero.top >= 0 && fit.hero.top < fit.viewport);

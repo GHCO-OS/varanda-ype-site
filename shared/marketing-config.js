@@ -66,7 +66,9 @@ export const intents = Object.freeze({
 });
 
 export const platforms = Object.freeze({
-  ifood: { name: 'iFood', cta: 'Pedir pelo iFood', destination(intent) { return intent === 'marmita' ? deliveryDestinations.ifood_marmitas : deliveryDestinations.ifood_restaurante; } },
+  // iFood não tem mais loja dedicada à marmitaria (loja "Expresso" descontinuada):
+  // toda intenção cai na loja do restaurante principal.
+  ifood: { name: 'iFood', cta: 'Pedir pelo iFood', destination() { return deliveryDestinations.ifood_restaurante; } },
   '99food': { name: '99Food', cta: 'Pedir pelo 99Food', destination(intent) { return intent === 'marmita' ? deliveryDestinations.food99_marmitas : deliveryDestinations.food99_restaurante; } },
   direto: { name: 'Pedido direto', cta: 'Pedir direto no Varanda', destination() { return deliveryDestinations.expresso_varanda; } },
 });

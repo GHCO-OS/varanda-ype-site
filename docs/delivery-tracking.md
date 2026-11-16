@@ -20,11 +20,13 @@ Implementação de 6 de setembro de 2026. Código pronto para deploy; este traba
 | --- | --- | --- |
 | `/delivery/` | Escolher operação | Restaurante, Marmitaria |
 | `/delivery/restaurante/` | Como você prefere pedir hoje? | Direto, iFood, 99Food |
-| `/delivery/marmitas/` | Pedir sua marmita | 99Food, iFood |
+| `/delivery/marmitas/` | Pedir sua marmita | 99Food |
 
 > Nota (2026-11-03): a operação `hamburgueria` (Burgers N' Smoke) foi removida — a marca não faz mais parte do site. Trechos abaixo que mencionam "quatro páginas"/hamburgueria refletem o estado histórico de 6 de setembro de 2026 e não o roteamento atual.
 
 > Nota (2026-11-16): o canal de pedido direto (`expresso_varanda`) trocou de provedor — era Alloy (`expresso.varandaype.com`), agora é Brendi (`pedido.brendi.com.br/varandaype`). O `destination_id` e o fluxo de atribuição (campanha, Pedido Direto por horário) continuam os mesmos; mudou só a URL e o nome da marca exibido na UI ("Pedir pela Brendi").
+
+> Nota (2026-11-16): `ifood_marmitas` (a loja "Expresso" da marmitaria no iFood) foi removida — a marmitaria segue só com 99Food. O destino `ifood` em `shared/marketing-config.js` agora aponta sempre para `ifood_restaurante`, qualquer que seja o `intent`; campanhas antigas usando `/pedir/ifood/?intent=marmita` ou `/go/ifood?intent=marmita` agora caem na loja do restaurante principal no iFood, não mais em uma loja de marmitas dedicada.
 
 Na rota Restaurante, o Pedido Direto fica ativo diariamente das 11h às 15h no fuso `America/Sao_Paulo`. Fora desse intervalo, o JavaScript o substitui por um controle desabilitado e orienta o cliente a usar os apps. O HTML original conserva o destino real como fallback sem JavaScript.
 
@@ -35,7 +37,6 @@ Fonte única: `shared/delivery.js`. Restaurante e Hamburgueria nunca compartilha
 | expresso_varanda | https://pedido.brendi.com.br/varandaype/?utm_source=website |
 | ifood_restaurante | https://www.ifood.com.br/delivery/link-cardapio/sitemercado/2ba9a14c-3df9-4725-8b6b-1294c2c1b156 |
 | food99_restaurante | https://oia.99app.com/dlp9/C94oJv?area=BR |
-| ifood_marmitas | https://www.ifood.com.br/delivery/link-cardapio/sitemercado/cefe7c90-e207-4493-ae9b-6b676c22ecf0 |
 | food99_marmitas | https://oia.99app.com/dlp9/ceXoR0?area=BR |
 
 Para trocar um link, editar somente a configuração, executar build/lint/test e testar o app em aparelho real. Tokens `{{delivery:...}}` nos templates de HTML/redirects são resolvidos durante o build; não publicar `public/` diretamente. Publicar `dist/` pelo fluxo Pages existente, incluindo Functions.
@@ -97,8 +98,8 @@ Payload base: event, site, event_id, occurred_at, operation, landing_variant, pa
   "operation": "marmitas",
   "landing_variant": "operation",
   "page_path": "/delivery/marmitas/",
-  "partner": "ifood",
-  "destination_id": "ifood_marmitas",
+  "partner": "99food",
+  "destination_id": "food99_marmitas",
   "cta_position": "primary",
   "consent_analytics": true,
   "consent_ads": true

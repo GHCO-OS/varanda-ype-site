@@ -17,8 +17,8 @@ function browser(search = '', consent = 'granted') {
   if (consent) win.localStorage.setItem('vy_consent', consent);
   return win;
 }
-test('five authoritative destinations separated by operation; plain HTML anchors', () => {
-  assert.equal(Object.keys(destinations).length, 5);
+test('four authoritative destinations separated by operation; plain HTML anchors', () => {
+  assert.equal(Object.keys(destinations).length, 4);
   for (const [operation, config] of Object.entries(operations)) {
     const html = deliveryMarkup(operation);
     for (const id of config.destinations) { assert.equal(destinations[id].operation, operation); assert.ok(html.includes(`data-destination="${id}"`)); }
@@ -44,14 +44,14 @@ test('campaign allowlist preserves raw values; click IDs require advertising con
 test('Meta entry, one view, two distinct click events, no sales event', () => {
   const win = browser('?utm_source=meta&utm_medium=paid_social&utm_campaign=test&campaign_id=123&adset_id=456&ad_id=789&fbclid=test');
   const tracker = createDeliveryTracking(win, 'marmitas');
-  tracker.emit('delivery_hub_view'); tracker.click('ifood_marmitas','primary');
+  tracker.emit('delivery_hub_view'); tracker.click('food99_marmitas','primary');
   assert.deepEqual(win.dataLayer.map(e=>e.event), ['delivery_hub_view','delivery_click','partner_click']);
   assert.equal(new Set(win.dataLayer.map(e=>e.event_id)).size,3);
   win.dataLayer.forEach(e=>validateEvent(e));
   assert.equal(win.sent.length,3);
   assert.equal(win.dataLayer[0].fbclid,'test');
   assert.equal(win.dataLayer[0].referrer,'https://google.com');
-  assert.equal(tracker.href('ifood_marmitas'),destinations.ifood_marmitas.url);
+  assert.equal(tracker.href('food99_marmitas'),destinations.food99_marmitas.url);
 });
 test('Google to direct preserves attribution; first/session stable, last changes with explicit campaign', () => {
   const win = browser('?utm_source=google&utm_medium=cpc&campaign_id=123&adgroup_id=456&ad_id=789&keyword=restaurante&matchtype=p&device=m&gclid=test');

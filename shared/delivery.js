@@ -3,11 +3,10 @@ export const destinations = Object.freeze({
   ifood_restaurante: { operation: 'restaurante', partner: 'ifood', label: 'Pedir no iFood', url: 'https://www.ifood.com.br/delivery/link-cardapio/sitemercado/2ba9a14c-3df9-4725-8b6b-1294c2c1b156' },
   food99_restaurante: { operation: 'restaurante', partner: '99food', label: 'Pedir no 99Food', url: 'https://oia.99app.com/dlp9/C94oJv?area=BR' },
   food99_marmitas: { operation: 'marmitas', partner: '99food', label: 'Pedir no 99Food', url: 'https://oia.99app.com/dlp9/ceXoR0?area=BR' },
-  ifood_marmitas: { operation: 'marmitas', partner: 'ifood', label: 'Pedir no iFood', url: 'https://www.ifood.com.br/delivery/link-cardapio/sitemercado/cefe7c90-e207-4493-ae9b-6b676c22ecf0' },
 });
 export const operations = Object.freeze({
   restaurante: { name: 'Restaurante Varanda Ypê', headline: 'Como você prefere pedir hoje?', description: 'Escolha seu canal de pedido.', destinations: ['expresso_varanda', 'ifood_restaurante', 'food99_restaurante'] },
-  marmitas: { name: 'Marmitas em Campinas | Varanda Ypê', headline: 'Marmitas no Jardim Aurélia, Campinas', description: 'Comida caseira para seu almoço. Veja opções de marmitas e marmitex, preços e prazos de entrega no iFood e no 99Food.', destinations: ['food99_marmitas', 'ifood_marmitas'] },
+  marmitas: { name: 'Marmitas em Campinas | Varanda Ypê', headline: 'Marmitas no Jardim Aurélia, Campinas', description: 'Comida caseira para seu almoço. Veja opções de marmitas e marmitex, preços e prazos de entrega no 99Food.', destinations: ['food99_marmitas'] },
 });
 export const campaignKeys = ['utm_source','utm_medium','utm_campaign','utm_id','utm_content','utm_term','utm_source_platform','gclid','gbraid','wbraid','fbclid','campaign_id','campaign_name','adgroup_id','adset_id','ad_id','ad_name','placement','site_source','keyword','matchtype','device','network'];
 export const clickKeys = ['gclid','gbraid','wbraid','fbclid'];

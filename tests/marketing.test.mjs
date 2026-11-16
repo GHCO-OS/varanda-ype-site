@@ -34,7 +34,7 @@ test('normalizer keeps known campaign fields and never accepts arbitrary redirec
 });
 
 test('platform and intent select the correct central destination', () => {
-  assert.match(destinationFor('ifood', 'marmita').url, /cefe7c90/);
+  assert.match(destinationFor('ifood', 'marmita').url, /2ba9a14c/);
   assert.match(destinationFor('99food', 'marmita').url, /ceXoR0/);
   assert.equal(destinationFor('direto', 'grelhado').url, 'https://pedido.brendi.com.br/varandaype/?utm_source=website');
 });
@@ -97,7 +97,7 @@ test('redirect is allowlisted, no-store and never waits for analytics', () => {
   const request = new Request('https://varandaype.com/go/ifood?intent=marmita', { headers: { Cookie: `vy_vid=${randomUUID()}; vy_sid=${randomUUID()}; vy_consent_state=a1d1p0` } });
   const response = redirect({ request, params: { target: 'ifood' }, env: {}, waitUntil(task) { background = task; } });
   assert.equal(response.status, 302);
-  assert.match(response.headers.get('location'), /cefe7c90/);
+  assert.match(response.headers.get('location'), /2ba9a14c/);
   assert.equal(response.headers.get('cache-control'), 'no-store');
   assert.ok(background instanceof Promise);
 });
