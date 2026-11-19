@@ -67,6 +67,36 @@ export function initDelivery(win = window) {
   if (!root || root.dataset.initialized) return;
   root.dataset.initialized = 'true';
   const tracker = createDeliveryTracking(win, root.dataset.deliveryOperation);
+  // Expresso's WhatsApp is available for orders/pre-orders from 09:00 to 14:00 BRT.
+  if (root.dataset.deliveryOperation === 'marmitas') {
+    const link = win.document.createElement('a');
+    link.className = 'router-choice router-direct';
+    link.href = 'https://wa.me/551933254906?text=Ol%C3%A1%21%20Quero%20pedir%20uma%20marmita.';
+    link.textContent = 'Pedir no WhatsApp do Expresso · 9h às 14h';
+    const note = win.document.createElement('p');
+    note.className = 'router-note';
+    note.textContent = 'Pedidos e antecipações pelo WhatsApp das 9h às 14h. Entregas a partir das 11h.';
+    const options = root.querySelector('.router-options');
+    options.prepend(link);
+    options.after(note);
+    const refreshWhatsApp = () => {
+      const parts = new Intl.DateTimeFormat('en-US', { timeZone: 'America/Sao_Paulo', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).formatToParts(new Date());
+      const time = Object.fromEntries(parts.map(part => [part.type, part.value]));
+      const minutes = Number(time.hour) * 60 + Number(time.minute);
+      link.hidden = note.hidden = minutes < 540 || minutes >= 840;
+      link.style.display = link.hidden ? 'none' : '';
+    };
+    refreshWhatsApp();
+    win.setInterval(refreshWhatsApp, 30000);
+    link.addEventListener('click', event => {
+      refreshWhatsApp();
+      if (link.hidden) { event.preventDefault(); return; }
+      if (tracker.state()) {
+        win.gtag?.('event', 'whatsapp_click', { send_to: 'G-47K2TWM2NQ', operation: 'marmitas', destination: 'expresso_whatsapp', page_path: '/delivery/marmitas/' });
+      }
+    });
+  }
+
   const direct = root.querySelector('[data-destination="expresso_varanda"]');
   if (direct && !isDirectOrderAvailable()) {
     const disabled = win.document.createElement('button');
