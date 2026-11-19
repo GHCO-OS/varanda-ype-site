@@ -6,7 +6,7 @@ export const destinations = Object.freeze({
 });
 export const operations = Object.freeze({
   restaurante: { name: 'Restaurante Varanda Ypê', headline: 'Como você prefere pedir hoje?', description: 'Escolha seu canal de pedido.', destinations: ['expresso_varanda', 'ifood_restaurante', 'food99_restaurante'] },
-  marmitas: { name: 'Marmitas em Campinas | Varanda Ypê', headline: 'Marmitas no Jardim Aurélia, Campinas', description: 'Comida caseira para seu almoço. Veja opções de marmitas e marmitex, preços e prazos de entrega no 99Food.', destinations: ['food99_marmitas'] },
+  marmitas: { name: 'Marmitas em Campinas | Varanda Ypê', headline: 'Marmitas no Jardim Aurélia, Campinas', description: 'Marmitas e marmitex de comida caseira em Campinas. Pedidos pelo WhatsApp do Expresso das 9h às 14h, com entregas a partir das 11h. Consulte também o cardápio e a entrega no 99Food.', destinations: ['food99_marmitas'] },
 });
 export const campaignKeys = ['utm_source','utm_medium','utm_campaign','utm_id','utm_content','utm_term','utm_source_platform','gclid','gbraid','wbraid','fbclid','campaign_id','campaign_name','adgroup_id','adset_id','ad_id','ad_name','placement','site_source','keyword','matchtype','device','network'];
 export const clickKeys = ['gclid','gbraid','wbraid','fbclid'];
